@@ -13,13 +13,14 @@ function Home() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-      Axios.get('http://localhost:3001/api/get').then((response) => {
-        setUsers(response.data);
+      Axios.get('http://localhost:3002/api/get').then((response) => {
+        var data = Array.from(response.data);
+        setUsers(data);
       });
     }, []);
 
     const submitName = () => {
-      Axios.post('http://localhost:3001/api/insert', {
+      Axios.post('http://localhost:3002/api/insert', {
         firstName: firstName,
         lastName: lastName
       }).then(() => {
