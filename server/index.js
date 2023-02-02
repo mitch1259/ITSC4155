@@ -17,6 +17,11 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+function add(n1, n2) {
+    return n1 + n2;
+}
+
+module.exports = add;
 
 
 app.get('/api/get', (req, res) => {
