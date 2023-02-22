@@ -1,6 +1,12 @@
 import '../css/home.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
+import ChartComponent from '../components/examples/charts/radialCharts/ChartComponent';
+const data = [
+  { value: 60 },
+  { value: 25 },
+  { value: 15 },
+];
 
 function Home() {
 
@@ -45,7 +51,9 @@ function Home() {
             return <h4>First Name: {val.first_name} | Last Name: {val.last_name}</h4>
           })}
 
-          
+          <div className='App'>
+            <ChartComponent data={data} />
+          </div>
       </div>
       
           
