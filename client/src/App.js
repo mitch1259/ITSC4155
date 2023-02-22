@@ -1,9 +1,11 @@
-import Home from "./pages/Profile";
+
 
 function App() {
   return (
     <div className="App">
+        <Header />
         <Home />
+        <Footer />
     </div>
   );
 }
