@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap%27');
+
+*{
+    font-family: 'Barlow Condensed', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.child-wrapper {
+   background-color: #5CDB95;
+   color: #05386B;
+   text-align: center;
+   margin: auto;
+   width: 25%; 
+   padding: 10px;
+   margin-top: 100px;
+   border-radius: 10px;
+   box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+}
+.email, .password, .confirm-password {
+   margin: 5px;
+} 
+.main-header {
+    margin-bottom: 10px;
+}
+
+body {
+    background: radial-gradient(#379683, #8ee4af);
+}
+.register-button {
+    margin-right: 50%;
+    margin-top: 10px;
+    padding: 5px;
+}
+.login-button {
+    padding: 5px;
+}
