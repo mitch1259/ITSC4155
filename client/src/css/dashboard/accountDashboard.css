@@ -1,0 +1,73 @@
+/* CSS hex values: */
+.no-class-here {
+    background-color: #05386b;
+    background-color: #379683;
+    background-color: #5cdb95;
+    background-color: #8ee4af;
+    background-color: #edf5e1;
+}
+
+.account-dashboard-main {
+    background-color: #92d3af;
+    min-height: 100vh;
+}
+
+.account-dashboard-welcome-header {
+    font-size: 54px;
+    font-weight: 500;
+    color: #edf5e1;
+    background: rgb(5,98,107);
+    background: radial-gradient(circle, rgba(5,98,107,1) 0%, rgba(55,150,131,1) 100%);
+    padding-top: 8%;
+    padding-left: 10.5%;
+    padding-bottom: 5%;
+}
+
+.dashboard-recent-activity-card-wrapper {
+    margin: 0;
+    position: absolute;
+    top: 55%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-boards-links-wrapper {
+    margin: 0;
+    position: absolute;
+    top: 51%;
+    left: 45%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+    float: right;
+}
+
+.vertical-line-left {
+    min-height: 40vh;
+    height: 8%;
+    position: absolute;
+    width: 2vw;
+    background-color: #8ee4af;
+    margin-left: 6.5%;
+    transform: translateZ(100%);
+    -webkit-box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
+-moz-box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
+box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
+}
+
+.vertical-line-right {
+    background-color: rgba(5,98,107,1);
+    min-height: 72vh;
+    width: 2vw;
+    position: absolute;
+    top: 28%;
+    left: 90%;
+    -webkit-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
+-moz-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
+box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
+}
