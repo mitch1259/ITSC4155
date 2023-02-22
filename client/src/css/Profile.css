@@ -1,0 +1,100 @@
+@import url(https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap%27);
+*{
+    font-family: 'Barlow Condensed', sans-serif;
+    color: #05386b;
+     
+}
+body{
+    background: rgb(5,98,107);
+    background: radial-gradient(circle, rgba(5,98,107,1) 0%, rgba(55,150,131,1) 100%);
+}
+.user-profile{
+    padding: 0.5rem; 
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+}
+.user-profile{
+    width: 30%;
+    min-width: 350px;
+    min-height: 250px;
+    height: 350px;
+    background-color: #5cdb95;
+    /* text-align: center; */
+    /* margin: 0 auto; */
+    display: flex;
+    /* justify-content: center; */  
+}
+
+.saves-board{
+    float: right;
+    margin-right: 15%;
+    margin-top: 5%;
+    width: 30%;
+    min-width: 350px;
+    min-height: 250px;
+    height: 350px;
+    background-color: #5cdb95; 
+    display: flex;
+    padding: 0.5rem; 
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+}
+.user-profile{
+    float: left;
+    margin-left: 15%;
+    margin-top: 5%;
+
+}
+.board{
+    border-radius: 5px;
+    background-color: #8ee4af;
+    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+    width: 350px;
+    
+}
+h1{
+    padding: 0.5rem; 
+    /* border-radius: 5px;
+    background-color:bisque;
+    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8); */
+    
+    font-size: 1.5em;
+}
+.inside{
+   margin-top: 1rem;
+}
+.inside-profile{
+    margin-top: 7.50%;
+}
+p{
+    font-size: larger;
+    font-weight: bolder;
+}
+.pic-display{
+    float: left;
+}
+.user-display{
+    float: right;
+    padding-left: 10px;
+}
+.transation-button{
+    float: left;
+}
+img{
+    width: 150px;
+    height: 150px;
+}
+h3{
+    font-size:x-large;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+button{
+    background-color: #8ee4af;
+    cursor: pointer;
+}
+header{
+    text-align: center;
+    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+    background-color: white;
+}
