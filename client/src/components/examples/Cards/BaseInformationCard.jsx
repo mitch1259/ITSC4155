@@ -13,9 +13,10 @@ function BaseInformationCard(data){
     return(
         <Card>
             <CardContent>
-                <Typography>{data.board_title}</Typography>
+                <Typography> Title {data.boardTitle}</Typography>
+                <p></p>
                 <br></br>
-                <Typography>savings+{data.saving}</Typography>
+                <Typography>Savings:{data.saving}</Typography>
             </CardContent>
         </Card>
     )
