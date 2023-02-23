@@ -1,8 +1,10 @@
 import BaseInformationCard from "../examples/Cards/BaseInformationCard";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { Stack } from "@mui/material";
 import BasicDataCard from "../examples/Cards/DataCard";
 import ChartComponent from "../examples/charts/radialCharts/ChartComponent"
+import '../../css/LayoutOne.css';
 const data = [
     { value: 60 },
     { value: 25 },
@@ -11,30 +13,27 @@ const data = [
 
 
 
-function LayoutOne(userArray){
-
+function LayoutOne({title,savings,rTransactions,uTransactions}){
 
     return(
-        <Box sx={{flexGrow: 1}}>
-            <Grid container spacing={2}>
-                <Grid container item spacing={3}>
-                    <BaseInformationCard data={userArray}/>
-                </Grid>
-                <Grid container item spacing={3}>
-                    <BasicDataCard 
+        <Stack direction="row" spacing={3} justifyContent="center">
+            <div>
+                <BaseInformationCard boardTitle={title} savingInformation={savings} />
+            </div>
+            <div>
+                <BasicDataCard 
                     title="Recent Activity"
-                    />
-                </Grid>
-                <Grid container item spacing={3}>
-                    <BasicDataCard
+                />
+            </div>
+            <div>
+                <BasicDataCard
                     title="Upcoming Expense"
-                    />
-                </Grid>
-                <Grid container item spacing={3}>
+                />
+            </div>
+            <div id="layout-one-chart">
                 <ChartComponent data={data} />
-                </Grid>
-            </Grid>
-        </Box>
+            </div>
+        </Stack>
     )
 }
 export default LayoutOne;

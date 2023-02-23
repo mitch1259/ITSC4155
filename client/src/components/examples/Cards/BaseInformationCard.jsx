@@ -4,24 +4,26 @@ import { CardContent, Typography } from '@mui/material';
 
 /**
  * This is a basic card that allows display of board name and savings information
- * @param {Array} data - a parameter that allow developers to put tht title of your board and the saving information
+ * @param {String} boardTitle - a parameter that allow developers to put tht title of your board and the saving information
+ * @param {number} savingInformation- a parameter to show saving information
  */
 
 
-function BaseInformationCard(data){
-
+function BaseInformationCard({boardTitle,savingInformation}){
     return(
-        <Card>
-            <CardContent>
-                <Typography> Title {data.boardTitle}</Typography>
-                <p></p>
+        <Card style={{backgroundColor:"#8ee4af",borderRadius:10}}>
+            <CardContent style={{backgroundColor:"#b6e9ca"}}>
+                <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>{boardTitle}</Typography>
                 <br></br>
-                <Typography>Savings:{data.saving}</Typography>
+                <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>Savings ${savingInformation}</Typography>
             </CardContent>
         </Card>
     )
 
 }
-
+BaseInformationCard.defaultProps={
+    boardTitle:"default title",
+    savingInformation:0
+};
 
 export default BaseInformationCard;

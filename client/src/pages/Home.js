@@ -1,12 +1,6 @@
-import '../css/home.css';
+// import '../css/home.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
-import LayoutOne from '../components/layouts/LayoutOne';
-
-
-const sampleLayout =[
-  {boardTitle:"first board",savings:10000},
-];
 
 function Home() {
 
@@ -50,11 +44,7 @@ function Home() {
           {users.map((val) => {
             return <h4>First Name: {val.first_name} | Last Name: {val.last_name}</h4>
           })}
-          <div>
-            <LayoutOne userArray={sampleLayout}/>
-          </div>
       </div>
-      
           
     );
   }

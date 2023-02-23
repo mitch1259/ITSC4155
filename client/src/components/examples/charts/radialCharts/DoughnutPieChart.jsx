@@ -15,10 +15,10 @@ function DoughnutPieChart(element,data) {
     const outterRadius=60;
 
     //starting angle
-    const startingAngle=6.219718788925247;
+    // const startingAngle=6.219718788925247;
 
     //ending angle
-    const endingAngle=6.267318677616002;
+    // const endingAngle=6.267318677616002;
 
     //pad angle
     const padAngle=0;
@@ -75,8 +75,9 @@ function DoughnutPieChart(element,data) {
     .append("text")
     .attr("text-anchor", "middle")
     .text((d) => `${d.data.value}%`) // label text
-    .style("fill", "#fff") // label color
+    .style("fill", "#05386b") // label color
     .style("font-size", "30px") // label size
+    .style("font-family","Varela Round")
     .attr("transform", (d) => {
       const [x, y] = arcGenerator.centroid(d);
       return `translate(${x}, ${y})`;

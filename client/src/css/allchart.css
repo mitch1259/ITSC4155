@@ -1,0 +1,19 @@
+
+.all-charts-main{
+    background-color: #92d3af;
+    min-height: 100vh;
+}
+
+
+.all-dashboard-welcome-header {
+    font-size: 54px;
+    font-weight: 500;
+    color: #edf5e1;
+    background: rgb(5,98,107);
+    background: radial-gradient(circle, rgba(5,98,107,1) 0%, rgba(55,150,131,1) 100%);
+    padding-top: 8%;
+    padding-left: 10.5%;
+    padding-bottom: 5%;
+    font-family:Varela Round;
+}
+
