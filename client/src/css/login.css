@@ -16,7 +16,7 @@
    border-radius: 10px;
    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
 }
-.email, .password, .confirm-password {
+.email, .password, .confirm-password, .last-name, .first-name {
    margin: 5px;
 } 
 .main-header {
@@ -26,11 +26,19 @@
 body {
     background: radial-gradient(#379683, #8ee4af);
 }
+button {
+    padding: 5px
+}
 .register-button {
     margin-right: 50%;
     margin-top: 10px;
-    padding: 5px;
 }
-.login-button {
-    padding: 5px;
+p{
+    text-align: left;
+    margin-left: 15px;
+}
+.create-account {
+    display: block;
+    margin-left: auto;
+    margin-right: 5px;
 }
