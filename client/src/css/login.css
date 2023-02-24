@@ -34,3 +34,7 @@ body {
 .login-button {
     padding: 5px;
 }
+
+.login-wrapper {
+    min-height: 80vh;
+}

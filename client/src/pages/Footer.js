@@ -1,15 +1,18 @@
 import React from "react";
 import "../css/navigation.css";
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
     return (
         <div className="footer">
-            <table>
-                <tr>
-                    <td><a href="#" class="nav-link">Dashboard</a>   |   </td>
-                    <td><a href="#top" class="nav-link">Back To Top</a></td>
-                </tr>
-            </table>
+            <div>
+                <div>
+                    <div className="footer-links">
+                        <td><Link to="/" class="nav-link-footer">Dashboard</Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</td>
+                        <td><Link to="#top" class="nav-link-footer">Back To Top</Link></td>
+                    </div>
+                </div>
+            </div>
         </div>
     )
     }

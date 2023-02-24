@@ -1,33 +1,7 @@
 import '../css/Profile.css';
-import { useState, useEffect } from 'react';
-import Axios from 'axios';
 
-function Profile() {
 
-    const handleClick = () => {
-        console.log("clicked");
-    }
-
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-      Axios.get('http://localhost:3002/api/get').then((response) => {
-        var data = Array.from(response.data);
-        setUsers(data);
-      });
-    }, []);
-
-    const submitName = () => {
-      Axios.post('http://localhost:3002/api/insert', {
-        firstName: firstName,
-        lastName: lastName
-      }).then(() => {
-        console.log("successful insert");
-      });
-      console.log("clicked! firstName: ", firstName, " lastName: ", lastName);
-    };
+function Profile(props) {
 
     return (
         <div>
@@ -46,7 +20,7 @@ function Profile() {
                 </div>
                 <p>____________________</p>
                 <div class='savings-display'>
-                  <p> Total Savings: []</p>
+                  <p> Total Savings: {props.totalSavings}</p>
                 </div>
                 <div class='transation-button'>
                   <button >View Transaction History</button>

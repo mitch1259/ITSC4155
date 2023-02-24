@@ -48,7 +48,8 @@
 }
 
 .vertical-line-left {
-    min-height: 40vh;
+    margin-top: 6%;
+    min-height: 28vh;
     height: 8%;
     position: absolute;
     width: 2vw;
@@ -56,8 +57,8 @@
     margin-left: 6.5%;
     transform: translateZ(100%);
     -webkit-box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
--moz-box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
-box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
+    -moz-box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
+    box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
 }
 
 .vertical-line-right {
@@ -68,6 +69,6 @@ box-shadow: -22px 32px 59px -9px rgba(0,0,0,0.81);
     top: 28%;
     left: 90%;
     -webkit-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
--moz-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
+    -moz-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
+    box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
 }

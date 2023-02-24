@@ -66,10 +66,10 @@ h1{
 .inside-profile{
     margin-top: 7.50%;
 }
-p{
+/* p{
     font-size: larger;
     font-weight: bolder;
-}
+} */
 .pic-display{
     float: left;
 }
