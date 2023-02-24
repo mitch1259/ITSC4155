@@ -9,7 +9,7 @@ const db = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "password",
-    database: "sampledb"
+    database: "sampledb2"
 });
 
 app.use(cors());
@@ -25,7 +25,7 @@ module.exports = add;
 
 
 app.get('/api/get', (req, res) => {
-    const sqlInsert = "SELECT * FROM sampledb.user";
+    const sqlInsert = "SELECT * FROM sampledb2.user";
 
     db.query(sqlInsert, (err, result) => {
         console.log(result);
@@ -39,7 +39,7 @@ app.post("/api/insert", (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
 
-    const sqlInsert = "INSERT INTO sampledb.user (firstName, lastName) VALUES (?,?);";
+    const sqlInsert = "INSERT INTO sampledb2.user (first_name, last_name) VALUES (?,?);";
     db.query(sqlInsert, [firstName, lastName], (err, result) => {
         if (err) {
             console.log(err);

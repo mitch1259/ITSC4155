@@ -1,4 +1,4 @@
-import '../css/home.css';
+// import '../css/home.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 
@@ -42,9 +42,10 @@ function Home() {
           }}/>
           <button onClick={submitName}>Submit</button>
           {users.map((val) => {
-            return <h4>First Name: {val.firstName} | Last Name: {val.lastName}</h4>
+            return <h4>First Name: {val.first_name} | Last Name: {val.last_name}</h4>
           })}
       </div>
+          
     );
   }
   

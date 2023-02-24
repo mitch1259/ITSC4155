@@ -1,0 +1,20 @@
+#layout-one-chart {
+    width: 400px;
+    transform: translateY(-10%);
+
+}
+
+.recent-activity-cards-wrapper {
+    border-left: 2px #05386b thin;
+    border-radius: 10px;
+    height: fit-content;
+    width: 10vw;
+    /* background: rgb(11,159,113);
+    background: linear-gradient(0deg, rgba(11,159,113,0.9136904761904762) 0%, rgba(131,227,168,1) 66%); */
+    background-color: #8ee4af;
+    -webkit-box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
+    -moz-box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
+    box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
+    padding-bottom: 2%;
+    
+}
