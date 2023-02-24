@@ -1,0 +1,67 @@
+.board-link-wrapper {
+    display: flex;
+    background-color: #b6e9ca;
+    margin-bottom: 5%;
+    max-height: 125px;
+    line-height: 115px;
+    -webkit-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
+    -moz-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
+    box-shadow: 0px 24px 5px -24px #05386b;
+    border-radius: 5px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.board-link-title {
+    width: 70%;
+    font-size: 28px;
+    font-weight: 500;
+    color: #05386b;
+    padding-left: 5%;
+    display: flex;
+    vertical-align: center;
+}
+
+.board-link-button {
+    border-radius: 4px;
+    background-color: #05386b ;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    padding: 16px;
+    width: 30%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 36px;
+  }
+  
+  .board-link-button{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .board-link-button:after {
+    content: '»';
+    font-size: 40px;
+    position: absolute;
+    opacity: 0;  
+    top: 2px;
+    right: -25px;
+    transition: 0.5s;
+  }
+  
+  .board-link-button:hover{
+    padding-right: 24px;
+    padding-left:8px;
+    background: rgb(5,56,107);
+    background: linear-gradient(90deg, rgba(5,56,107,1) 0%, rgba(58,223,188,1) 100%);
+    transition: 0.5s;
+  }
+  
+  .board-link-button:hover:after {
+    opacity: 1;
+    right: 10px;
+  }
