@@ -7,8 +7,8 @@ function Register() {
         <div className='parent-wrapper'>
             <div className="child-wrapper">
             <h1 className="main-header">Welcome to BudgIt</h1>
-            <h3>------------------------------------------------</h3>
-            <h3>Sign up and start saving!</h3><br></br>
+            <h3 className='lines'>------------------------------------------------</h3>
+            <h3 className='explanitory'>Sign up and start saving!</h3><br></br>
           <label>First Name</label><br></br>
           <input type="text" className='first-name'></input><br></br>
           <label>Last Name</label><br></br>

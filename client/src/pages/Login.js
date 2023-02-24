@@ -8,8 +8,8 @@ function Login() {
             <div className='parent-wrapper'>
                 <div className="child-wrapper">
                     <h1 className="main-header">Welcome to BudgIt</h1>
-                    <h3>------------------------------------------------</h3>
-                    <h3>Login to start saving!</h3><br></br>
+                    <h3 className='lines'>------------------------------------------------</h3>
+                    <h3 className='explainitory'>Login to start saving!</h3><br></br>
                     <label>Email Address</label><br></br>
                     <input type="text" className="email"></input><br></br>
                     <label>Password</label><br></br>
