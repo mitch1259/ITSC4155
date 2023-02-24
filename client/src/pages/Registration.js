@@ -6,7 +6,9 @@ function Register() {
     return (
         <div className='parent-wrapper'>
             <div className="child-wrapper">
-          <h3 className="main-header">Register</h3>
+            <h1 className="main-header">Welcome to BudgIt</h1>
+            <h3>------------------------------------------------</h3>
+            <h3>Sign up and start saving!</h3><br></br>
           <label>First Name</label><br></br>
           <input type="text" className='first-name'></input><br></br>
           <label>Last Name</label><br></br>
@@ -17,7 +19,10 @@ function Register() {
           <input type="text" className="password"></input><br></br>
           <label>Confirm Password</label><br></br>
           <input type="text" className="confirm-password"></input><br></br><br></br>
-          <button>Register</button>
+          <p>Already have an account?<br></br>Click here!
+                <button className='create-account'>Signup</button>
+          </p>
+          
             </div>
         </div>
     );
