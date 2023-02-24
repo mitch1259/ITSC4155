@@ -11,7 +11,7 @@ import { CardContent, Typography } from '@mui/material';
 
 function BaseInformationCard({boardTitle,savingInformation}){
     return(
-        <Card style={{backgroundColor:"#8ee4af",borderRadius:10}}>
+        <Card id="base-info-card-wrapper" style={{backgroundColor:"#8ee4af",borderRadius:10}}>
             <CardContent style={{backgroundColor:"#b6e9ca"}}>
                 <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>{boardTitle}</Typography>
                 <br></br>

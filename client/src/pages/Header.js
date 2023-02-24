@@ -22,7 +22,7 @@ const Header = (props) => {
                     <td>
                         <div className="Links"> 
                             <Link to="/" className="nav-link">Dashboard</Link> | 
-                            <Link to="#" className="nav-link">Savings Boards</Link> | 
+                            <Link to="/savings-boards" className="nav-link">Savings Boards</Link> | 
                             <Link to="/profile" className="nav-link">
                                 Profile
                                 {/* If the user has a profile picture, display the profile picture, else display default Stickman image */}

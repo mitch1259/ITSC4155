@@ -1,20 +1,14 @@
+@import url(https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap%27);
+
+#base-info-{
+    font-family: 'Barlow Condensed', sans-serif;
+    color: #05386b;
+     
+}
+
 #layout-one-chart {
     width: 400px;
     transform: translateY(-10%);
-
 }
 
-.recent-activity-cards-wrapper {
-    border-left: 2px #05386b thin;
-    border-radius: 10px;
-    height: fit-content;
-    width: 10vw;
-    /* background: rgb(11,159,113);
-    background: linear-gradient(0deg, rgba(11,159,113,0.9136904761904762) 0%, rgba(131,227,168,1) 66%); */
-    background-color: #8ee4af;
-    -webkit-box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
-    -moz-box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
-    box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
-    padding-bottom: 2%;
-    
-}
+/*  */
