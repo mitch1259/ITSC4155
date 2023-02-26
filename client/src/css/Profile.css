@@ -4,6 +4,11 @@
     color: #05386b;
      
 }
+
+.profile-wrapper {
+    margin-top: 100px;
+}
+
 body{
     background: rgb(5,98,107);
     background: radial-gradient(circle, rgba(5,98,107,1) 0%, rgba(55,150,131,1) 100%);
@@ -12,6 +17,7 @@ body{
     padding: 0.5rem; 
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+    
 }
 .user-profile{
     width: 30%;
@@ -58,7 +64,7 @@ h1{
     background-color:bisque;
     box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8); */
     
-    font-size: 1.5em;
+    /* font-size: 1.5em; */
 }
 .inside{
    margin-top: 1rem;
@@ -84,7 +90,7 @@ img{
     width: 150px;
     height: 150px;
 }
-h3{
+.user-profile-header {
     font-size:x-large;
     font-weight: bolder;
     text-decoration: underline;

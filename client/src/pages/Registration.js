@@ -1,6 +1,7 @@
 import '../css/login.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
+import {Link} from 'react-router-dom';
 
 function Register() {
     return (
@@ -19,9 +20,13 @@ function Register() {
           <input type="text" className="password"></input><br></br>
           <label>Confirm Password</label><br></br>
           <input type="text" className="confirm-password"></input><br></br><br></br>
-          <p>Already have an account?<br></br>Click here!
-                <button className='create-account'>Signup</button>
-          </p>
+          <Link to="/login">
+          <p>Already have an account?<br></br>Click here!</p>
+          </Link>
+          <Link to="/login">
+            <button className='create-account'>Signup</button>
+          </Link>
+                
           
             </div>
         </div>

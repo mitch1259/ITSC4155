@@ -4,10 +4,7 @@ import '../css/Profile.css';
 function Profile(props) {
 
     return (
-        <div>
-        <header>
-          <p>Temp Space for the Navigation Bar</p>
-        </header>
+        <div className='profile-wrapper'>
             <div class="user-profile">
               <div class="inside-profile">
                 <div class="pic-display">
@@ -15,7 +12,7 @@ function Profile(props) {
                   <img src="https://reactjs.org/logo-og.png" alt="React Image"/>
                 </div>
                 <div class='user-display'>
-                  <h3>User Profile</h3>
+                  <h3 className='user-profile-header'>User Profile</h3>
                   <button>Edit Profile</button>
                 </div>
                 <p>____________________</p>
@@ -29,7 +26,7 @@ function Profile(props) {
             </div>
             <div class="saves-board">
                 <div class="inside">
-                  <h3>Your Savings Boards</h3>
+                  <h3 className='user-profile-header'>Your Savings Boards</h3>
 
                     <div class="board">
                     <h1>Board 1</h1>
