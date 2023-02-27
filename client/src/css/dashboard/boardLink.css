@@ -31,10 +31,12 @@
     font-size: 20px;
     padding: 16px;
     width: 25%;
+    min-width: 120px;
     transition: all 0.5s;
     cursor: pointer;
     margin: 36px;
     height: 10%;
+    min-height: 50px;
   }
   
   .board-link-button{
