@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import { CardContent, Typography } from '@mui/material';
+import '../../../css/global.css';
 
 /**
  * This is a basic card that allows display of board name and savings information
@@ -15,7 +16,7 @@ function BaseInformationCard({boardTitle,savingInformation}){
             <CardContent style={{backgroundColor:"#b6e9ca"}}>
                 <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>{boardTitle}</Typography>
                 <br></br>
-                <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>Savings ${savingInformation}</Typography>
+                <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>Savings: ${savingInformation}</Typography>
             </CardContent>
         </Card>
     )

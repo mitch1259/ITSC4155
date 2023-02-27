@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import RecentTransaction from './RecentTransactions/RecentTransactions';
-
+import '../../../css/global.css';
 
 /**data card is a component that allows developer to create a card to display data like recents transactions, upcoming, filtered, etc..
  * @param {string} title - title you want your card to be

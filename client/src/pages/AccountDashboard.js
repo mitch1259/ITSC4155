@@ -2,6 +2,7 @@ import '../css/dashboard/accountDashboard.css';
 import '../css/global.css';
 import RecentActivityCard from '../components/dashboard/RecentActivityCards';
 import BoardLinksCard from '../components/dashboard/BoardLinksCard';
+import DashboardChart from '../components/dashboard/DashboardChart.js';
 
 function AccountDashboard() {
 
@@ -18,8 +19,11 @@ function AccountDashboard() {
       <div className='dashboard-boards-links-wrapper'>
         <BoardLinksCard />
       </div>
-      
+      <div className='dashboard-chart-wrapper'>
+        <DashboardChart />
+      </div>
     </div>
+
   );
 }
 

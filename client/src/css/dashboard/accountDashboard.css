@@ -10,6 +10,7 @@
 .account-dashboard-main {
     background-color: #92d3af;
     min-height: 100vh;
+    padding-bottom: 150px;
 }
 
 .account-dashboard-welcome-header {
@@ -26,7 +27,7 @@
 .dashboard-recent-activity-card-wrapper {
     margin: 0;
     position: absolute;
-    top: 55%;
+    top: 60%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     margin-left: 10%;
@@ -37,7 +38,7 @@
 .dashboard-boards-links-wrapper {
     margin: 0;
     position: absolute;
-    top: 51%;
+    top: 55%;
     left: 45%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
@@ -48,8 +49,8 @@
 }
 
 .vertical-line-left {
-    margin-top: 6%;
-    min-height: 28vh;
+    margin-top: 2.5%;
+    min-height: 35vh;
     height: 8%;
     position: absolute;
     width: 2vw;
@@ -63,7 +64,7 @@
 
 .vertical-line-right {
     background-color: rgba(5,98,107,1);
-    min-height: 72vh;
+    min-height: 77vh;
     width: 2vw;
     position: absolute;
     top: 28%;
@@ -71,4 +72,10 @@
     -webkit-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
     -moz-box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
     box-shadow: 35px -26px 59px -9px rgba(0,0,0,0.81);
+}
+
+.dashboard-chart-wrapper {
+    position: absolute;
+    left: 55%;
+    top: 80%;
 }

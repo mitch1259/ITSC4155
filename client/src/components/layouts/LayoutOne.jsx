@@ -5,6 +5,7 @@ import { Stack } from "@mui/material";
 import BasicDataCard from "../examples/Cards/DataCard";
 import ChartComponent from "../examples/charts/radialCharts/ChartComponent"
 import '../../css/LayoutOne.css';
+import '../../css/global.css';
 const data = [
     { value: 60 },
     { value: 25 },
@@ -16,9 +17,10 @@ const data = [
 function LayoutOne({title,savings,rTransactions,uTransactions}){
 
     return(
-        <Stack direction="row" spacing={3} justifyContent="center">
+        <div className="layout-one-wrapper">
+        <Stack direction="row" spacing={3} justifyContent="center" id="layout-one-stack">
             <div>
-                <BaseInformationCard boardTitle={title} savingInformation={savings} />
+                <BaseInformationCard id="base-information-card" boardTitle={title} savingInformation={savings} />
             </div>
             <div>
                 <BasicDataCard 
@@ -34,6 +36,7 @@ function LayoutOne({title,savings,rTransactions,uTransactions}){
                 <ChartComponent data={data} />
             </div>
         </Stack>
+        </div>
     )
 }
 export default LayoutOne;

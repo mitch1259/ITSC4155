@@ -2,27 +2,42 @@ import '../css/login.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import FancyButton from '../components/navigation/FancyButton';
+import BudgitLogo from '../images/budgit-logo-colour.png';
+import { TextField } from '@mui/material';
 
 function Login() {
     return (
         <div className='login-wrapper'>
-            <div className='parent-wrapper'>
+
                 <div className="child-wrapper">
-                    <h1 className="main-header">Welcome to BudgIt</h1>
-                    <h3 className='lines'>------------------------------------------------</h3>
-                    <h3 className='explainitory'>Login to start saving!</h3><br></br>
-                    <label>Email Address</label><br></br>
-                    <input type="text" className="email"></input><br></br>
-                    <label>Password</label><br></br>
-                    <input type="text" className="password"></input><br></br>
-                    <Link to="/registration">
-                        <button className='register-button'>Register</button>
-                    </Link>
-                    <Link to="/">
-                        <button className='login-button'>Login</button>
-                    </Link>
+                    
+                    <p className="main-header">Welcome to BudgIt</p>
+                    <img className='login-budgit-logo' src={BudgitLogo} />
+                    <p className='login-blurb'>Log in to start saving.</p>
+                    <div className='login-form-fields'>
+                        <div className='login-input-wrapper'>
+                            <TextField className='login-input' label='Email Address' variant='filled' />
+                        </div>
+                        <div className='login-input-wrapper'>
+                            <TextField className='login-input' label='Password' variant='filled' />
+                        </div>
+                    </div>
+
+                    <div className='login-buttons-wrapper'>
+                        <div className="login-link-wrapper">
+                            <Link to="/registration">
+                                <FancyButton buttonText="Register" />
+                            </Link>
+                        </div>
+                        <div className="login-link-wrapper">
+                            <Link to="/">
+                                <FancyButton buttonText="Login" />
+                            </Link>
+                        </div>
+                    </div>
+                    
                 </div>
-            </div>
         </div>
     );
 }
