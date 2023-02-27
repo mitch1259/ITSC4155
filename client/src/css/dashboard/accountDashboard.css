@@ -10,7 +10,7 @@
 .account-dashboard-main {
     background-color: #92d3af;
     min-height: 100vh;
-    padding-bottom: 150px;
+    padding-bottom: 75px;
 }
 
 .account-dashboard-welcome-header {
@@ -45,7 +45,7 @@
     margin-left: 10%;
     display: flex;
     align-items: center;
-    float: right;
+
 }
 
 .vertical-line-left {
@@ -78,4 +78,10 @@
     position: absolute;
     left: 55vw;
     top: 80vh;
+}
+
+@media screen and (max-width: 1600px) {
+    .dashboard-chart-wrapper {
+        top: 85vh;
+    }
 }
