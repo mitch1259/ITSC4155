@@ -27,7 +27,7 @@
 .dashboard-recent-activity-card-wrapper {
     margin: 0;
     position: absolute;
-    top: 60%;
+    top: 60vh;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     margin-left: 10%;
@@ -38,8 +38,8 @@
 .dashboard-boards-links-wrapper {
     margin: 0;
     position: absolute;
-    top: 55%;
-    left: 45%;
+    top: 55vh;
+    left: 45vw;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     margin-left: 10%;
@@ -64,7 +64,7 @@
 
 .vertical-line-right {
     background-color: rgba(5,98,107,1);
-    min-height: 77vh;
+    min-height: 85vh;
     width: 2vw;
     position: absolute;
     top: 28%;
@@ -76,6 +76,6 @@
 
 .dashboard-chart-wrapper {
     position: absolute;
-    left: 55%;
-    top: 80%;
+    left: 55vw;
+    top: 80vh;
 }
