@@ -80,8 +80,16 @@
     top: 80vh;
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (min-width: 1700px) {
     .dashboard-chart-wrapper {
         top: 85vh;
+    }
+
+    .dashboard-boards-links-wrapper {
+        top: 58vh;
+    }
+    
+    .dashboard-recent-activity-card-wrapper {
+        top: 63vh;
     }
 }
