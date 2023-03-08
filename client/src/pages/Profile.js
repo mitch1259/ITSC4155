@@ -60,11 +60,12 @@ function Profile() {
                     <div class="board">
                     <h1>Board 1</h1>
                     <h1>Savings: $100,000</h1>
+                    
                 </div>
-                <div class="board">
-                    <h1>Board 2</h1>
-                    <h1>Savings: </h1>
-                </div>   
+                  <div class="board">
+                      <h1>Board 2</h1>
+                      <h1>Savings: </h1>
+                  </div>   
                 </div>   
             </div>
         </div>
