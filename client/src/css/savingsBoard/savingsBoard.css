@@ -1,0 +1,21 @@
+.savings-board-wrapper {
+    height: 83.2vh;
+    width: 100%;
+    background-color: antiquewhite;
+    max-width: 100%;
+}
+
+.savings-board-buckets {
+    padding-top: 34.5vh;
+    display: flex;
+    width: 80%;
+    padding-left: 3vw;
+}
+
+.savings-board-buckets-timeline {
+    position: absolute;
+    top: 80vh;
+    height: 0.5vh;
+    background-color: #000;
+    width: 100vw;
+}

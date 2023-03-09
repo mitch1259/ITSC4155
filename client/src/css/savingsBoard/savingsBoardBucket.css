@@ -1,0 +1,8 @@
+.savings-board-bucket-wrapper {
+    background-color: rgba(161, 230, 171, 0.75);
+    height: 35vh;
+    width: 12%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-left: 1vw;
+}

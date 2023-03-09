@@ -5,12 +5,14 @@ import Registration from '../src/pages/Registration.js';
 import Profile from '../src/pages/Profile.js';
 import AccountDashboard from './pages/AccountDashboard.js';
 import AppRoutes from './router/AppRoutes.js';
+import SavingsBoard from './pages/SavingsBoard.js';
 
 function App() {
   return (
     <div className="App">
         <Header />
-        <AppRoutes />
+        <SavingsBoard />
+        {/* <AppRoutes /> */}
         {/* <Login /> */}
         <Footer />
     </div>
