@@ -1,5 +1,8 @@
 import * as d3 from 'd3';
 
+// inspired by article: https://medium.com/tinyso/how-to-create-pie-donut-chart-in-react-using-d3-js-9ea695bcf819
+//original arc pie: https://observablehq.com/@d3/donut-chart
+//documenation: https://github.com/d3/d3-shape/blob/v3.2.0/README.md#pies
 
 //adopt the current chart to include double array for  [{saved:3000}{remaining:6000}]
 function DoughnutPieChart(element,data) {

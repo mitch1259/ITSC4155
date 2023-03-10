@@ -10,7 +10,21 @@ import { useTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip';
 import { localPoint } from '@visx/event';
 import { GlyphCircle } from '@visx/glyph';
 
-function LineChart({ data, width, height }) {
+/**
+ * A line graph component that allows data, width and height to be inserted.
+ * @param {Array} data - an array of data you want to present information in
+ * @param {number} height- The height of the line graph
+ * @param{width} width- The width of the line graph 
+ * @returns 
+ */
+
+
+// insipred by the aricle here: https://dev.to/mariazentsova/building-a-line-chart-in-react-with-visx-1jkp
+// colors inspiration: https://github.com/BlakeRMills/MetBrewer#palettes
+// git repo: https://github.com/MariaZentsova/visx-linechart/blob/main/pages/index.js
+// visx: https://airbnb.io/visx/annotation
+
+function LineChart({ data, width, height, backgroundColor,strokeColor,fontSize }) {
 
     // tooltip parameters
     const { tooltipData, tooltipLeft = 0, tooltipTop = 0, showTooltip, hideTooltip } = useTooltip();
@@ -23,9 +37,12 @@ function LineChart({ data, width, height }) {
     const innerHeight = height - margin.top - margin.bottom;
 
     // data for lines
+    // TODO: Change this to something fimilar to this project
+
     const data1 = data.filter(function (el) {
         return el.type === "RENEWABLE"
     });
+
 
     const data2 = data.filter(function (el) {
         return el.type === "TOTAL"
@@ -34,9 +51,11 @@ function LineChart({ data, width, height }) {
     const series = [data1, data2]
 
     //colors for lines
+    //TODO:Change this to color that match our project.
     const colors = ['#43b284', '#fab255']
 
     // Defining selector functions
+    //TODO: change where it will get its data.
     const getRD = (d) => d.amount;
     const getDate = (d) => d.year;
     const bisectDate = bisector((d) => d.year).left;
@@ -71,7 +90,7 @@ function LineChart({ data, width, height }) {
     const tooltipStyles = {
         ...defaultStyles,
         minWidth: 60,
-        backgroundColor: 'rgba(0,0,0,0.9)',
+        backgroundColor: '#EDF5E1',
         color: 'white',
     };
 
@@ -98,12 +117,14 @@ function LineChart({ data, width, height }) {
     return (
         <div style={{ position: 'relative' }}>
             <svg width={width} height={height} >
-            <rect x={0} y={0} width={width} height={height} fill={'#718096'} rx={14} />
+            <rect x={0} y={0} width={width} height={height} fill={'#05386b'} rx={14} />
                 <Group left={margin.left} top={margin.top}>
-                   
+
                     <GridRows scale={rdScale} width={innerWidth} height={innerHeight - margin.top} stroke='#EDF2F7' strokeOpacity={0.2} />
                     <GridColumns scale={timeScale} width={innerWidth} height={innerHeight} stroke='#EDF2F7' strokeOpacity={0.2} />
                     <LinearGradient id="area-gradient" from={'#43b284'} to={'#43b284'} toOpacity={0.1} />
+
+                    {/* Y-axis graph css control */}
                     <AxisLeft
                         tickTextFill={'#EDF2F7'}
                         stroke={'#EDF2F7'}
@@ -111,10 +132,14 @@ function LineChart({ data, width, height }) {
                         scale={rdScale}
                         tickLabelProps={() => ({
                             fill: '#EDF2F7',
-                            fontSize: 11,
+                            fontSize: 18,
                             textAnchor: 'end',
                         })} />
-                    <text x="-125" y="20" transform="rotate(-90)" fontSize={12} fill='#EDF2F7'>
+
+
+                        The title shows in the graph
+                        {/* TODO:change the text displayed */}
+                    <text x="-125" y="20" transform="rotate(-90)" fontSize={18} fill='#EDF2F7'>
                         R&D Spend, RDDUSD
                     </text>
                     <AxisBottom
@@ -126,7 +151,7 @@ function LineChart({ data, width, height }) {
                         top={innerHeight}
                         tickLabelProps={() => ({
                             fill: '#EDF2F7',
-                            fontSize: 11,
+                            fontSize: 18,
                             textAnchor: 'middle',
                         })} />
                     {series.map((sData, i) => (
