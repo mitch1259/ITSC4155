@@ -1,44 +1,52 @@
 import '../css/Profile.css';
+import Footer from './Footer.js'
+import StickMan from '../images/stickman.jpg';
 
 
 function Profile(props) {
 
+    document.title = "User Profile";
+
     return (
         <div className='profile-wrapper'>
-            <div class="user-profile">
-              <div class="inside-profile">
-                <div class="pic-display">
+          <p className='user-profile-banner'>User Profile</p>
+            <div className="user-profile">
+              <div className="inside-profile">
+                <div className="pic-display">
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-                  <img src="https://reactjs.org/logo-og.png" alt="React Image"/>
+                  <img className="user-profile-image" src={StickMan} alt="User Image"/>
                 </div>
-                <div class='user-display'>
-                  <h3 className='user-profile-header'>User Profile</h3>
-                  <button>Edit Profile</button>
+                <div className='user-display'>
+                  <p className='user-profile-header'>Placeholder User</p>
+                  <div className='user-profile-button-wrapper'>
+                    <button className='user-profile-button'>Edit Profile</button>
+                  </div>
+                  
                 </div>
-                <p>____________________</p>
-                <div class='savings-display'>
-                  <p> Total Savings: {props.totalSavings}</p>
+                <div className='savings-display'>
+                  <p> Total Savings: $10,532</p>
                 </div>
-                <div class='transation-button'>
-                  <button >View Transaction History</button>
+                <div className='transation-button'>
+                  <button className='user-profile-button'>View Transaction History</button>
                 </div>
               </div>
             </div>
-            <div class="saves-board">
-                <div class="inside">
-                  <h3 className='user-profile-header'>Your Savings Boards</h3>
+            <div className="saves-board">
+                <div className="inside">
+                  <p className='user-profile-boards-header'>Your Savings Boards</p>
+                  <div className="user-profile-board">
+                    <p className='user-profile-board-header'>Board 1</p>
+                    <p className='user-profile-board-savings'>Savings: $10,000</p>
+                  </div>
 
-                    <div class="board">
-                    <h1>Board 1</h1>
-                    <h1>Savings: $100,000</h1>
-                </div>
-                <div class="board">
-                    <h1>Board 2</h1>
-                    <h1>Savings: </h1>
-                </div>   
+                  <div className="user-profile-board">
+                    <p className='user-profile-board-header'>Board 2</p>
+                    <p className='user-profile-board-savings'>Savings: $532</p>
+                  </div>   
                 </div>   
             </div>
         </div>
+
     );
   }
   

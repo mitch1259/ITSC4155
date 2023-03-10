@@ -9,10 +9,12 @@ import { data } from '../SampleData/linechartdata/DemarkData';
 
 function Allchart(){
 
+    document.title = "Savings Boards";
+
     return(
         <div className='all-charts-main'>
             <p className='all-dashboard-welcome-header'>All Boards</p>
-            <div className=''>
+            <div className='all-charts-display'>
                 <LayoutOne title="First Board" savings={10000}/>
                 <LayoutOne title="Second Board" savings={1000}/>
                 <LayoutOne title="Third Board" savings={30000}/>

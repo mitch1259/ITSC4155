@@ -1,31 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap%27');
 
+
+
+
 *{
     font-family: 'Barlow Condensed', sans-serif;
     margin: 0;
     padding: 0;
 }
+
+
+
 .child-wrapper {
-   background-color: #5CDB95;
+    background-color: #8ee4af;
    color: #05386B;
    text-align: center;
    margin: auto;
    width: 25%; 
    padding: 10px;
-   margin-top: 100px;
    border-radius: 10px;
    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
 }
+
+
 .email, .password, .confirm-password, .last-name, .first-name {
    margin: 5px;
 } 
 .main-header {
-    margin-bottom: 10px;
+    font-size: 2.5em;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
 }
 
-body {
-    background: radial-gradient(#379683, #8ee4af);
-}
+/* body {
+    background: rgb(5,98,107);
+    background: radial-gradient(circle, rgba(5,98,107,1) 11%, rgba(67,156,138,1) 74%, rgba(116,203,162,1) 91%, rgba(116,203,162,1) 100%, rgba(142,228,175,1) 100%); background-color: #92d3af;
+} */
 button {
     padding: 5px
 }
@@ -36,7 +48,7 @@ button {
 
 p{
     text-align: left;
-    margin-left: 15px;
+    /* margin-left: 15px; */
 }
 .create-account {
     display: block;
@@ -44,3 +56,103 @@ p{
     margin-right: 5px;
 }
 
+.login-budgit-logo {
+    padding-bottom: 3%;
+    padding-left: 70px;
+    padding-right: 70px;
+    width: 150px;
+    height: 150px;
+}
+
+.login-blurb {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 5%;
+    -webkit-box-shadow: 0px 10px 5px -21px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 11px -21px rgba(0,0,0,0.75);
+    box-shadow: 0px 22px 10px -21px rgba(0,0,0,0.75);
+}
+
+.login-link-wrapper {
+    width: 25%;
+}
+
+.login-buttons-wrapper {
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.login-wrapper {
+    height: 75.6vh;
+    background: rgb(5,98,107);
+    background: radial-gradient(circle, rgba(5,98,107,1) 11%, rgba(67,156,138,1) 74%, rgba(116,203,162,1) 91%, rgba(116,203,162,1) 100%, rgba(142,228,175,1) 100%);
+    padding-top: 5%;
+}
+
+.login-form-fields {
+    margin-top: 8%;
+}
+
+.login-label {
+    min-width: 100%;
+}
+
+.login-input {
+    background-color: #edf5e1;
+    border-radius: 5px;
+    color: #05386B;
+    width: 70%;
+}
+
+.login-input-wrapper {
+   
+}
+
+.register-wrapper {
+    height: 75.6vh;
+    background: rgb(5,98,107);
+    background: radial-gradient(circle, rgba(5,98,107,1) 11%, rgba(67,156,138,1) 74%, rgba(116,203,162,1) 91%, rgba(116,203,162,1) 100%, rgba(142,228,175,1) 100%);
+    padding-top: 2%;
+    padding-bottom: 3%;
+}
+
+.register-input-wrapper-half {
+    margin-top: 5%;
+    border-top-right-radius: 5px;
+}
+
+.register-input-half-right {
+    width: 35%;
+    background-color: #edf5e1;
+    border-top-right-radius: 5px;
+}
+
+.register-input-half-left {
+    width: 35%;
+    background-color: #edf5e1;
+    border-top-left-radius: 5px;
+}
+
+.register-input-full {
+    width: 70%;
+    background-color: #edf5e1;
+}
+
+.register-go-back {
+    font-weight: 500;
+}
+
+@media screen and (min-width: 1700px) {
+    .login-wrapper {
+        height: 80vh;
+    }
+
+    .register-wrapper {
+        padding-bottom: 150px;
+    }
+}

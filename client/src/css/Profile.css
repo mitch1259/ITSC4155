@@ -6,7 +6,10 @@
 }
 
 .profile-wrapper {
-    margin-top: 100px;
+
+    min-height: 86vh;
+    background-color: #92d3af;
+
 }
 
 body{
@@ -20,15 +23,21 @@ body{
     
 }
 .user-profile{
-    width: 30%;
-    min-width: 350px;
+/* 
+    min-width: 350px; */
     min-height: 250px;
     height: 350px;
-    background-color: #5cdb95;
+    background-color: #8ee4af;
     /* text-align: center; */
     /* margin: 0 auto; */
     display: flex;
     /* justify-content: center; */  
+    float: left;
+    left: 23%;
+    margin-top: 2.5%;
+    position: absolute;
+    width: 20%;
+    top: 25%;
 }
 
 .saves-board{
@@ -39,25 +48,17 @@ body{
     min-width: 350px;
     min-height: 250px;
     height: 350px;
-    background-color: #5cdb95; 
+    background-color: #8ee4af; 
     display: flex;
     padding: 0.5rem; 
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+    position: absolute;
+    left: 45%;
+    top: 20%;
 }
-.user-profile{
-    float: left;
-    margin-left: 15%;
-    margin-top: 5%;
 
-}
-.board{
-    border-radius: 5px;
-    background-color: #8ee4af;
-    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
-    width: 350px;
-    
-}
+
 h1{
     padding: 0.5rem; 
     /* border-radius: 5px;
@@ -66,41 +67,161 @@ h1{
     
     /* font-size: 1.5em; */
 }
-.inside{
+
+.inside {
    margin-top: 1rem;
 }
-.inside-profile{
+
+.inside-profile {
     margin-top: 7.50%;
 }
+
 /* p{
     font-size: larger;
     font-weight: bolder;
 } */
-.pic-display{
+.pic-display {
     float: left;
 }
-.user-display{
+
+.user-display {
     float: right;
-    padding-left: 10px;
+    padding-left: 20px;
+    -webkit-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
+    -moz-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
+    box-shadow: 0px 24px 5px -24px #05386b;
 }
-.transation-button{
+
+.transation-button {
     float: left;
+    padding-left: 5%;
 }
-img{
-    width: 150px;
-    height: 150px;
+
+.user-profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    padding-left: 20px;
 }
+
 .user-profile-header {
-    font-size:x-large;
-    font-weight: bolder;
-    text-decoration: underline;
+    font-size:32px;
+    font-weight: 500;
 }
-button{
+
+button {
     background-color: #8ee4af;
     cursor: pointer;
 }
-header{
+
+header {
     text-align: center;
     box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
     background-color: white;
+}
+
+.user-profile-banner {
+    font-size: 54px;
+    font-weight: 500;
+    color: #edf5e1;
+    background: rgb(5,98,107);
+    background: radial-gradient(circle, rgba(5,98,107,1) 0%, rgba(55,150,131,1) 100%);
+    padding-top: 5%;
+    padding-left: 23%;
+    padding-bottom: 8%;
+}
+
+.user-profile-boards-header {
+    font-size: 28px;
+    font-weight: 500;
+    margin-left: 5%;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    padding-left: 5px;
+    -webkit-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
+    -moz-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
+    box-shadow: -22px 24px 6px -24px #05386b;
+}
+
+.user-profile-board-header {
+    font-size: 24px;
+    font-weight: 500;
+    margin-left: 1.5%;
+    padding: 2%;
+}
+
+.user-profile-board {
+    border-radius: 3px;
+    background-color: #edf5e1;
+    box-shadow: 0px 2px 5px rgba(17, 12, 46, 0.8);
+    width: 25vw;
+    margin-left: 3%;
+    margin-bottom: 25px;
+}
+
+.user-profile-board-savings {
+    margin-left: 3.5%;
+    padding-bottom: 3%;
+    font-size: 22px;
+}
+
+/* profile buttons */
+
+.user-profile-button {
+    border-radius: 4px;
+    background-color: #05386b ;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    padding: 16px;
+    padding-bottom: 32px;
+
+    transition: all 0.5s;
+    cursor: pointer;
+    height: 25px;
+  }
+  
+  .user-profile-button{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .user-profile-button:after {
+    content: '»';
+    font-size: 35px;
+    position: absolute;
+    opacity: 0;  
+    top: 2px;
+    right: -25px;
+    transition: 0.5s;
+  }
+  
+  .user-profile-button:hover{
+    padding-right: 24px;
+    padding-left:8px;
+    background: rgb(5,56,107);
+    background: linear-gradient(90deg, rgba(5,56,107,1) 0%, rgba(58,223,188,1) 100%);
+    transition: 0.5s;
+  }
+  
+  .user-profile-button:hover:after {
+    opacity: 1;
+    right: 10px;
+  }
+
+.user-profile-button-wrapper {
+    padding-top: 5%;
+    padding-bottom: 7.5%;
+}
+
+.savings-display {
+    width: 100%;
+    font-size: 25px;
+    font-weight: 500;
+    padding-top: 40%;
+    padding-bottom: 26.5%;
+    padding-left: 5%;
 }
