@@ -1,19 +1,37 @@
 import React from 'react'
 import '../../css/savingsBoard/savingsBoardBucket.css';
 
-// const totalBudget = 100;
-// const bucketStyle = ""
-// const remBudget = props.remainingBudget;
 
-// if (remBudget >= 75) {
-//     bucketStyle = "savings-board-bucket-wrapper-green";
-// } else if (remBudget < 75 && remBudget >= 50) {
-//     bucketStyle = "savings-board-bucket-wrapper-red";
-// }
+const data =[
+      {title: "Low Budget", budget: 25},
+      {title: "Medium Low Budget", budget: 45},
+      {title: "Medium Budget", budget: 70},
+      {title: "High Budget", budget: 120},
+]
+
+
+
+const budgetToClassesMap= (budget) => {
+    switch(true){
+  case (budget < 30):
+    return "low-budget"; 
+  case (budget >= 30 && budget < 60):
+    return "medium-low-budget"; 
+  case (budget >= 60 && budget < 100):
+    return "medium-budget"; 
+  case (budget >= 100):
+    return "high-budget";
+  default: 
+    return "budget-unknown";
+  }
+}
+
+
 
 function SavingsBoardBucket(props) {
+  
   return (
-    <div className='savings-board-bucket-wrapper'>
+    <div className={budgetToClassesMap(budgetValue)}>
       {/* <div className='savings-board-bucket-wrapper'>
         <p className='savings-board-bucket-label'>{ props.remainingBudget }</p>
       </div> */}
