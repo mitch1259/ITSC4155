@@ -5,6 +5,7 @@ import Profile from '../pages/Profile.js';
 import Login from '../pages/Login.js';
 import Registration from '../pages/Registration.js';
 import Allchart from '../pages/Allchart.js';
+import EditProfile from '../pages/EditProfile.js';
 
 function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ function AppRoutes() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/profile/editprofile" element={<EditProfile />} />
     </Routes>
   )
 }
