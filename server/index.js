@@ -4,12 +4,13 @@ const cors = require('cors');
 const app = express();
 const mysql = require('mysql');
 const morgan = require('morgan');
+const userAPI = require('./api/userAPI.js');
 
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "password",
-    database: "sampledb2"
+    database: "budgitdb"
 });
 
 app.use(cors());
@@ -23,7 +24,11 @@ function add(n1, n2) {
 
 module.exports = add;
 
+// API CALLS: each is labeled by GET or POST, telling you whether it's posting or retrieving data
 
+
+// /API/GET -- sample boilerplate that can be used to to create your own API GET methods to the database
+// For additional context, look at /client/src/pages/Home.js to see how it interacts with the front end
 app.get('/api/get', (req, res) => {
     const sqlInsert = "SELECT * FROM sampledb2.user";
 
@@ -33,7 +38,8 @@ app.get('/api/get', (req, res) => {
     });
 });
 
-
+// /API/INSERT -- sample boilerplate that can be used to create your own API POST methods to the database
+// For additional context, look at /client/src/pages/Home.js to see how it interacts with the front end
 app.post("/api/insert", (req, res) => {
 
     const firstName = req.body.firstName;
@@ -49,6 +55,37 @@ app.post("/api/insert", (req, res) => {
     });
 });
 
+// API/GET/USERS -- gets all users in the budgitdb.users table
+app.get('/api/get/users', (req, res) => {
+    const sqlQuery = "SELECT * FROM budgitdb.users";
+
+    db.query(sqlQuery, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result)
+        }
+    });
+});
+
+// API/REGISTERUSER -- takes in the information from the request sent from the client, and stores
+//                      that into the database
+app.post('/api/registerUser', (req, res) => {
+    
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
+    db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
 
 app.listen(3002, () => {
     console.log('running on port 3002');
