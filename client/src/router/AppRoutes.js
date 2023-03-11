@@ -5,6 +5,7 @@ import Profile from '../pages/Profile.js';
 import Login from '../pages/Login.js';
 import Registration from '../pages/Registration.js';
 import Allchart from '../pages/Allchart.js';
+import EditProfile from '../pages/EditProfile.js';
 import SavingsBoard from '../pages/SavingsBoard.js';
 
 function AppRoutes() {
@@ -15,9 +16,10 @@ function AppRoutes() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/profile/editprofile" element={<EditProfile />} />
         <Route path="/savings-board/id" element={<SavingsBoard />} />
     </Routes>
   )
 }
 
-export default AppRoutes
+export default AppRoutes;
