@@ -12,7 +12,7 @@ function Login() {
 
                 <div className="child-wrapper">
                     
-                    <p className="main-header">Welcome to BudgIt</p>
+                    <p className="main-header" id="main-header-login">Welcome to BudgIt</p>
                     <img className='login-budgit-logo' src={BudgitLogo} />
                     <p className='login-blurb'>Log in to start saving.</p>
                     <div className='login-form-fields'>

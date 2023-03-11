@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Rubik&display=swap');
 
 .footer {
     background: rgb(5, 56, 107);
     /* background-color: rgba(5,98,107,1); */
     color: #edf5e1;
     font-weight: 300;
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Arvo', serif;
     font-size: 1em;
     text-align: center;
     text-decoration: none;
@@ -35,7 +36,7 @@
 
 .BudgIt{
     color: #edf5e1;
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Arvo', serif;
     text-align: left;
     text-decoration: none;
     font-weight: 500;
@@ -132,4 +133,9 @@ a.nav-link:active
 
 .nav-logo {
     
+}
+
+#budgit-nav-logo {
+    font-family: "Arvo", serif;
+    font-size: 42px;
 }

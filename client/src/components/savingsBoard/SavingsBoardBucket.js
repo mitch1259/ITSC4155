@@ -31,7 +31,7 @@ const budgetToClassesMap= (budget) => {
 function SavingsBoardBucket(props) {
   
   return (
-    <div className={budgetToClassesMap(budgetValue)}>
+    <div >
       {/* <div className='savings-board-bucket-wrapper'>
         <p className='savings-board-bucket-label'>{ props.remainingBudget }</p>
       </div> */}

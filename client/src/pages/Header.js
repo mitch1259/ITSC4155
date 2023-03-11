@@ -13,7 +13,7 @@ const Header = (props) => {
                 <tr>
                     <td>
                         <h1 className="BudgIt">
-                            <Link to="/" className="nav-logo">
+                            <Link to="/" className="nav-logo" id="budgit-nav-logo">
                                 <img src={BudgItLogo} className="nav-logo-picture" />
                                 &nbsp;BudgIt
                             </Link>
