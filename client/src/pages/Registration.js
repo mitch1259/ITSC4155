@@ -77,6 +77,7 @@ function Register() {
               <TextField
                 name="password"
                 className='register-input-full'
+                type="password"
                 label='Password'
                 variant='filled'
                 onChange={(e) => {
@@ -85,7 +86,7 @@ function Register() {
               />
             </div>
             <div className='register-input-wrapper-full'>
-              <TextField className='register-input-full' label='Confirm Password' variant='filled' />
+              <TextField className='register-input-full' label='Confirm Password' variant='filled' type="password"/>
             </div>
           </div>
 

@@ -7,9 +7,9 @@ function BoardLinksCard(props) {
     <div className='board-links-card-wrapper'>
       <div className='board-links-card'>
         <p className='board-links-card-header'>Placeholder's Savings Boards</p>
-        <BoardLink
-            boardName={"Example Board 1"}
-        />
+          <BoardLink
+              boardName={"Example Board 1"}
+          />
         <BoardLink 
             boardName={"Example Board 2"}
         />
