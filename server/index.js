@@ -87,6 +87,25 @@ app.post('/api/registerUser', (req, res) => {
     });
 });
 
+app.post('/api/loginUser', (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const sqlInsert = "SELECT * FROM budgitdb.users WHERE email = ? AND password = ?;"
+    db.query(sqlInsert, [email, password], (err, result) => {
+        if (err) {
+            res.send({err: err});
+        }
+
+        if (result.length > 0) {
+            res.send(result);
+        } else {
+            res.send({message: "Username or password is wrong, please try again!"})
+        }
+        
+    });
+});
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });

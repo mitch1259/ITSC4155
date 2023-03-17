@@ -7,6 +7,21 @@ import BudgitLogo from '../images/budgit-logo-colour.png';
 import { TextField } from '@mui/material';
 
 function Login() {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [loginStatus, setLoginStatus] = useState('');
+
+    const loginUser = () => {
+        Axios.post('http://localhost:3002/api/loginUser', {
+          email: email,
+          password: password
+        }).then((response) => {
+          console.log(response);
+        });
+        console.log("clicked! email: ", email, " password: ", password );
+      };
     return (
         <div className='login-wrapper'>
 
@@ -17,10 +32,22 @@ function Login() {
                     <p className='login-blurb'>Log in to start saving.</p>
                     <div className='login-form-fields'>
                         <div className='login-input-wrapper'>
-                            <TextField className='login-input' label='Email Address' variant='filled' />
+                            <TextField className='login-input' 
+                            label='Email Address' 
+                            variant='filled' 
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                              }}
+                              />
                         </div>
                         <div className='login-input-wrapper'>
-                            <TextField className='login-input' label='Password' variant='filled' />
+                            <TextField className='login-input' 
+                            label='Password' 
+                            variant='filled' 
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                              }}
+                            />
                         </div>
                     </div>
 
@@ -32,7 +59,8 @@ function Login() {
                         </div>
                         <div className="login-link-wrapper">
                             <Link to="/">
-                                <FancyButton buttonText="Login" />
+                                {/* <FancyButton buttonText="Login" /> */}
+                                <button onClick={loginUser}> Login </button>
                             </Link>
                         </div>
                     </div>
