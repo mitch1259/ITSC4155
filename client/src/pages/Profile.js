@@ -1,6 +1,7 @@
 import '../css/Profile.css';
 import Footer from './Footer.js'
 import StickMan from '../images/stickman.jpg';
+import { Link } from 'react-router-dom';
 
 
 function Profile(props) {
@@ -19,7 +20,9 @@ function Profile(props) {
                 <div className='user-display'>
                   <p className='user-profile-header'>Placeholder User</p>
                   <div className='user-profile-button-wrapper'>
-                    <button className='user-profile-button'>Edit Profile</button>
+                    <Link to="/profile/editprofile"> 
+                      <button className='user-profile-button'>Edit Profile</button>
+                    </Link>
                   </div>
                   
                 </div>
