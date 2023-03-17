@@ -31,36 +31,34 @@ function EditProfile() {
 
     return (
         <div>
-        <header>
-          <p>Temp Space for the Navigation Bar</p>
-        </header>
         <div class="container-content">
             <form action="#">
+              <p class='edit_profile_header'>Update Your Profile Informations</p>
+                <div class="pic-display">
+                  {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
+                  <img src="https://reactjs.org/logo-og.png" alt="React Image"/>
+                  <button class='new_pfp_button'> Click to upload new Picture</button>
+                </div>
     
                 <div>
-                    <input type="text" name="name" id="name" placeholder="Name" required></input>
+                    <input type="text" name="name" id="first_name" placeholder="Update First Name" required></input>
                 </div>
-        
+
                 <div>
-                    <input type="email" name="email" id="email" placeholder="Email" required></input>
+                    <input type="text" name="name" id="last_name" placeholder="Update Last Name" required></input>
                 </div>
-                    
-        
+
                 <div>
-                    <input type="tel" name="phone" id="phone" placeholder="Phone number" required></input>
-                </div>
-                    
-        
-                <div>
-                    <input type="number" name="count" id="count" min="1" max="20" placeholder="Enter Credit Card Information"></input>
-        
+                    <input type="email" name="email" id="email" placeholder="Enter new Email" required></input>
                 </div>
                 <div>
-                    <textarea name="message" id="message" placeholder="Special requests"></textarea>
+                    <input type="text" name="name" id="password" placeholder="Update Password" required></input>
                 </div>
-        
-                <div class="btn-purchase">
-                    <input type="submit" name="submit" id ="submit" value="Purchase"></input>
+                <div>
+                    <input type="text" name="name" id="password" placeholder="Retype New Password" required></input>
+                </div>
+                <div>
+                    <button class='submit'>Submit Changes</button>
                 </div>
                 
         </form>
