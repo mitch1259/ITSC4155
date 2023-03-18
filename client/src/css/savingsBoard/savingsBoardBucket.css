@@ -3,8 +3,21 @@
     --dynamic-bg: red;
 }
 
+@keyframes wipe-in-up {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  
+  [transition-style="in:wipe:up"] {
+    animation: 2.5s cubic-bezier(.25, 1, .30, 1) wipe-in-up both;
+  }
+
 .savings-bucket-wrapper-wrapper {
-    width: 12%;
+    width: 15%;
     height: 100%;
     position: relative;
 }
@@ -22,6 +35,7 @@
     -webkit-box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
     box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
+    animation: wipe-in-up 2s;
 }
 
 .savings-board-bucket-wrapper:hover {
@@ -40,6 +54,7 @@
     font-size: 24px;
     padding-left: 3%;
     margin-top: -15%;
+    font-weight: 500;
 }
 
 .savings-board-bucket-day {
@@ -47,7 +62,7 @@
     font-size: 18px;
     padding-left: 5%;
     padding-top: 3.5%;
-    height: 100%;
+    height: 96.5%;
     width: 20%;
     background-color: rgba(99, 99, 99, 0.082);
     border-top-left-radius: 8px;
@@ -67,6 +82,7 @@
     -webkit-box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
     box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
+    animation: wipe-in-up 2s;
 }
 
 .low-budget-red:hover {
@@ -91,6 +107,7 @@
     -webkit-box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
     box-shadow: 3px 0px 14px -4px rgba(0,0,0,0.75);
+    animation: wipe-in-up 2s;
 }
 
 .medium-budget-orange:hover {
