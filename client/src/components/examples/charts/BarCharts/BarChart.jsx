@@ -8,13 +8,13 @@ import { Bar} from "@visx/shape";
 const x = (d) => d.label;
 const y = (d) => d.value;
 
-function Barchart({data,width,height}){
+function Barchart({data,width,height,xAxisTitle,yAxisTitle,}){
 
 // bounds
 const xMax = width - 80;
 const yMax = height - 80;
 
-// scales
+// scales and useMemo for performance enhacement.
 const xScale = useMemo( 
   ()=> scaleBand({
   range: [0, xMax],
