@@ -14,6 +14,8 @@ function CreateGoal(){
             goaltitle: Yup.string().required('A goal title is required'),
             savings:Yup.number().required('A positive number required').positive(),
             startingamount:Yup.number().required("enter a number you want to start your savings at.").positive(),
+            startingdate:Yup.date().required("Enter a date"),
+            enddate:Yup.date().required("enter a end date"),
             description: Yup.string().required()
         });
     
@@ -93,8 +95,30 @@ function CreateGoal(){
                 //helperText={errors.startingamount ? errors.startingamount.message:" "}
                 required
                 />
-                <TextField autoFocus margin='dense' id="startingdate" label="Starting Date" type="date" fullWidth variant='standard' InputLabelProps={{shrink:true}}/>
-                <TextField autoFocus margin='dense' id="enddate" label="Ending Date" type="date" fullWidth variant='standard' InputLabelProps={{shrink:true}}/>
+
+                <TextField 
+                autoFocus margin='dense'
+                id="startingdate" 
+                label="Starting Date" 
+                type="date" 
+                fullWidth variant='standard' 
+                error={Boolean(errors.startingdate)}
+                required
+                {...register("startingdate")}
+                InputLabelProps={{shrink:true}}/>
+
+                <TextField 
+                autoFocus margin='dense' 
+                id="enddate" 
+                label="start date" 
+                type="date" 
+                {...register("enddate")}
+                fullWidth variant='standard' 
+                InputLabelProps={{shrink:true}}
+                error={Boolean(errors.enddate)}
+                
+                />
+                
                 <TextField
                     autoFocus
                     margin="dense"
