@@ -106,6 +106,17 @@ app.post('/api/loginUser', (req,res)=>{
     });
 });
 
+app.post('/api/deleteUser', (req,res)=>{
+    // const email = req.body.email;
+
+    const sqlInsert = "DELETE FROM budgitdb.users WHERE email = 'test@gmail.com';"
+    db.query(sqlInsert, (err, result) => {
+        if (err) {
+            res.send({err: err});
+        }        
+    });
+});
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });

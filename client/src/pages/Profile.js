@@ -2,11 +2,13 @@ import '../css/Profile.css';
 import Footer from './Footer.js'
 import StickMan from '../images/stickman.jpg';
 import { Link } from 'react-router-dom';
+import Transactions from "../components/profileTransactions.jsx";
 
 
 function Profile(props) {
 
     document.title = "User Profile";
+    const clicked = console.log('this was clicked')
 
     return (
         <div className='profile-wrapper'>
@@ -30,9 +32,11 @@ function Profile(props) {
                   <p> Total Savings: $10,532</p>
                 </div>
                 <div className='transation-button'>
-                  <button className='user-profile-button'>View Transaction History</button>
+                  {/* <button className='user-profile-button'>View Transaction History</button> */}
+                  <Transactions></Transactions>
                 </div>
               </div>
+              
             </div>
             <div className="saves-board">
                 <div className="inside">

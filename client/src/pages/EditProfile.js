@@ -1,6 +1,9 @@
 import '../css/EditProfile.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
+import StickMan from '../images/stickman.jpg';
+import SimpleDialog from "../components/profile.jsx";
+
 
 function EditProfile() {
 
@@ -10,14 +13,15 @@ function EditProfile() {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [users, setUsers] = useState([]);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    useEffect(() => {
-      Axios.get('http://localhost:3002/api/get').then((response) => {
-        var data = Array.from(response.data);
-        setUsers(data);
-      });
-    }, []);
+    // useEffect(() => {
+    //   Axios.get('http://localhost:3002/api/get').then((response) => {
+    //     var data = Array.from(response.data);
+    //     setUsers(data);
+    //   });
+    // }, []);
 
     const submitName = () => {
       Axios.post('http://localhost:3002/api/insert', {
@@ -36,7 +40,7 @@ function EditProfile() {
               <p class='edit_profile_header'>Update Your Profile Informations</p>
                 <div class="pic-display">
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-                  <img src="https://reactjs.org/logo-og.png" alt="React Image"/>
+                  <img src={StickMan} alt="React Image"/>
                   <button class='new_pfp_button'> Click to upload new Picture</button>
                 </div>
     
@@ -60,6 +64,7 @@ function EditProfile() {
                 <div>
                     <button class='submit'>Submit Changes</button>
                 </div>
+                <SimpleDialog></SimpleDialog>
                 
         </form>
         </div>
