@@ -16,7 +16,11 @@ function BoardFunctionBar(props) {
       setAge(event.target.value);
     };
 
+    const [category, setCat] = React.useState('');
 
+    const handleChangeCat = (event) => {
+      setCat(event.target.value);
+    };
 
   return (
     <div className='board-function-bar-wrapper'>
@@ -32,17 +36,34 @@ function BoardFunctionBar(props) {
             <Box sx={{ minWidth: 120 }} id="board-function-bar-dropdown">
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Time</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Time"
-                        onChange={handleChange}
-                    >
-                    <MenuItem value={10}>One week</MenuItem>
-                    <MenuItem value={20}>Two weeks</MenuItem>
-                    <MenuItem value={30}>One month</MenuItem>
-                    </Select>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={age}
+                            label="Time"
+                            onChange={handleChange}
+                            >
+                            <MenuItem value={10}>One week</MenuItem>
+                            <MenuItem value={20}>Two weeks</MenuItem>
+                            <MenuItem value={30}>One month</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box sx={{ minWidth: 120 }} id="board-function-bar-dropdown">
+                    <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={category}
+                            label="Category"
+                            onChange={handleChangeCat}
+                            >
+                            <MenuItem value={10}>Category One</MenuItem>
+                            <MenuItem value={20}>Category Two</MenuItem>
+                            <MenuItem value={30}>Category Three</MenuItem>
+                            <MenuItem value={40}>Category Four</MenuItem>
+                            </Select>
                 </FormControl>
             </Box>
         </div>
