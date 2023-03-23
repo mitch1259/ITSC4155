@@ -14,6 +14,8 @@ import FormLabel from '@mui/material/FormLabel';
 import { Tooltip } from '@mui/material';
 import PlusIcon from '../../images/plus-icon-2-white.png';
 import '../../css/savingsBoard/addTransactionButton.css';
+import Checkbox from '@mui/material/Checkbox';
+import Recurrent from './Recurrent';
 
 function AddTransactionButton() {
 
@@ -32,7 +34,19 @@ function AddTransactionButton() {
         fontSize: '20px',
         fontWeight: '500'
     };
-    
+
+    const [recurrent, setRecurrent] = React.useState(false);
+
+    const handleChange = (event) => {
+        setRecurrent(event.target.checked)
+    }
+
+    let recurrenceForm
+    if (recurrent) {
+        recurrenceForm = <Recurrent/>
+    } else {
+        recurrenceForm = ""
+    }
   
     return (
         <div id='transaction-button-wrapper'>
@@ -94,6 +108,11 @@ function AddTransactionButton() {
                             <FormControlLabel value="income" control={<Radio />} label="Income" />
                         </Tooltip>
                     </RadioGroup>
+                    <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontFamily: "Barlow Condensed", fontSize: "20px", fontWeight: "500"}}>Recurrence:</FormLabel>
+                        <Tooltip title="Will this transaction repeat?" arrow>
+                            <FormControlLabel control={<Checkbox checked={recurrent} onChange={handleChange}/>} label="Is this a recurrent transaction?"/>
+                        </Tooltip>
+                        {recurrenceForm}
                 </FormControl>
                 </DialogContent>
                 <DialogActions>
