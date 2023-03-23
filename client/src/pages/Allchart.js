@@ -21,7 +21,7 @@ function Allchart(){
 
                 {/* line chart works props and everything, now begins the cusomizations */}
                 <LineChart data={data} width={400} height={400}/>
-                <Barchart data={defaultData1} width={400} height={400}/>
+                <Barchart data={defaultData1} width={400} height={400} xAxisTitle="categories" yAxisTitle="dollars"/>
             </div>
             
         </div>

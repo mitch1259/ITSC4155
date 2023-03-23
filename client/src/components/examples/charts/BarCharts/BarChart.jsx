@@ -5,9 +5,21 @@ import { scaleBand, scaleLinear } from '@visx/scale';
 import { AxisLeft, AxisBottom } from '@visx/axis';
 import { Bar} from "@visx/shape";
 
+
+//TODO: change the title of the data to match server data. 
 const x = (d) => d.label;
 const y = (d) => d.value;
 
+
+/**
+ * BarChart components let you create bar charts from formatted data you have.
+ * Data should be formatted in a x and y format where the calculation are done before hand.
+ * @param {Array} data - A parameter that allows developers to put their data to the component
+ *  @param {number} width - A parameter that allows you to change the width of the chart.
+ * @param {number} height - A parameter that allows you to change the height of the chart.
+ * @param {String} xAxisTitle - A parameter that allows you to change the x axis title.
+ * @param {String} yAxisTitle - A parameter that allows you to change the y axis title.
+ */
 function Barchart({data,width,height,xAxisTitle,yAxisTitle,}){
 
 // bounds
@@ -36,7 +48,7 @@ return (
     <LinearGradient 
     from={`#e9e9e9`} 
     to={`#fff`}
-     id='teal' />
+    id='teal' />
     <rect 
     width={width} 
     height={height} 
@@ -48,7 +60,7 @@ return (
       left={10} 
       scale={yScale} 
       numTicks={4} 
-      label="Dollars" 
+      label={yAxisTitle}
       tickLabelProps={() =>({
         fontSize:15,
         textAnchor:'end'
@@ -68,7 +80,7 @@ return (
 
       <AxisBottom 
       scale={xScale} 
-      label="Categories" 
+      label={xAxisTitle} 
       labelOffset={20} 
       top={yMax} 
       tickLabelProps={()=>({

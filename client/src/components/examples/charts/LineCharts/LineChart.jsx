@@ -50,7 +50,7 @@ function LineChart({ data, width, height, backgroundColor,strokeColor,fontSize }
 
     const series = [data1, data2]
 
-    //colors for lines
+    //Line Colors
     //TODO:Change this to color that match our project.
     const colors = ['#43b284', '#fab255']
 
@@ -162,7 +162,6 @@ function LineChart({ data, width, height, backgroundColor,strokeColor,fontSize }
                             data={sData}
                             x={(d) => timeScale(getDate(d)) ?? 0}
                             y={(d) => rdScale(getRD(d)) ?? 0}
-                           
                             />
                     ))}
                     {tooltipData && (
