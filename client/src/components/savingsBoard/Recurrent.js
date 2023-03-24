@@ -7,10 +7,11 @@ import '../../css/savingsBoard/boardFunctionBar.css';
 
 function Recurrent() {
 
-    const [time, setTime] = React.useState('');
+    const [recurrence, setRec] = React.useState('');
 
-    const handleChange = (event) => {
-      setTime(event.target.value);
+    const handleRec = (event) => {
+      setRec(event.target.value);
+      console.log(event.target.value);
     };
 
     return (
@@ -19,9 +20,9 @@ function Recurrent() {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={time}
+                    value={recurrence}
                     label="Recurrence"
-                    onChange={handleChange}
+                    onChange={handleRec}
                     >
                     <MenuItem value={10}>Once per week</MenuItem>
                     <MenuItem value={20}>Once per month</MenuItem>

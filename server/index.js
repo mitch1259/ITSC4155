@@ -87,6 +87,59 @@ app.post('/api/registerUser', (req, res) => {
     });
 });
 
+app.post('/api/transaction/submit', (req, res) => {
+
+    const boardID = req.body.boardID;
+    const userID = req.body.userID;
+    const category = req.body.category;
+    const amount = 40;
+    const createDate = '2000-01-01 12:00:00';
+    const label = req.body.label;
+    var isRecurrent = req.body.isRecurrent;
+
+    if (isRecurrent) {
+        isRecurrent = 1;
+    } else {
+        isRecurrent = 0;
+    }
+
+    const sqlInsert = "INSERT INTO budgitdb.transactions (boardID, userID, category, amount, createDate, label, isRecurrent) VALUES (?,?,?,?,?,?,?);"
+    db.query(sqlInsert, [boardID, userID, category, amount, createDate, label, isRecurrent], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/transaction/submit/recurrent', (req, res) => {
+
+    const recurrence = req.body.recurrence;
+
+    const sqlQuery = "SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = budgitdb AND TABLE_NAME = transactions"
+
+    const transactionID = 1;/*db.query(sqlQuery, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    })
+*/
+// DOES NOT WORK IN JS, WORKS IN MYSQL THOUGH. NEED TO FIGURE OUT WHY
+
+
+    const sqlInsert = "INSERT INTO budgitdb.recurrent (transactionID, recurrence) VALUES (?,?);"
+    db.query(sqlInsert, [transactionID, recurrence], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+})
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });
