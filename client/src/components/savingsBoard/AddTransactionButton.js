@@ -30,6 +30,12 @@ function AddTransactionButton() {
     };
   
     const handleClose = () => {
+      setCat(null);
+      setName(null);
+      setAmount(null);
+      setDate(null);
+      setMult(null);
+      setRecurrent(null);
       setOpen(false);
     };
 
@@ -78,7 +84,7 @@ function AddTransactionButton() {
 
     const [multiplier, setMult] = React.useState(-1)
     const handleMult = (event) => {
-        if (event.target.value == "expense") {
+        if (event.target.value === "expense") {
             setMult(-1);
         } else {
             setMult(1);
