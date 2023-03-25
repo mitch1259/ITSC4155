@@ -36,7 +36,7 @@ function AddTransactionButton() {
         fontWeight: '500'
     };
 
-    const [recurrent, setRecurrent] = React.useState(false);
+    var [recurrent, setRecurrent] = React.useState(false);
 
     const handleChange = (event) => {
         setRecurrent(event.target.checked)
@@ -73,29 +73,44 @@ function AddTransactionButton() {
         console.log(event.target.value);
     }
 
+    const [multiplier, setMult] = React.useState(-1)
+    const handleMult = (event) => {
+        if (event.target.value == "expense") {
+            setMult(-1);
+        } else {
+            setMult(1);
+        }
+    }
+
     const submit = () => {
+
+        //console.log(recurrenceForm.recurrence);
+        //DOES NOT WORK - NEED TO FIGURE OUT HOW TO PULL
+        if (!recurrent) {
+            recurrent = 0;
+        } else {
+            //fill in with logic from the variable pull from recurrent.js
+            /*
+            if recurrenceform.recurrence then 10
+            otherwise 20
+            etc
+            */
+        }
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
         Axios.post('http://localhost:3002/api/transaction/submit', {
             boardID: 1,
             userID: 1,
             category: category,
             amount: amount,
-            createDate: date,
+            //amount: amount*multiplier,
+            createDate: date + " " + time,
             label: name,
             isRecurrent: recurrent
         }).then(() => {
           console.log("successful insert");
         });
-
-        console.log(recurrenceForm.recurrence);
-        //DOES NOT WORK - NEED TO FIGURE OUT HOW TO PULL
-
-        if (recurrent) {
-            Axios.post('http://localhost:3002/api/transaction/submit/recurrent', {
-                transactionID: 1,
-                recurrence: 1
-            })
-        }
 
         handleClose();
       };
@@ -158,10 +173,10 @@ function AddTransactionButton() {
                         name="row-radio-buttons-group"
                     >
                         <Tooltip title="Value to be SUBTRACTED from budget" arrow>
-                            <FormControlLabel value="expense" control={<Radio />} label="Expense" />
+                            <FormControlLabel value="expense" control={<Radio onChange={handleMult}/>} label="Expense" />
                         </Tooltip>
                         <Tooltip title="Value to be ADDED to budget" arrow>
-                            <FormControlLabel value="income" control={<Radio />} label="Income" />
+                            <FormControlLabel value="income" control={<Radio onChange={handleMult}/>} label="Income" />
                         </Tooltip>
                     </RadioGroup>
                     <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontFamily: "Barlow Condensed", fontSize: "20px", fontWeight: "500"}}>Recurrence:</FormLabel>
