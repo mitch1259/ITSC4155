@@ -23,10 +23,11 @@ function Recurrent() {
                     value={recurrence}
                     label="Recurrence"
                     onChange={handleRec}
+                    required
                     >
-                    <MenuItem value={10}>Once per week</MenuItem>
-                    <MenuItem value={20}>Once per month</MenuItem>
-                    <MenuItem value={30}>Once per year</MenuItem>
+                    <MenuItem value={1}>Once per week</MenuItem>
+                    <MenuItem value={2}>Once per month</MenuItem>
+                    <MenuItem value={3}>Once per year</MenuItem>
                     </Select>
         </FormControl>
     );

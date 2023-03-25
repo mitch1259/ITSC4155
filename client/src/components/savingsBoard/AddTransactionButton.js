@@ -17,6 +17,9 @@ import '../../css/savingsBoard/addTransactionButton.css';
 import Checkbox from '@mui/material/Checkbox';
 import Recurrent from './Recurrent';
 import Axios from 'axios';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 function AddTransactionButton() {
 
@@ -99,12 +102,14 @@ function AddTransactionButton() {
         var today = new Date();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
+        console.log(amount*multiplier);
+        //THIS NEEDS AN IF STATEMENT FOR RECURRENCE REQUIREMENTS!!!!!
+
         Axios.post('http://localhost:3002/api/transaction/submit', {
             boardID: 1,
             userID: 1,
             category: category,
-            amount: amount,
-            //amount: amount*multiplier,
+            amount: amount*multiplier,
             createDate: date + " " + time,
             label: name,
             isRecurrent: recurrent
@@ -136,6 +141,7 @@ function AddTransactionButton() {
                     fullWidth
                     variant="filled"
                     onChange={handleName}
+                    required
                 />
                 <TextField
                     className='add-transaction-form'
@@ -146,17 +152,10 @@ function AddTransactionButton() {
                     variant="filled"
                     sx={sxFont}
                     onChange={handleDate}
+                    required
                 />
                 <TextField
-                    className='add-transaction-form'
-                    margin="dense"
-                    label="Transaction Category"
-                    type="text"
-                    fullWidth
-                    variant="filled"
-                    onChange={handleCat}
-                />
-                <TextField
+                    inputProps={{ type: 'number'}}
                     className='add-transaction-form'
                     margin="dense"
                     label="Transaction Amount"
@@ -164,9 +163,26 @@ function AddTransactionButton() {
                     fullWidth
                     variant="filled"
                     onChange={handleAmount}
+                    required
                 />
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={category}
+                            label="Category"
+                            onChange={handleCat}
+                            required
+                            >
+                            <MenuItem value={10}>Category One</MenuItem>
+                            <MenuItem value={20}>Category Two</MenuItem>
+                            <MenuItem value={30}>Category Three</MenuItem>
+                            <MenuItem value={40}>Category Four</MenuItem>
+                        </Select>
+                </FormControl>
                 <FormControl sx={{marginTop: "10px"}}>
-                    <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontFamily: "Barlow Condensed", fontSize: "20px", fontWeight: "500"}}>Type of Transaction:</FormLabel>
+                    <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontFamily: "Barlow Condensed", fontSize: "20px", fontWeight: "500"}} required>Type of Transaction:</FormLabel>
                     <RadioGroup
                         row
                         aria-labelledby="demo-row-radio-buttons-group-label"
