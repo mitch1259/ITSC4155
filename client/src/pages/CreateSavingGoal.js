@@ -8,9 +8,15 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as Yup from 'yup';
+import {useState,useEffect} from 'react'
+import{Link,useParams,useNavigate} from 'react-router-dom'
+import GoalService from '../services/GoalService';
+
 
 function CreateGoal(){
-        const validationSchema= Yup.object().shape({
+
+    //creates the const to allow input valiacation using react hook and yum
+    const validationSchema= Yup.object().shape({
             goaltitle: Yup.string().required('A goal title is required'),
             savings:Yup.number().required('A positive number required').positive(),
             startingamount:Yup.number().required("enter a number you want to start your savings at.").positive(),
@@ -18,7 +24,20 @@ function CreateGoal(){
             enddate:Yup.date().required("enter a end date"),
             description: Yup.string().required()
         });
-    
+
+
+
+    const [title, setTitle] = useState('')
+    const [savings, setSavings] = useState('')
+    const [startingAmount, setStartingAmount] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [description, setDescription] = useState('')
+    // const navigate= useNavigate();
+    const {savingGoalId}= useParams();
+    // const createGoal={title}
+    const savingGoal={title,savings,startingAmount,startDate,endDate,description}
+
 
     const{
         register,
@@ -38,6 +57,19 @@ function CreateGoal(){
       setOpen(false);
     };
 
+    const onSubmit =(e) =>{
+        //event problem with preventDefault but the rest works.
+        // e.preventDefault() 
+        GoalService.createGoal(savingGoal).then((response)=>{
+            console.log(response.data)
+        }).catch(error=>{
+            console.log(error)
+        })
+        setOpen(false);
+    }
+
+
+ 
 
     return(
         <div>
@@ -62,6 +94,10 @@ function CreateGoal(){
                     error={Boolean(errors.goaltitle)}
                     helperText={errors.goaltitle ? errors.goaltitle.message:" "}
                     required
+                    onChange={(textinput) =>{
+                        setTitle(textinput.target.value)
+                    }}
+
                 />
 
                 
@@ -77,6 +113,10 @@ function CreateGoal(){
                     error={Boolean(errors.savings)}
                     // helperText={errors.savings ? errors.savings.message:" "}
                     required
+                    onChange={(textinput) =>{
+                        setSavings(textinput.target.value)
+                    }}
+
                 />
                 <p>{errors.savings?.message}</p>
                 
@@ -94,6 +134,10 @@ function CreateGoal(){
                 error={Boolean(errors.startingamount)}
                 //helperText={errors.startingamount ? errors.startingamount.message:" "}
                 required
+
+                onChange={(textinput) =>{
+                    setStartingAmount(textinput.target.value)
+                }}
                 />
 
                 <TextField 
@@ -105,7 +149,12 @@ function CreateGoal(){
                 error={Boolean(errors.startingdate)}
                 required
                 {...register("startingdate")}
-                InputLabelProps={{shrink:true}}/>
+                InputLabelProps={{shrink:true}}
+                onChange={(textinput) =>{
+                    setStartDate(textinput.target.value)
+                }}
+                
+                />
 
                 <TextField 
                 autoFocus margin='dense' 
@@ -116,7 +165,9 @@ function CreateGoal(){
                 fullWidth variant='standard' 
                 InputLabelProps={{shrink:true}}
                 error={Boolean(errors.enddate)}
-                
+                onChange={(textinput) =>{
+                    setEndDate(textinput.target.value)
+                }}
                 />
                 
                 <TextField
@@ -129,12 +180,16 @@ function CreateGoal(){
                     variant="standard"
                     {...register('description')}
                     errors={Boolean(errors.description)}
+
+                    onChange={(textinput) =>{
+                        setDescription(textinput.target.value)
+                    }}
                 />
 
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={handleSubmit()}>Create</Button>
+                <Button onClick={handleSubmit(e => onSubmit(e))}>Create</Button>
             </DialogActions>
 
             </Dialog>
