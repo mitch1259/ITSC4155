@@ -107,6 +107,36 @@ app.post('/api/transaction/submit', (req, res) => {
     });
 });
 
+app.get('/api/get/board/transactions', (req, res) => {
+    
+    const lowEnd = req.query.lowEnd;
+    const highEnd = req.query.highEnd;
+    const category = req.query.category;
+
+    //category 0, for this purpose, is all categories
+    if (category != 0 ) {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE category = ?;"
+    db.query(sqlSelect, [category], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+    } else {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions;"
+    db.query(sqlSelect, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+    }
+});
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });

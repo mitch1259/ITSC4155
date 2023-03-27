@@ -60,3 +60,16 @@
     font-weight: 500;
     color: #edf5e1;
 }
+
+#submit-button-wrapper {
+    background-color: #05386b;
+    border-radius: 6px;
+    border-style: none;
+    margin-right: 20px;
+    transition: 0.15s;
+}
+
+#submit-button-wrapper:hover {
+    background-color: #5cdb95;
+    transition: 0.15s;
+}
