@@ -7,8 +7,6 @@
     padding: 0;
 }
 
-
-
 .child-wrapper {
     background-color: #8ee4af;
    color: #05386B;
@@ -18,8 +16,8 @@
    padding: 10px;
    border-radius: 10px;
    box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
+   min-width: 400px;
 }
-
 
 .email, .password, .confirm-password, .last-name, .first-name {
    margin: 5px;
@@ -86,7 +84,7 @@ p{
 }
 
 .login-wrapper {
-    height: 75.6vh;
+    height: 80.8vh;
     background: rgb(5,98,107);
     background: radial-gradient(circle, rgba(5,98,107,1) 11%, rgba(67,156,138,1) 74%, rgba(116,203,162,1) 91%, rgba(116,203,162,1) 100%, rgba(142,228,175,1) 100%);
     padding-top: 5%;
@@ -145,7 +143,7 @@ p{
     font-weight: 500;
 }
 
-
+/* 
 @media screen and (min-width: 1700px) {
     .login-wrapper {
         height: 80vh;
@@ -154,4 +152,4 @@ p{
     .register-wrapper {
         padding-bottom: 150px;
     }
-}
+} */
