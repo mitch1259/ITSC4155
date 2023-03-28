@@ -11,6 +11,9 @@ import PrivateRoutes from './PrivateRoutes.js';
 // import AuthAPI from '../server/authentication/AuthAPI.js';
 
 function AppRoutes() {
+  
+  console.log('hi');
+  
   return (
     <Routes>
       
