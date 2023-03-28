@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../css/navigation.css";
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthProvider';
 
 // images
 import StickMan from '../images/stickman.jpg';
 import BudgItLogo from '../images/budgit-logo.png';
 
 const Header = (props) => {
+
+    const { auth, setAuth } = useContext(AuthContext);
+
     return (
         <div className="header">
             <table>
@@ -19,7 +23,8 @@ const Header = (props) => {
                             </Link>
                         </h1>
                     </td> 
-                    <td>
+                    {auth ?
+                    (<td>
                         <div className="Links"> 
                             <Link to="/" className="nav-link">Dashboard</Link> | 
                             <Link to="/savings-boards" className="nav-link">Savings Boards</Link> | 
@@ -29,7 +34,8 @@ const Header = (props) => {
                                 <img className="nav-user-profile-picture" src={props.userProfilePicture ? props.userProfilePicture : StickMan} />
                             </Link>&nbsp;&nbsp;
                         </div>
-                    </td>
+                    </td>)
+                    : <></>}
                 </tr>
             </table>
         </div>
