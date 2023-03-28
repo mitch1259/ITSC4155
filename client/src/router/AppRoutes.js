@@ -8,6 +8,9 @@ import Allchart from '../pages/Allchart.js';
 import EditProfile from '../pages/EditProfile.js';
 
 function AppRoutes() {
+  
+  console.log('hi');
+  
   return (
     <Routes>
         <Route path="/" element={<AccountDashboard />} />
