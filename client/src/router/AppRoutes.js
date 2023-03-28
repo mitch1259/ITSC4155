@@ -12,8 +12,6 @@ import PrivateRoutes from './PrivateRoutes.js';
 
 function AppRoutes() {
   
-  console.log('hi');
-  
   return (
     <Routes>
       
