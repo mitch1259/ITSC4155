@@ -21,7 +21,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-function AddTransactionButton() {
+function AddTransactionButton(props) {
 
     const [open, setOpen] = React.useState(false);
 
@@ -30,12 +30,13 @@ function AddTransactionButton() {
     };
   
     const handleClose = () => {
-      setCat(null);
-      setName(null);
-      setAmount(null);
-      setDate(null);
-      setMult(null);
-      setRecurrent(null);
+      setCat("");
+      setName("");
+      setAmount("");
+      setDate("");
+      setMult("");
+      setRecurrent(false);
+      setRecur('');
       setOpen(false);
     };
 
@@ -45,6 +46,11 @@ function AddTransactionButton() {
         fontWeight: '500'
     };
 
+    const [recur, setRecur] = React.useState('')
+    const handleRecur = (recurFromChild) => {
+        setRecur(recurFromChild)
+    }
+
     var [recurrent, setRecurrent] = React.useState(false);
 
     const handleChange = (event) => {
@@ -53,7 +59,7 @@ function AddTransactionButton() {
 
     let recurrenceForm
     if (recurrent) {
-        recurrenceForm = <Recurrent/>
+        recurrenceForm = <Recurrent sendDataToParent={(handleRecur)} />
     } else {
         recurrenceForm = ""
     }
@@ -93,23 +99,15 @@ function AddTransactionButton() {
 
     const submit = () => {
 
-        //console.log(recurrenceForm.recurrence);
-        //DOES NOT WORK - NEED TO FIGURE OUT HOW TO PULL
         if (!recurrent) {
             recurrent = 0;
         } else {
-            //fill in with logic from the variable pull from recurrent.js
-            /*
-            if recurrenceform.recurrence then 10
-            otherwise 20
-            etc
-            */
+            recurrent = recur;
         }
         var today = new Date();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
         console.log(amount*multiplier);
-        //THIS NEEDS AN IF STATEMENT FOR RECURRENCE REQUIREMENTS!!!!!
 
         Axios.post('http://localhost:3002/api/transaction/submit', {
             boardID: 1,
@@ -123,6 +121,7 @@ function AddTransactionButton() {
           console.log("successful insert");
         });
 
+        props.sendDataToParent()
         handleClose();
       };
   
@@ -158,6 +157,7 @@ function AddTransactionButton() {
                     variant="filled"
                     sx={sxFont}
                     onChange={handleDate}
+                    InputLabelProps={{ shrink: true }}
                     required
                 />
                 <TextField

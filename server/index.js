@@ -95,7 +95,7 @@ app.post('/api/transaction/submit', (req, res) => {
     const amount = req.body.amount;
     const createDate = req.body.createDate;
     const label = req.body.label;
-    var isRecurrent = req.body.isRecurrent;
+    const isRecurrent = req.body.isRecurrent;
 
     const sqlInsert = "INSERT INTO budgitdb.transactions (boardID, userID, category, amount, createDate, label, isRecurrent) VALUES (?,?,?,?,?,?,?);"
     db.query(sqlInsert, [boardID, userID, category, amount, createDate, label, isRecurrent], (err, result) => {
@@ -109,14 +109,16 @@ app.post('/api/transaction/submit', (req, res) => {
 
 app.get('/api/get/board/transactions', (req, res) => {
     
+    const user = req.query.user;
+    const board = req.query.board;
     const lowEnd = req.query.lowEnd;
     const highEnd = req.query.highEnd;
     const category = req.query.category;
 
     //category 0, for this purpose, is all categories
     if (category != 0 ) {
-    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE category = ?;"
-    db.query(sqlSelect, [category], (err, result) => {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE category = ? AND boardID = ? AND userID = ?  AND createDate BETWEEN ? AND ? ORDER BY createDate;"
+    db.query(sqlSelect, [category, board, user, lowEnd, highEnd], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -125,8 +127,8 @@ app.get('/api/get/board/transactions', (req, res) => {
         }
     });
     } else {
-    const sqlSelect = "SELECT * FROM budgitdb.transactions;"
-    db.query(sqlSelect, (err, result) => {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE boardID = ? AND userID = ? AND createDate BETWEEN ? AND ? ORDER BY createDate;"
+    db.query(sqlSelect, [board, user, lowEnd, highEnd], (err, result) => {
         if (err) {
             console.log(err);
         } else {

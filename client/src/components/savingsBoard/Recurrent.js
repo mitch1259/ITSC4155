@@ -5,13 +5,14 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import '../../css/savingsBoard/boardFunctionBar.css';
 
-function Recurrent() {
+function Recurrent(props) {
 
     const [recurrence, setRec] = React.useState('');
 
     const handleRec = (event) => {
       setRec(event.target.value);
-      console.log(event.target.value);
+      //console.log(event.target.value);
+      props.sendDataToParent(event.target.value)
     };
 
     return (
