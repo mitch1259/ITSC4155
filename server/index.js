@@ -97,7 +97,8 @@ app.post('/api/transaction/submit', (req, res) => {
     const label = req.body.label;
     const isRecurrent = req.body.isRecurrent;
 
-    const sqlInsert = "INSERT INTO budgitdb.transactions (boardID, userID, category, amount, createDate, label, isRecurrent) VALUES (?,?,?,?,?,?,?);"
+    //const sqlInsert = "INSERT INTO budgitdb.transactions (boardID, userID, category, amount, createDate, label, isRecurrent) VALUES (?,?,?,?,?,?,?);"
+    const sqlInsert = "CALL budgitdb.insertionSubmit (?,?,?,?,?,?,?);"
     db.query(sqlInsert, [boardID, userID, category, amount, createDate, label, isRecurrent], (err, result) => {
         if (err) {
             console.log(err);
