@@ -1,0 +1,104 @@
+import '../css/login.css';
+import { useState, useEffect } from 'react';
+import Axios from 'axios';
+import {Link} from 'react-router-dom';
+import { TextField } from '@mui/material';
+import FancyButton from '../components/navigation/FancyButton';
+import BudgitLogo from '../images/budgit-logo-colour.png';
+
+function UpdateInfo() {
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+    useEffect(() => {
+      Axios.get('http://localhost:3002/api/get/users').then((response) => {
+        var data = Array.from(response.data);
+        console.log(data);
+      });
+    }, []);
+
+    const updateUser = () => {
+      Axios.post('http://localhost:3002/api/registerUser', {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password
+      }).then(() => {
+        console.log('successful insert');
+      });
+      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
+    };
+
+
+    return (
+      <div className='register-wrapper'>
+        <div className='parent-wrapper'>
+            <div className="child-wrapper">
+            <h1 className="main-header">Welcome to BudgIt</h1>
+            <img className='login-budgit-logo' src={BudgitLogo} />
+            <h3 className='login-blurb'>Edit your Profile</h3>
+          <div className='register-input-wrapper-half'>
+            <TextField
+              name="firstName"
+              className='register-input-half-left'
+              label='First Name'
+              variant='filled'
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+            />
+            <TextField 
+              name="lastName"
+              className='register-input-half-right'
+              label='Last Name'
+              variant='filled'
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
+          </div>
+          <div className='register-input-form-wrapper'>
+            <div className='register-input-wrapper-full'>
+              <TextField
+                name="email"
+                className='register-input-full'
+                label='Email Address'
+                variant='filled'
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+            <div className='register-input-wrapper-full'>
+              <TextField
+                name="password"
+                className='register-input-full'
+                label='Password'
+                variant='filled'
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div className='register-input-wrapper-full'>
+              <TextField className='register-input-full' label='Confirm Password' variant='filled' />
+            </div>
+          </div>
+
+          <div className='login-buttons-wrapper'>
+            {/* currently routing back to /registration for ease of testing, switch back to /login when complete */}
+            <Link to="/profile">
+              <button onClick={updateUser}>Update Infomation</button>
+            </Link>
+          </div>
+
+          </div>
+        </div>
+        </div>
+    );
+}
+export default UpdateInfo;

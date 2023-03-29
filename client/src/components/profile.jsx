@@ -10,6 +10,8 @@ import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import Axios from 'axios';
+import {Link} from 'react-router-dom';
+
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
@@ -43,9 +45,11 @@ function SimpleDialog(props) {
              </h3>
              <br></br>
              <div>
-                <button onClick = {deleteAccount}>
+              <Link to="/registration">
+              <button onClick = {deleteAccount}>
                    Confirm
                 </button>
+              </Link>
                 <button onClick = {handleClose}>
                    Cancel
                 </button>

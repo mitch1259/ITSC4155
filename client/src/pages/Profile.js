@@ -5,10 +5,17 @@ import { Link } from 'react-router-dom';
 import Transactions from "../components/profileTransactions.jsx";
 
 
+
+
 function Profile(props) {
 
     document.title = "User Profile";
     const clicked = console.log('this was clicked')
+//Change this later
+    const logOutUser = () => {
+      // setAuth(false);
+    }
+
 
     return (
         <div className='profile-wrapper'>
@@ -24,6 +31,10 @@ function Profile(props) {
                   <div className='user-profile-button-wrapper'>
                     <Link to="/profile/editprofile"> 
                       <button className='user-profile-button'>Edit Profile</button>
+                    </Link>
+                    <Link to="/login">
+{/* Instead of logOutUser, call the new method "Remove Cookies" that Erik made. Leaving this for now*/}
+                      <button onClick={logOutUser} className='user-profile-button'>Log Out</button>
                     </Link>
                   </div>
                   
