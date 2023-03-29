@@ -25,13 +25,6 @@ function EditProfile() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // useEffect(() => {
-    //   Axios.get('http://localhost:3002/api/get').then((response) => {
-    //     var data = Array.from(response.data);
-    //     setUsers(data);
-    //   });
-    // }, []);
-
     const updateUser = () => {
       Axios.post('http://localhost:3002/api/changeUserInfo', {
         firstName: firstName,
@@ -45,41 +38,6 @@ function EditProfile() {
     };
 
     return (
-        // <div>
-        // <div class="container-content">
-        //     <form action="#">
-        //       <p class='edit_profile_header'>Update Your Profile Informations</p>
-        //         <div class="pic-display">
-        //           {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-        //           <img src={StickMan} alt="React Image"/>
-        //           <button class='new_pfp_button'> Click to upload new Picture</button>
-        //         </div>
-    
-        //         <div>
-        //             <input type="text" name="name" id="first_name" placeholder="Update First Name" required></input>
-        //         </div>
-
-        //         <div>
-        //             <input type="text" name="name" id="last_name" placeholder="Update Last Name" required></input>
-        //         </div>
-
-        //         <div>
-        //             <input type="email" name="email" id="email" placeholder="Enter new Email" required></input>
-        //         </div>
-        //         <div>
-        //             <input type="text" name="name" id="password" placeholder="Update Password" required></input>
-        //         </div>
-        //         <div>
-        //             <input type="text" name="name" id="password" placeholder="Retype New Password" required></input>
-        //         </div>
-        //         <div>
-        //             <button class='submit'>Submit Changes</button>
-        //         </div>
-        //         <SimpleDialog></SimpleDialog>
-                
-        // </form>
-        // </div>
-        // </div>
         <div className='register-wrapper'>
         <div className='parent-wrapper'>
             <div className="child-wrapper">
