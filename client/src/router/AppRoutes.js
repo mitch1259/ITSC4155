@@ -18,6 +18,7 @@ function AppRoutes() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/profile/editprofile" element={<EditProfile />} />
         <Route path="/savings-board/id" element={<SavingsBoard />} />
+        
     </Routes>
   )
 }
