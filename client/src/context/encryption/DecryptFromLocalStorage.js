@@ -7,9 +7,9 @@ const DecryptFromLocalStorage = (key) => {
         return null;
     }
     var decryptedBytes = AES.decrypt(valueToDecrypt, "abc");
-    console.log("decrypted bytes", decryptedBytes);
+    // console.log("decrypted bytes", decryptedBytes);
     const decryptedValue = decryptedBytes.toString(enc.Utf8);
-    console.log("deecrypted value", decryptedValue);
+    // console.log("deecrypted value", decryptedValue);
     return decryptedValue;
 }
 

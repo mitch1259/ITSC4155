@@ -17,9 +17,7 @@ function SavingsBoardBucket({ remainingBudget, currentDay }) {
   }
 }
 
-// console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--dynamic-height'));
 const percentage = remainingBudget / 500 * 100 + '%';
-console.log(percentage);
 const bucketStyle = {
   height: percentage,
 }

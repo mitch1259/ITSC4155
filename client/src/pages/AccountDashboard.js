@@ -21,13 +21,12 @@ function AccountDashboard() {
   var name = "";
   // setCurrentUser(current);
   // console.log('currentUser state on dashboard: ', currentUser);
-  console.log('data type of cookie value after parseInt: ', typeof current);
+  // console.log('data type of cookie value after parseInt: ', typeof current);
 
 useEffect(() => {
   Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
     ).then((response) => {
-      console.log(response.data);
-      name = response.data[0].firstName + response.data[0].lastName + response.data[0].email;
+      name = response.data[0].firstName;
       console.log("name: ", name);
       setUserName(name);
       setLoading(false);
@@ -37,9 +36,6 @@ useEffect(() => {
 
     const firstName = name;
     console.log("Firstname", firstName);
-
-
-  console.log();
   
 
   document.title = "Account Dashboard";
