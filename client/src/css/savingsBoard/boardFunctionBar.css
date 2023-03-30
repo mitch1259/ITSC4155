@@ -73,3 +73,21 @@
     background-color: #5cdb95;
     transition: 0.15s;
 }
+
+#nav-button {
+    color: #fff;
+    background-color: #05386b;
+    border-radius: 6px;
+    text-transform: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    transition: 0.15s;
+    margin-right: 12px;
+    margin-left:12px;
+}
+
+#nav-button:hover {
+    background-color: #5cdb95;
+    transition: 0.15s;
+}
