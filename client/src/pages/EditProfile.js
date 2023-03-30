@@ -53,6 +53,9 @@ useEffect(() => {
       });
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
     };
+
+
+
     if(isLoading) {
       return <div className="account-dashboard-main">Loading...</div>
     }
@@ -60,17 +63,17 @@ useEffect(() => {
         <div className='register-wrapper'>
         <div className='parent-wrapper'>
             <div className="child-wrapper">
-            <h3 className='login-blurb'>Edit your Profile</h3>
+            <h3 className='edit-profile-title'>Edit your Profile</h3>
             <div class="pic-display">
               {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-              <img src={StickMan} alt="React Image"/>
-              <button class='new_pfp_button'> Click to upload new Picture</button>
-              </div>
-          <div className='register-input-wrapper-half'>
+              <img src={StickMan} alt="User profile picture" className="edit-profile-image"/>
+              <button className='new_pfp_button'> Click to upload new Picture</button>
+            </div>
+          <div>
             <TextField
               name="firstName"
-              className='register-input-half-left'
-              label='First Name'
+              className='edit-profile-textfield'
+              label='New First Name'
               variant='filled'
               onChange={(e) => {
                 setFirstName(e.target.value);
@@ -78,46 +81,46 @@ useEffect(() => {
             />
             <TextField 
               name="lastName"
-              className='register-input-half-right'
-              label='Last Name'
+              className='edit-profile-textfield'
+              label='New Last Name'
               variant='filled'
               onChange={(e) => {
                 setLastName(e.target.value);
               }}
             />
           </div>
-          <div className='register-input-form-wrapper'>
-            <div className='register-input-wrapper-full'>
+          <div>
+            <div>
               <TextField
                 name="email"
-                className='register-input-full'
-                label='Email Address'
+                className='edit-profile-textfield'
+                label='New Email Address'
                 variant='filled'
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
               />
             </div>
-            <div className='register-input-wrapper-full'>
+            <div>
               <TextField
                 name="password"
-                className='register-input-full'
-                label='Password'
+                className='edit-profile-textfield'
+                label='New Password'
                 variant='filled'
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
               />
             </div>
-            <div className='register-input-wrapper-full'>
-              <TextField className='register-input-full' label='Confirm Password' variant='filled' />
+            <div>
+              <TextField className='edit-profile-textfield' label='New Confirm Password' variant='filled' />
             </div>
           </div>
 
           <div className='login-buttons-wrapper'>
             {/* currently routing back to /registration for ease of testing, switch back to /login when complete */}
             <Link to="/profile">
-              <button onClick={updateUser}>Update Infomation</button>
+              <button className="update-user-information" onClick={updateUser}>Update Infomation</button>
             </Link>
             
             <SimpleDialog></SimpleDialog>

@@ -106,7 +106,7 @@ SimpleDialog.propTypes = {
  
    return (
      <div>
-       <Button variant="outlined" onClick={handleClickOpen}>
+       <Button id="delete-account-button" variant="outlined" onClick={handleClickOpen}>
          Delete Account
        </Button>
        <SimpleDialog

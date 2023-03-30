@@ -225,3 +225,17 @@ header {
     padding-bottom: 26.5%;
     padding-left: 5%;
 }
+
+#delete-account-button {
+    background-color: rgb(255, 154, 154);
+    text-transform: none;
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    border-color: #00000000;
+}
+
+#delete-account-button:hover {
+    background-color: rgb(255, 52, 52);
+    text-transform: none;
+    color: #000;
+}
