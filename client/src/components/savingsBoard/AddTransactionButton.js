@@ -111,7 +111,7 @@ function AddTransactionButton(props) {
 
         Axios.post('http://localhost:3002/api/transaction/submit', {
             boardID: 1,
-            userID: 1,
+            userID: props.userID,
             category: category,
             amount: amount*multiplier,
             createDate: date + " " + time,

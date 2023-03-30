@@ -3,6 +3,8 @@ import SavingsBoardBucket from '../components/savingsBoard/SavingsBoardBucket';
 import BoardHeader from '../components/savingsBoard/BoardHeader.js';
 import BoardFunctionBar from '../components/savingsBoard/BoardFunctionBar';
 import '../css/savingsBoard/savingsBoard.css';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+import AuthContext from '../context/AuthProvider';
 /*
 const buckets = [
   {
@@ -50,6 +52,8 @@ function SavingsBoard() {
   var secondDate = new Date();
   secondDate = new Date(secondDate.setDate(firstDate.getDate() + 7));
 
+  const { auth, setAuth} = React.useContext(AuthContext);
+  var current = DecryptFromLocalStorage("userId");
 
   const [data, setData] = React.useState('');
   const handleData = (dataFromChild) => {
@@ -124,6 +128,7 @@ function SavingsBoard() {
           startDate={firstDate}
           endDate={secondDate}
           sendDataToParent={handleData}
+          userID={current}
         />
       </div>
       <div className='savings-board-buckets'>

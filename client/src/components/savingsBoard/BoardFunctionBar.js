@@ -64,7 +64,6 @@ function BoardFunctionBar(props) {
 
         Axios.get('http://localhost:3002/api/get/board/transactions', {
             params: {  
-            user: 1, 
             board: 1, 
             lowEnd: startDate,
             highEnd: endDate,
@@ -110,7 +109,7 @@ function BoardFunctionBar(props) {
   return (
     <div className='board-function-bar-wrapper'>
         <div className='board-function-bar-left'>
-        <AddTransactionButton sendDataToParent={(handleUpdate)}/>
+        <AddTransactionButton sendDataToParent={(handleUpdate)} userID={props.userID}/>
             <p className='board-function-bar-weekof-wrapper'>
                 {/*<p className='board-function-bar-weekof'>{header} </p> */}
                 <p className='board-function-bar-viewby'>View by:</p>
