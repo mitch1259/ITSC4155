@@ -27,6 +27,8 @@ function AppRoutes() {
         {/* OPEN ROUTES -- anything listed in the below <Route> block is available to unauthenticated users */}
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/profile/editprofile" element={<EditProfile />} />
+        <Route path="/savings-board/id" element={<SavingsBoard />} />
         
     </Routes>
   )

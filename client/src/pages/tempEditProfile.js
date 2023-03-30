@@ -1,9 +1,3 @@
-import '../css/EditProfile.css';
-// import { useState, useEffect } from 'react';
-// import Axios from 'axios';
-import StickMan from '../images/stickman.jpg';
-import SimpleDialog from "../components/profile.jsx";
-// import { TextField } from '@mui/material';
 import '../css/login.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
@@ -12,21 +6,23 @@ import { TextField } from '@mui/material';
 import FancyButton from '../components/navigation/FancyButton';
 import BudgitLogo from '../images/budgit-logo-colour.png';
 
+function UpdateInfo() {
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
 
-function EditProfile() {
-
-    const handleClick = () => {
-        console.log("clicked");
-    }
-
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    useEffect(() => {
+      Axios.get('http://localhost:3002/api/get/users').then((response) => {
+        var data = Array.from(response.data);
+        console.log(data);
+      });
+    }, []);
 
     const updateUser = () => {
-      Axios.post('http://localhost:3002/api/changeUserInfo', {
+      Axios.post('http://localhost:3002/api/registerUser', {
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -37,16 +33,14 @@ function EditProfile() {
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
     };
 
+
     return (
-        <div className='register-wrapper'>
+      <div className='register-wrapper'>
         <div className='parent-wrapper'>
             <div className="child-wrapper">
+            <h1 className="main-header">Welcome to BudgIt</h1>
+            <img className='login-budgit-logo' src={BudgitLogo} />
             <h3 className='login-blurb'>Edit your Profile</h3>
-            <div class="pic-display">
-              {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-              <img src={StickMan} alt="React Image"/>
-              <button class='new_pfp_button'> Click to upload new Picture</button>
-              </div>
           <div className='register-input-wrapper-half'>
             <TextField
               name="firstName"
@@ -100,15 +94,11 @@ function EditProfile() {
             <Link to="/profile">
               <button onClick={updateUser}>Update Infomation</button>
             </Link>
-            
-            <SimpleDialog></SimpleDialog>
           </div>
-          
+
           </div>
         </div>
         </div>
     );
-  }
-  
-  export default EditProfile;
-  
+}
+export default UpdateInfo;
