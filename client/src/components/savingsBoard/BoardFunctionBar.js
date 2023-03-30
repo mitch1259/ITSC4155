@@ -136,7 +136,7 @@ function BoardFunctionBar(props) {
                             >
                             <MenuItem value={1}>One week</MenuItem>
                             <MenuItem value={2}>Two weeks</MenuItem>
-                            <MenuItem value={4}>One month</MenuItem>
+                            <MenuItem value={4}>Four weeks</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
