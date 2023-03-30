@@ -11,6 +11,10 @@ import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
+import AuthContext from '../context/AuthProvider';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+import { useEffect, useState, useContext } from 'react';
+
 
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
@@ -21,14 +25,37 @@ function SimpleDialog(props) {
   const handleClose = () => {
     onClose(selectedValue);
   };
+  const [isLoading, setLoading] = useState(true);
+    
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { auth, setAuth} = useContext(AuthContext);
+
+    var current = DecryptFromLocalStorage("userId");
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
+    ).then((response) => {
+      console.log(response.data);
+      // name = response.data[0].firstName + response.data[0].lastName + response.data[0].email;
+      // setUserName(name);
+      setLoading(false);
+      // setCurrentUser(response.data);
+    });
+}, []);
 
   const deleteAccount = () => {
    onClose(selectedValue);
-   Axios.post('http://localhost:3002/api/deleteUser', /*{
-          email: email,
-          password: password
-        }*/).then((response) => {
+   Axios.post('http://localhost:3002/api/deleteUser',{
+      userID: current
+
+      }).then((response) => {
           console.log(response);
+          localStorage.removeItem('userId');
+          setAuth(false);
         });
         console.log("Deleted Account");
  };

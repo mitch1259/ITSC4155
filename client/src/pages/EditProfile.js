@@ -5,12 +5,12 @@ import StickMan from '../images/stickman.jpg';
 import SimpleDialog from "../components/profile.jsx";
 // import { TextField } from '@mui/material';
 import '../css/login.css';
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
 import { TextField } from '@mui/material';
-import FancyButton from '../components/navigation/FancyButton';
-import BudgitLogo from '../images/budgit-logo-colour.png';
+import AuthContext from '../context/AuthProvider';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
 
 
 
@@ -19,14 +19,31 @@ function EditProfile() {
     const handleClick = () => {
         console.log("clicked");
     }
-
+    const [isLoading, setLoading] = useState(true);
+    
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { auth, setAuth} = useContext(AuthContext);
+
+    var current = DecryptFromLocalStorage("userId");
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
+    ).then((response) => {
+      console.log(response.data);
+      // name = response.data[0].firstName + response.data[0].lastName + response.data[0].email;
+      // setUserName(name);
+      setLoading(false);
+      // setCurrentUser(response.data);
+    });
+}, []);
+
     const updateUser = () => {
       Axios.post('http://localhost:3002/api/changeUserInfo', {
+        userID: current,
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -36,7 +53,9 @@ function EditProfile() {
       });
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
     };
-
+    if(isLoading) {
+      return <div className="account-dashboard-main">Loading...</div>
+    }
     return (
         <div className='register-wrapper'>
         <div className='parent-wrapper'>

@@ -17,9 +17,11 @@ function Profile(props) {
     console.log(currentUser);
     document.title = "User Profile";
     const clicked = console.log('this was clicked')
-//Change this later
+    
+//changed it so hopefully it works
     const logOutUser = () => {
-      // setAuth(false);
+      localStorage.removeItem('userId');
+      setAuth(false);
     }
 
 
@@ -39,7 +41,7 @@ function Profile(props) {
                       <button className='user-profile-button'>Edit Profile</button>
                     </Link>
                     <Link to="/login">
-{/* Instead of logOutUser, call the new method "Remove Cookies" that Erik made. Leaving this for now*/}
+{/* changed it so i hope it works*/}
                       <button onClick={logOutUser} className='user-profile-button'>Log Out</button>
                     </Link>
                   </div>

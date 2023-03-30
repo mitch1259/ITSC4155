@@ -140,24 +140,29 @@ app.post('/api/get/currentUser', (req, res) => {
 });
 app.post('/api/deleteUser', (req,res)=>{
     // const email = req.body.email;
-
-    const sqlInsert = "DELETE FROM budgitdb.users WHERE email = 'test@gmail.com';"
-    db.query(sqlInsert, (err, result) => {
+    const userID = req.body.userID
+    const sqlInsert = "DELETE FROM budgitdb.users WHERE userID = ?;"
+    db.query(sqlInsert,[userID], (err, result) => {
         if (err) {
             res.send({err: err});
+        }
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
         }
     });
 });
 
 app.post('/api/changeUserInfo', (req, res) => {
-
+    const userID = req.body.userID
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
     const password = req.body.password;
-
-    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE email = 'test@gmail.com'";
-    db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
+    console.log(userID)
+    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
+    db.query(sqlInsert, [firstName, lastName, email, password, userID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
