@@ -73,7 +73,7 @@ const sxFont = {
         </div>
       </div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={sxFont}>Transactions</DialogTitle>
+        <DialogTitle sx={sxFont}>Transactions for {currentDay}:</DialogTitle>
         <DialogContent id='add-transaction-dialog-box'>
           <DialogContentText className='add-transaction-form' sx={sxFont}>
             {transacts}
