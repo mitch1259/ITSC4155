@@ -75,6 +75,7 @@ function SavingsBoard() {
     for (let i = 0; i < newData.length - 1; i ++) {  
       var date = (newData[i].createDate).substring(0, 10);
       date = new Date(date);
+      date.setDate(date.getDate() + 1)
       var mm = date.getMonth() + 1;
       var dd = date.getDate();
       
