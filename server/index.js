@@ -103,44 +103,58 @@ app.post('/api/registerUser', (req, res) => {
     });
 });
 
-app.post('/api/loginUser', (req,res)=>{
-    const email = req.body.email;
-    const password = req.body.password;
-    console.log('received post', email, password);
-    // console.log(email, password);
+app.post('/api/transaction/submit', (req, res) => {
 
-    const sqlSelect = "SELECT * FROM budgitdb.users WHERE email = ? AND password = ?;"
-    db.query(sqlSelect, [email, password], (err, result) => {
+    const boardID = req.body.boardID;
+    const userID = req.body.userID;
+    const category = req.body.category;
+    const amount = req.body.amount;
+    const createDate = req.body.createDate;
+    const label = req.body.label;
+    const isRecurrent = req.body.isRecurrent;
+
+    //const sqlInsert = "INSERT INTO budgitdb.transactions (boardID, userID, category, amount, createDate, label, isRecurrent) VALUES (?,?,?,?,?,?,?);"
+    const sqlInsert = "CALL budgitdb.insertionSubmit (?,?,?,?,?,?,?);"
+    db.query(sqlInsert, [boardID, userID, category, amount, createDate, label, isRecurrent], (err, result) => {
         if (err) {
-            res.send({err: err});
-        }
-
-        if (result.length > 0) {
-            res.send(result);
+            console.log(err);
         } else {
-            console.log('user not found');
+            console.log(result);
         }
     });
 });
 
-// API/GET/USERS -- gets all users in the budgitdb.users table
-app.post('/api/get/currentUser', (req, res) => {
-    let userID = req.body.userID;
-    console.log(userID);
-    console.log('request: ', req.body);
+app.get('/api/get/board/transactions', (req, res) => {
+    
+    const user = req.query.user;
+    const board = req.query.board;
+    const lowEnd = req.query.lowEnd;
+    const highEnd = req.query.highEnd;
+    const category = req.query.category;
 
-    const sqlQuery = "SELECT * FROM budgitdb.users WHERE userID = ?;";
-    db.query(sqlQuery, [userID], (err, result) => {
-        if (userID === undefined) {
-            console.log('userID is fucking undefined');
+    //category 0, for this purpose, is all categories
+    if (category != 0 ) {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE category = ? AND boardID = ? AND userID = ?  AND createDate BETWEEN ? AND ? ORDER BY createDate;"
+    db.query(sqlSelect, [category, board, user, lowEnd, highEnd], (err, result) => {
+        if (err) {
+            console.log(err);
         } else {
+            console.log(result);
             res.send(result);
         }
     });
+    } else {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE boardID = ? AND userID = ? AND createDate BETWEEN ? AND ? ORDER BY createDate;"
+    db.query(sqlSelect, [board, user, lowEnd, highEnd], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+    }
 });
-
-
-
 
 app.listen(3002, () => {
     console.log('running on port 3002');
