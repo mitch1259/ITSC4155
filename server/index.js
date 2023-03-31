@@ -169,7 +169,30 @@ app.post('/api/get/currentUserInfo', (req, res) => {
             console.log("no results found");
         }
     })
-})
+});
+
+// API/NEWTRANSACTION
+app.post('/api/newTransaction', (req, res) => {
+    let boardID = req.body.boardID;
+    let userID = req.body.userID;
+    let category = req.body.category;
+    let label = req.body.label;
+    let createDate = req.body.createDate;
+    let amount = req.body.amount;
+    let isRecurrent = req.body.isRecurrent;
+
+    const sqlInsert = "INSERT INTO budgitdb.transactions (`boardID`, `userID`, `category`, `amount`, `createDate`, `label`, `isRecurrent`) VALUES (?,?,?,?,?,?,?);"
+    db.query(sqlInsert, [boardID, userID, category, amount, createDate, label, isRecurrent], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result) {
+            res.send('successful insert');
+        } else {
+            res.send('something fucky happened');
+        }
+    });
+});
 
 
 

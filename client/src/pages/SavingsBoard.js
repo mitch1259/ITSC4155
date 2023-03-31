@@ -7,6 +7,7 @@ import { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+import { CircularProgress } from '@mui/material';
 
 
 function SavingsBoard() {
@@ -124,7 +125,7 @@ function SavingsBoard() {
     //   "currentDay": "3/17"
     // },
   ]
-  
+
   const [isUserLoading, setIsUserLoading] = useState(true);
   const [user, setUser] = useState(null);
   
@@ -140,17 +141,29 @@ function SavingsBoard() {
         setIsUserLoading(false);
       });
   }, []);
+
+  const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  console.log(currentDate);
+  // const nextWeek = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+  // console.log(nextWeek); 
   
-  console.log("user: ", user);
   
   document.title = "Savings Board";
+
+  if(isUserLoading) {
+    return (
+      <div className='loading'>
+        <CircularProgress color="success"/>
+      </div>
+    )
+  }
   return (
     <div className='savings-board-wrapper'>
       <div className='savings-board-header-wrapper'>
         <BoardHeader 
-          boardTitle="Example Board 1"
-          boardDescription="This is a sample description for a savings board."
-          remainingBudget="350"
+          boardTitle={user[0].boardName}
+          boardDescription={user[0].boardDescription}
+          remainingBudget={user[0].remainBudget}
         />
       </div>
       <div className='savings-board-function-bar'>

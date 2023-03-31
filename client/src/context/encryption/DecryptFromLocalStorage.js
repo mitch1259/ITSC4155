@@ -1,7 +1,7 @@
 import { AES, enc } from 'crypto-js';
 
 const DecryptFromLocalStorage = (key) => {
-    console.log("key", key);
+    // console.log("key", key);
     var valueToDecrypt = localStorage.getItem(key);
     if(valueToDecrypt === null) {
         return null;

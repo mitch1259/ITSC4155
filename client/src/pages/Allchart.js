@@ -1,7 +1,7 @@
 import LayoutOne from '../components/layouts/LayoutOne';
 import '../css/allchart.css';
 import '../css/gobal.css';
-import CreateBoard from '../components/savingsBoard/CreateBoardButton.js';
+
 function Allchart(){
 
     document.title = "Savings Boards";
