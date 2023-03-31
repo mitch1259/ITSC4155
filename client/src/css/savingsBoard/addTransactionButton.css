@@ -31,3 +31,7 @@
 #transaction-button-wrapper #add-transaction-dialog-box .add-transaction-form {
     font-family: 'Barlow Condensed', sans-serif;
 }
+
+.small-space {
+    margin-top: 5px;
+}

@@ -24,19 +24,6 @@ function add(n1, n2) {
     return n1 + n2;
 }
 module.exports = add;
-// function authenicateToken(req, res, next) {
-//     const authHeader = req.headers['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1];
-//     if (token == null) return res.sendStatus(401);
-
-//     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-//         if (err) {
-//             return res.sendStatus(403);
-//         }
-//         req.user = user;
-//         next();
-//     })
-// }
 
 
 
@@ -123,7 +110,7 @@ app.post('/api/loginUser', (req,res)=>{
     });
 });
 
-// API/GET/USERS -- gets all users in the budgitdb.users table
+// API/GET/CURRENTUSER -- get the current user by their userID
 app.post('/api/get/currentUser', (req, res) => {
     let userID = req.body.userID;
     console.log(userID);
@@ -154,22 +141,75 @@ app.post('/api/deleteUser', (req,res)=>{
     });
 });
 
-app.post('/api/changeUserInfo', (req, res) => {
-    const userID = req.body.userID
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
-    console.log(userID)
-    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
-    db.query(sqlInsert, [firstName, lastName, email, password, userID], (err, result) => {
+// API/GET/CURRENTUSER/RECENTTRANSACTIONS -- get the user's boards
+app.post('/api/get/currentUser/allBoards', (req, res) => {
+    let userID = req.body.userID;
+
+    const sqlQuery = "SELECT * FROM budgitdb.boards WHERE userID = ?;"
+    db.query(sqlQuery, [userID], (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
+        }
+        
+    });
+});
+
+// API/GET/CURRENTUSER/RECENTTRANSACTIONS -- get the user's boards
+app.post('/api/get/currentUser/recentTransactions', (req, res) => {
+    let userID = req.body.userID;
+
+    const sqlQuery = "SELECT * FROM budgitdb.transactions WHERE userID = ? ORDER BY createDate DESC LIMIT 2;"
+    db.query(sqlQuery, [userID], (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
+        }
+        
+    });
+});
+
+
+// APT/GET/CURRENTUSERINFO
+app.post('/api/get/currentUserInfo', (req, res) => {
+    let userID = req.body.userID;
+
+    const sqlQuery = "SELECT b.boardID, b.boardName, b.boardDescription, b.recurTransactions, b.remainBudget, t.transactionID, t.category, t.amount, t.createDate, t.label, t.isRecurrent FROM budgitdb.users u JOIN budgitdb.boards b ON u.userID = b.userID JOIN budgitdb.transactions t ON b.boardID = t.boardID WHERE u.userID = ?;"
+    db.query(sqlQuery, [userID], (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
+        }
+    })
+});
+
+// API/NEWTRANSACTION
+app.post('/api/newTransaction', (req, res) => {
+    let boardID = req.body.boardID;
+    let userID = req.body.userID;
+    let category = req.body.category;
+    let label = req.body.label;
+    let createDate = req.body.createDate;
+    let amount = req.body.amount;
+    let isRecurrent = req.body.isRecurrent;
+
+    const sqlInsert = "INSERT INTO budgitdb.transactions (`boardID`, `userID`, `category`, `amount`, `createDate`, `label`, `isRecurrent`) VALUES (?,?,?,?,?,?,?);"
+    db.query(sqlInsert, [boardID, userID, category, amount, createDate, label, isRecurrent], (err, result) => {
         if (err) {
             console.log(err);
+        }
+        if (result) {
+            res.send('successful insert');
         } else {
-            console.log(result);
+            res.send('something fucky happened');
         }
     });
 });
+
+
 
 app.listen(3002, () => {
     console.log('running on port 3002');
