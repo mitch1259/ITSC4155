@@ -170,6 +170,19 @@ app.post('/api/get/currentUser/recentTransactions', (req, res) => {
         
     });
 });
+app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
+    let userID = req.body.userID;
+
+    const sqlQuery = "SELECT * FROM budgitdb.transactions WHERE userID = ? ORDER BY createDate DESC LIMIT 15;"
+    db.query(sqlQuery, [userID], (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
+        }
+        
+    });
+});
 
 
 // APT/GET/CURRENTUSERINFO
