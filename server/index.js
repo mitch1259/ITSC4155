@@ -189,7 +189,26 @@ app.post('/api/newTransaction', (req, res) => {
         if (result) {
             res.send('successful insert');
         } else {
-            res.send('something fucky happened');
+            res.send('uh oh something went wrong');
+        }
+    });
+});
+
+// API/PREVIOUSWEEK
+app.post('/api/previousWeek', (req, res) => {
+    let startDate = req.body.startDate;
+    let endDate = req.body.endDate;
+    let boardID = req.body.boardID;
+    
+    const sqlQuery = "SELECT * FROM budgitdb.boards JOIN budgitdb.transactions ON boards.boardID = transactions.boardID WHERE transactions.createDate BETWEEN ? AND ? AND boards.boardID = ?;"
+    db.query(sqlQuery, [endDate, startDate, boardID], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result) {
+            res.send(result);
+        } else {
+            console.log('no entries found');
         }
     });
 });

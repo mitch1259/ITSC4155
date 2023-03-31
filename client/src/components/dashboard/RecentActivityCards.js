@@ -13,9 +13,9 @@ function RecentActivityCard() {
   const [isUserLoading, setIsUserLoading] = useState(true);
   const [transactionsLoading, setTransactionsLoading] = useState(true);
   const [boardsLoading, setBoardsLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [userBoards, setUserBoards] = useState(null);
-  const [recentTransactions, setRecentTransactions] = useState(null);
+  const [user, setUser] = useState();
+  const [userBoards, setUserBoards] = useState();
+  const [recentTransactions, setRecentTransactions] = useState();
   const HashMap = require('hashmap');
 
   var current = DecryptFromLocalStorage("userId");

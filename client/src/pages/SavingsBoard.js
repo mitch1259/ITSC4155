@@ -127,25 +127,46 @@ function SavingsBoard() {
   ]
 
   const [isUserLoading, setIsUserLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [areTransactionsLoading, setAreTransactionsLoading] = useState(true);
+  const [user, setUser] = useState();
+  const [currentWindowTransactions, setCurrentWindowTransactions] = useState();
   
   var current = DecryptFromLocalStorage("userId");
+  console.log(current);
   var name = "";
   
   useEffect(() => {
     Axios.post('http://localhost:3002/api/get/currentUserInfo', {userID: current}
       ).then((response) => {
+        console.log('this ran');
         const userData = Array.from(response.data);
-        // userObject = userData[0];
+        console.log(userData);
         setUser(userData);
         setIsUserLoading(false);
       });
   }, []);
+  console.log("current user: ", user, " current page: SAVINGS BOARD");
 
-  const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  console.log(currentDate);
-  // const nextWeek = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-  // console.log(nextWeek); 
+  // const now = new Date();
+  // const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  // const formattedNow = now.toISOString().slice(0, 19).replace('T', ' ');
+  // const formattedOneWeekAgo = oneWeekAgo.toISOString().slice(0, 19).replace('T', ' ');
+  // const userBoard = user[0].boardID;
+  // const previousWeekInfo = {
+  //   startDate: formattedNow,
+  //   endDate: formattedOneWeekAgo,
+  //   boardID: userBoard
+  // }
+
+  // useEffect(() => {
+  //   Axios.post('http://localhost:3002/api/get/previousWeek', previousWeekInfo)
+  //   .then((response) => {
+  //     console.log('this ran in window data');
+  //     const windowData = Array.from(response.data);
+  //     setCurrentWindowTransactions(windowData);
+  //     setAreTransactionsLoading(false);
+  //   });
+  // }, []);
   
   
   document.title = "Savings Board";
