@@ -34,9 +34,15 @@ function Transactions(props) {
   };
 
   const [isLoading, setLoading] = useState(true);
-  const [username, setUserName] = useState('');
-
-  const { auth, setAuth} = useContext(AuthContext);
+  const [username, setUserName] = useState('');  
+  const { auth, setAuth } = useContext(AuthContext);
+  const [isUserLoading, setIsUserLoading] = useState(true);
+  const [transactionsLoading, setTransactionsLoading] = useState(true);
+  const [boardsLoading, setBoardsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [userBoards, setUserBoards] = useState(null);
+  const [recentTransactions, setRecentTransactions] = useState(null);
+  const HashMap = require('hashmap');
 
   var current = DecryptFromLocalStorage("userId");
   var name = "";
@@ -88,7 +94,6 @@ useEffect(() => {
              <h3>
               <DialogContent>
                 <DialogContentText>
-                <RecentActivitySnippet
                   {user.map(entry => 
                     <RecentActivitySnippet
                         boardName={entry.boardName}
@@ -101,7 +106,6 @@ useEffect(() => {
                         recentChargeAmount2={"25.00"}
                     />
                   )}
-                />
                 </DialogContentText>
               </DialogContent>
              </h3>
