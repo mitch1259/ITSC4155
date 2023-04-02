@@ -4,9 +4,11 @@ const cors = require('cors');
 const app = express();
 const mysql = require('mysql');
 const morgan = require('morgan');
-const userAPI = require('./api/userAPI.js');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const router = express.Router();
+const userAPI = require('./api/userAPI.js');
+const registerUser = require('./api/registerUser.js');
 
 const db = mysql.createPool({
     host: "localhost",
@@ -15,29 +17,15 @@ const db = mysql.createPool({
     database: "budgitdb"
 });
 
+// middleware
 app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-function add(n1, n2) {
-    return n1 + n2;
-}
-module.exports = add;
-// function authenicateToken(req, res, next) {
-//     const authHeader = req.headers['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1];
-//     if (token == null) return res.sendStatus(401);
-
-//     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-//         if (err) {
-//             return res.sendStatus(403);
-//         }
-//         req.user = user;
-//         next();
-//     })
-// }
-
+// api calls (in their respective files/api locations)
+app.use('/api/loginUser', userAPI);
+app.use('/api/registerUser', registerUser);
 
 
 // API CALLS: each is labeled by GET or POST, telling you whether it's posting or retrieving data
@@ -84,44 +72,7 @@ app.get('/api/get/users', (req, res) => {
     });
 });
 
-// API/REGISTERUSER -- takes in the information from the request sent from the client, and stores
-//                      that into the database
-app.post('/api/registerUser', (req, res) => {
-    
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
 
-    const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
-    db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(result);
-        }
-    });
-});
-
-app.post('/api/loginUser', (req,res)=>{
-    const email = req.body.email;
-    const password = req.body.password;
-    console.log('received post', email, password);
-    // console.log(email, password);
-
-    const sqlSelect = "SELECT * FROM budgitdb.users WHERE email = ? AND password = ?;"
-    db.query(sqlSelect, [email, password], (err, result) => {
-        if (err) {
-            res.send({err: err});
-        }
-
-        if (result.length > 0) {
-            res.send(result);
-        } else {
-            console.log('user not found');
-        }
-    });
-});
 
 // API/GET/USERS -- gets all users in the budgitdb.users table
 app.post('/api/get/currentUser', (req, res) => {
