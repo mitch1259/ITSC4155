@@ -76,34 +76,34 @@ app.get('/api/get/users', (req, res) => {
 
 
 
-    const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
-    db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(result);
-        }
-    });
+    // const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
+    // db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log(result);
+    //     }
+    // });
 
-app.post('/api/loginUser', (req,res)=>{
-    const email = req.body.email;
-    const password = req.body.password;
-    console.log('received post', email, password);
-    // console.log(email, password);
+// app.post('/api/loginUser', (req,res)=>{
+//     const email = req.body.email;
+//     const password = req.body.password;
+//     console.log('received post', email, password);
+//     // console.log(email, password);
 
-    const sqlSelect = "SELECT * FROM budgitdb.users WHERE email = ? AND password = ?;"
-    db.query(sqlSelect, [email, password], (err, result) => {
-        if (err) {
-            res.send({err: err});
-        }
+//     const sqlSelect = "SELECT * FROM budgitdb.users WHERE email = ? AND password = ?;"
+//     db.query(sqlSelect, [email, password], (err, result) => {
+//         if (err) {
+//             res.send({err: err});
+//         }
 
-        if (result.length > 0) {
-            res.send(result);
-        } else {
-            console.log('user not found');
-        }
-    });
-});
+//         if (result.length > 0) {
+//             res.send(result);
+//         } else {
+//             console.log('user not found');
+//         }
+//     });
+// });
 
 // API/GET/CURRENTUSER -- get the current user by their userID
 app.post('/api/get/currentUser', (req, res) => {
@@ -179,6 +179,24 @@ app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
     });
 });
 
+app.post('/api/changeUserInfo', (req, res) => {
+    
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
+    const password = req.body.password;
+    const userID = req.body.userID;
+
+    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
+    db.query(sqlInsert, [firstName, lastName, email, password, userID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
 
 
 // APT/GET/CURRENTUSERINFO
@@ -241,7 +259,16 @@ app.post('/api/createGoal', (goal,res)=>{
     });
 
 });
+
 app.post('/api/transaction/submit', (req, res) => {
+
+    const boardID = req.body.boardID;
+    const userID = req.body.userID;
+    const category = req.body.category;
+    const amount = req.body.amount;
+    const createDate = req.body.createDate;
+    const label = req.body.label;
+    const isRecurrent = req.body.isRecurrent;
 
     //const sqlInsert = "INSERT INTO budgitdb.transactions (boardID, userID, category, amount, createDate, label, isRecurrent) VALUES (?,?,?,?,?,?,?);"
     const sqlInsert = "CALL budgitdb.insertionSubmit (?,?,?,?,?,?,?);"
@@ -253,7 +280,6 @@ app.post('/api/transaction/submit', (req, res) => {
         }
     });
 });
-
 app.get('/api/get/board/transactions', (req, res) => {
     
     const board = req.query.board;

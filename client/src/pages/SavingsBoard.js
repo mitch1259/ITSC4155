@@ -36,23 +36,7 @@ const buckets = [
     "currentDay": "3/17"
   },
   
-  var current = DecryptFromLocalStorage("userId");
-  var name = "";
   
-  useEffect(() => {
-    Axios.post('http://localhost:3002/api/get/currentUserInfo', {userID: current}
-      ).then((response) => {
-        const userData = Array.from(response.data);
-        // userObject = userData[0];
-        setUser(userData);
-        setIsUserLoading(false);
-      });
-  }, []);
-
-  const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  console.log(currentDate);
-  // const nextWeek = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-  // console.log(nextWeek); 
   
   
 ]
@@ -137,9 +121,9 @@ function SavingsBoard() {
     <div className='savings-board-wrapper'>
       <div className='savings-board-header-wrapper'>
         <BoardHeader 
-          boardTitle={user[0].boardName}
-          boardDescription={user[0].boardDescription}
-          remainingBudget={user[0].remainBudget}
+          boardTitle="Example Board 1"
+          boardDescription="This is a sample description for a savings board."
+          remainingBudget="350"
         />
       </div>
       <div className='savings-board-function-bar'>

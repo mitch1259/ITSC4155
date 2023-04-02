@@ -24,15 +24,6 @@ import Select from '@mui/material/Select';
 function AddTransactionButton(props) {
 
     const [open, setOpen] = React.useState(false);
-    const [transactionName, setTransactionName] = useState(null);
-    const [transactionDate, setTransactionDate] = useState(null);
-    const [transactionCategory, setTransactionCategory] = useState(null);
-    const [transactionAmount, setTransactionAmount] = useState(null);
-    const [transactionType, setTransactionType] = useState(null);
-    const [isUserLoading, setIsUserLoading] = useState(true);
-    const [currentUser, setCurrentUser] = useState(null);
-
-    var current = DecryptFromLocalStorage('userId');
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -153,9 +144,9 @@ function AddTransactionButton(props) {
                     label="Transaction Name"
                     type="text"
                     fullWidth
-                    required
                     variant="filled"
                     onChange={handleName}
+                    required
                 />
                 <TextField
                     className='add-transaction-form'
@@ -202,10 +193,6 @@ function AddTransactionButton(props) {
                         row
                         aria-labelledby="demo-row-radio-buttons-group-label"
                         name="row-radio-buttons-group"
-                        required
-                        onChange={(e) =>
-                            setTransactionType(e.target.value)
-                        }
                     >
                         <Tooltip title="Value to be SUBTRACTED from budget" arrow>
                             <FormControlLabel value="expense" control={<Radio onChange={handleMult}/>} label="Expense" />
