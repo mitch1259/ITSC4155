@@ -1,5 +1,8 @@
 import * as d3 from 'd3';
 
+// inspired by article: https://medium.com/tinyso/how-to-create-pie-donut-chart-in-react-using-d3-js-9ea695bcf819
+//original arc pie: https://observablehq.com/@d3/donut-chart
+//documenation: https://github.com/d3/d3-shape/blob/v3.2.0/README.md#pies
 
 //adopt the current chart to include double array for  [{saved:3000}{remaining:6000}]
 function DoughnutPieChart(element,data) {
@@ -74,9 +77,9 @@ function DoughnutPieChart(element,data) {
     arcs
     .append("text")
     .attr("text-anchor", "middle")
-    .text((d) => `${d.data.value}%`) // label text
+    .text((d) => `${d.data.title}`) // label text
     .style("fill", "#05386b") // label color
-    .style("font-size", "30px") // label size
+    .style("font-size", "15px") // label size
     .style("font-family","Varela Round")
     .attr("transform", (d) => {
       const [x, y] = arcGenerator.centroid(d);
@@ -85,7 +88,7 @@ function DoughnutPieChart(element,data) {
     .style("font-size", 0)
     .transition()
     .duration(700)
-    .style("font-size", "26px");
+    .style("font-size", "15px");
 }
 
 export default DoughnutPieChart;
