@@ -6,18 +6,30 @@ import Login from '../pages/Login.js';
 import Registration from '../pages/Registration.js';
 import Allchart from '../pages/Allchart.js';
 import EditProfile from '../pages/EditProfile.js';
+import SavingsBoard from '../pages/SavingsBoard.js';
+import PrivateRoutes from './PrivateRoutes.js';
+// import AuthAPI from '../server/authentication/AuthAPI.js';
 
 function AppRoutes() {
+  
   return (
     <Routes>
-        <Route path="/" element={<AccountDashboard />} />
-        <Route path="/savings-boards" element={<Allchart />} />
-        <Route path="/profile" element={<Profile />} />
+      
+        {/* PRIVATE ROUTES -- anything listed in the below <Route> block is unavailable to unauthenticated users */}
+        <Route element={<PrivateRoutes/>}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<AccountDashboard />} />
+          <Route path="/savings-boards" element={<Allchart />} />
+          <Route path="/profile/editprofile" element={<EditProfile />} />
+          <Route path="/savings-board/id" element={<SavingsBoard />} />
+        </Route>
+
+        {/* OPEN ROUTES -- anything listed in the below <Route> block is available to unauthenticated users */}
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/profile/editprofile" element={<EditProfile />} />
+        
     </Routes>
   )
 }
 
-export default AppRoutes
+export default AppRoutes;

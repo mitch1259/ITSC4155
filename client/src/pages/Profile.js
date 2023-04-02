@@ -1,10 +1,16 @@
 import '../css/Profile.css';
 import Footer from './Footer.js'
 import StickMan from '../images/stickman.jpg';
+import { useEffect, useState, useContext } from 'react';
+import Axios from 'axios';
+import AuthContext from '../context/AuthProvider';
 
 
 function Profile(props) {
 
+    
+    const { auth, setAuth, currentUser, setCurrentUser } = useContext(AuthContext);
+    console.log(currentUser);
     document.title = "User Profile";
 
     return (
