@@ -12,7 +12,7 @@ function Register() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [confirmPassword, setConfirmPassword] = useState('');
 
     useEffect(() => {
       Axios.get('http://localhost:3002/api/get/users').then((response) => {
@@ -22,6 +22,10 @@ function Register() {
     }, []);
 
     const registerUser = () => {
+      if(password != confirmPassword) {
+        console.log("Password and Confirm Password do not match");
+      }
+      else {
       Axios.post('http://localhost:3002/api/registerUser', {
         firstName: firstName,
         lastName: lastName,
@@ -31,6 +35,7 @@ function Register() {
         console.log('successful insert');
       });
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
+     }
     };
 
 
@@ -86,7 +91,16 @@ function Register() {
               />
             </div>
             <div className='register-input-wrapper-full'>
-              <TextField className='register-input-full' label='Confirm Password' variant='filled' type="password"/>
+              <TextField 
+              name="confirmPassword"
+              className='register-input-full' 
+              label='Confirm Password' 
+              variant='filled' 
+              type="password"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+              />
             </div>
           </div>
 
