@@ -142,6 +142,21 @@ app.get('/api/get/board/transactions', (req, res) => {
     }
 });
 
+
+app.post('/api/get/currentBoard', (req, res) => {
+    const userID = req.body.userID;
+
+    const sqlSelect = "SELECT boardID FROM budgitdb.boards WHERE userID = ?";
+    db.query(sqlSelect, [userID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    })
+});
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });

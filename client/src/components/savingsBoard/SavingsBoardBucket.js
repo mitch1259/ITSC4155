@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
 
-function SavingsBoardBucket({ remainingBudget, currentDay, transactions }) {
+function SavingsBoardBucket({ date, amount }) {
 
   const budgetToClassesMap= (budget) => {
     switch(true){
@@ -27,7 +27,7 @@ const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 // console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--dynamic-height'));
 const percentage = clamp(remainingBudget / 500 * 100, 50, 300);
-console.log(percentage);
+// console.log(percentage);
 const bucketStyle = {
   height: percentage,
 }

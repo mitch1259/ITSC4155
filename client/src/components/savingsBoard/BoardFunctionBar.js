@@ -61,12 +61,22 @@ function BoardFunctionBar(props) {
     }
 
     const select = () => {
-
+        var startDateNormalized = new Date(startDate);
+        startDateNormalized.setHours(0);
+        startDateNormalized.setMinutes(0);
+        startDateNormalized.setSeconds(0);
+        var endDateNormalized = new Date(endDate);
+        endDateNormalized.setHours(0);
+        endDateNormalized.setMinutes(0);
+        endDateNormalized.setSeconds(0);
+        // console.log("STARTDATENEW: ", startDateNew);
+        // console.log("startDate: ", startDate, "typeof: ", typeof startDate)
+        // console.log("endDate: ", endDate);
         Axios.get('http://localhost:3002/api/get/board/transactions', {
             params: {  
             board: 1, 
-            lowEnd: startDate,
-            highEnd: endDate,
+            lowEnd: startDateNormalized,
+            highEnd: endDateNormalized,
             category: category
             }
         }).then((response) => {
