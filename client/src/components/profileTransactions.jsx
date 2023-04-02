@@ -19,7 +19,7 @@ import { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
-import RecentActivitySnippet from './RecentActivitySnippet';
+// import RecentActivitySnippet from './RecentActivitySnippet';
 import { CircularProgress } from '@mui/material';
 
 // import { useCookies } from 'react-cookie';
@@ -94,7 +94,7 @@ useEffect(() => {
              <h3>
               <DialogContent>
                 <DialogContentText>
-                  {user.map(entry => 
+                  {/* {user.map(entry => 
                     <RecentActivitySnippet
                         boardName={entry.boardName}
                         remainingBudget={entry.remainBudget}
@@ -105,7 +105,7 @@ useEffect(() => {
                         recentChargeName2={"Downtown Charlotte Parking Fee"}
                         recentChargeAmount2={"25.00"}
                     />
-                  )}
+                  )} */}
                 </DialogContentText>
               </DialogContent>
              </h3>
