@@ -114,6 +114,9 @@ function SavingsBoard() {
     console.log(tempArr);
   }
 
+  console.log("buckets: ", buckets);
+  console.log("remaining budget: ", remBudget);
+
   return (
     <div className='savings-board-wrapper'>
       <div className='savings-board-header-wrapper'>
@@ -132,7 +135,7 @@ function SavingsBoard() {
         />
       </div>
       <div className='savings-board-buckets'>
-        { buckets.map(bucket =>
+        { buckets.map(bucket => 
           <SavingsBoardBucket remainingBudget={bucket.remainingBudget} currentDay={bucket.currentDay} transactions={bucket.transactions} />
         ) }
       </div>
