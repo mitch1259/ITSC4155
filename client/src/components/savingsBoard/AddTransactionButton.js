@@ -14,17 +14,14 @@ import FormLabel from '@mui/material/FormLabel';
 import { Tooltip } from '@mui/material';
 import PlusIcon from '../../images/plus-icon-2-white.png';
 import '../../css/savingsBoard/addTransactionButton.css';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState, useEffect } from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import DecryptFromLocalStorage from '../../context/encryption/DecryptFromLocalStorage';
+import Checkbox from '@mui/material/Checkbox';
+import Recurrent from './Recurrent';
 import Axios from 'axios';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
-function AddTransactionButton() {
+function AddTransactionButton(props) {
 
     const [open, setOpen] = React.useState(false);
     const [transactionName, setTransactionName] = useState(null);
@@ -42,6 +39,13 @@ function AddTransactionButton() {
     };
   
     const handleClose = () => {
+      setCat("");
+      setName("");
+      setAmount("");
+      setDate("");
+      setMult("");
+      setRecurrent(false);
+      setRecur('');
       setOpen(false);
     };
 
@@ -51,54 +55,84 @@ function AddTransactionButton() {
         fontWeight: '500'
     };
 
-      // get current user information by userID
-    useEffect(() => {
-        Axios.post('http://localhost:3002/api/get/currentUserInfo', {userID: current}
-        ).then((response) => {
-            const userData = Array.from(response.data);
-            // userObject = userData[0];
-            setCurrentUser(userData);
-            setIsUserLoading(false);
-        });
-    }, []);
-
-    function logTransaction() {
-        // console.log("current transaction: ");
-        // console.log("transaction name: ", transactionName);
-        // console.log("transaction category: ", transactionCategory);
-        // console.log("transaction date: ", transactionDate);
-        // console.log("transaction amount: ", transactionAmount);
-        // console.log("transaction type: ", transactionType);
-        var transactionAmountReturn = 0;
-        var transactionDateReturn = new Date(transactionDate).toISOString().slice(0, 19).replace('T', ' ');
-        if (transactionType == 'expense') {
-            transactionAmountReturn = transactionAmount * -1;
-        } else {
-            transactionAmountReturn = transactionAmount;
-        }
-        console.log(currentUser[0].boardID);
-        const transactionData = {
-            boardID: currentUser[0].boardID,
-            userID: current,
-            category: transactionCategory,
-            label: transactionName,
-            createDate: transactionDateReturn,
-            amount: transactionAmountReturn,
-            isRecurrent: 0
-        }
-        console.log(transactionData);
-        Axios.post('http://localhost:3002/api/newTransaction', transactionData)
-        .then((response) => {
-            console.log(response);
-        });
-        setTransactionAmount(null);
-        setTransactionName(null);
-        setTransactionDate(null);
-        setTransactionType(null);
-        setTransactionCategory(null);
-        setOpen(false);
+    const [recur, setRecur] = React.useState('')
+    const handleRecur = (recurFromChild) => {
+        setRecur(recurFromChild)
     }
-    
+
+    var [recurrent, setRecurrent] = React.useState(false);
+
+    const handleChange = (event) => {
+        setRecurrent(event.target.checked)
+    }
+
+    let recurrenceForm
+    if (recurrent) {
+        recurrenceForm = <Recurrent sendDataToParent={(handleRecur)} />
+    } else {
+        recurrenceForm = ""
+    }
+
+    const [name, setName] = React.useState("");
+    const handleName = (event) => {
+        setName(event.target.value);
+        console.log(event.target.value);
+    }
+
+    const [date, setDate] = React.useState("");
+    const handleDate = (event) => {
+        setDate(event.target.value);
+        console.log(event.target.value);
+    }
+
+    const [category, setCat] = React.useState("");
+    const handleCat = (event) => {
+        setCat(event.target.value);
+        console.log(event.target.value);
+    }
+
+    const [amount, setAmount] = React.useState("");
+    const handleAmount = (event) => {
+        setAmount(event.target.value);
+        console.log(event.target.value);
+    }
+
+    const [multiplier, setMult] = React.useState(-1)
+    const handleMult = (event) => {
+        if (event.target.value === "expense") {
+            setMult(-1);
+        } else {
+            setMult(1);
+        }
+    }
+
+    const submit = () => {
+
+        if (!recurrent) {
+            recurrent = 0;
+        } else {
+            recurrent = recur;
+        }
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        console.log(amount*multiplier);
+
+        Axios.post('http://localhost:3002/api/transaction/submit', {
+            boardID: 1,
+            userID: props.userID,
+            category: category,
+            amount: amount*multiplier,
+            createDate: date + " " + time,
+            label: name,
+            isRecurrent: recurrent
+        }).then(() => {
+          console.log("successful insert");
+        });
+
+        props.sendDataToParent()
+        handleClose();
+      };
   
     return (
         <div id='transaction-button-wrapper'>
@@ -121,53 +155,49 @@ function AddTransactionButton() {
                     fullWidth
                     required
                     variant="filled"
-                    onChange={(e) => {
-                        setTransactionName(e.target.value);
-                    }}
+                    onChange={handleName}
                 />
                 <TextField
                     className='add-transaction-form'
                     margin="dense"
-                    label="Transaction Category"
+                    label="Transaction Date"
+                    type="date"
+                    fullWidth
+                    variant="filled"
+                    sx={sxFont}
+                    onChange={handleDate}
+                    InputLabelProps={{ shrink: true }}
+                    required
+                />
+                <TextField
+                    inputProps={{ type: 'number'}}
+                    className='add-transaction-form'
+                    margin="dense"
+                    label="Transaction Amount"
                     type="text"
                     fullWidth
-                    required
                     variant="filled"
-                    onChange={(e) => {
-                        setTransactionCategory(e.target.value);
-                    }}
+                    onChange={handleAmount}
+                    required
                 />
-                <div className='small-space'>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            className='add-transaction-form-date'
-                            sx={sxFont}
-                            label="Transaction Date"
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={category}
+                            label="Category"
+                            onChange={handleCat}
                             required
-                            value={transactionDate}
-                            onChange={(newValue) => {
-                                setTransactionDate(newValue);
-                            }}
-                        />
-                    </LocalizationProvider>
-                </div>
-                <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-amount"
-                        startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                        label="Amount"
-                        fullWidth
-                        required
-                        type='number'
-                        onChange={(e) => {
-                            if (e.target.value < 0) {
-                                e.target.value = 0;
-                            }
-                            setTransactionAmount(e.target.value);
-                        }}
-                    />
+                            >
+                            <MenuItem value={10}>Category One</MenuItem>
+                            <MenuItem value={20}>Category Two</MenuItem>
+                            <MenuItem value={30}>Category Three</MenuItem>
+                            <MenuItem value={40}>Category Four</MenuItem>
+                        </Select>
+                </FormControl>
                 <FormControl sx={{marginTop: "10px"}}>
-                    <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontFamily: "Barlow Condensed", fontSize: "20px", fontWeight: "500"}}>Type of Transaction:</FormLabel>
+                    <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontFamily: "Barlow Condensed", fontSize: "20px", fontWeight: "500"}} required>Type of Transaction:</FormLabel>
                     <RadioGroup
                         row
                         aria-labelledby="demo-row-radio-buttons-group-label"
@@ -178,17 +208,22 @@ function AddTransactionButton() {
                         }
                     >
                         <Tooltip title="Value to be SUBTRACTED from budget" arrow>
-                            <FormControlLabel value="expense" control={<Radio />} label="Expense" />
+                            <FormControlLabel value="expense" control={<Radio onChange={handleMult}/>} label="Expense" />
                         </Tooltip>
                         <Tooltip title="Value to be ADDED to budget" arrow>
-                            <FormControlLabel value="income" control={<Radio />} label="Income" />
+                            <FormControlLabel value="income" control={<Radio onChange={handleMult}/>} label="Income" />
                         </Tooltip>
                     </RadioGroup>
+                    <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontFamily: "Barlow Condensed", fontSize: "20px", fontWeight: "500"}}>Recurrence:</FormLabel>
+                        <Tooltip title="Will this transaction repeat?" arrow>
+                            <FormControlLabel control={<Checkbox checked={recurrent} onChange={handleChange}/>} label="Is this a recurrent transaction?"/>
+                        </Tooltip>
+                        {recurrenceForm}
                 </FormControl>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} sx={{color: "red", fontFamily: "Barlow Condensed", backgroundColor: "antiquewhite", fontSize: "18px", textTransform: "none"}}>Cancel</Button>
-                    <Button onClick={logTransaction} sx={{fontFamily: "Barlow Condensed", textTransform: "none", fontSize: "18px", backgroundColor: "lightgreen"}}>Add Transaction</Button>
+                    <Button onClick={submit} sx={{fontFamily: "Barlow Condensed", textTransform: "none", fontSize: "18px", backgroundColor: "lightgreen"}}>Add Transaction</Button>
                 </DialogActions>
             </Dialog>
         </div>

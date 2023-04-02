@@ -9,7 +9,7 @@ function App() {
   const { auth } = useContext(AuthContext);
 
   return (
-    <div className="App">
+    <div className="App" data-testid='my-app'>
         <Header />
         <AppRoutes />
         {/* If a user is authenticated, show them the footer. Else, hide it */}

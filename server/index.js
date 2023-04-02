@@ -4,9 +4,11 @@ const cors = require('cors');
 const app = express();
 const mysql = require('mysql');
 const morgan = require('morgan');
-const userAPI = require('./api/userAPI.js');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const router = express.Router();
+const userAPI = require('./api/userAPI.js');
+const registerUser = require('./api/registerUser.js');
 
 const db = mysql.createPool({
     host: "localhost",
@@ -15,15 +17,16 @@ const db = mysql.createPool({
     database: "budgitdb"
 });
 
+// middleware
 app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-function add(n1, n2) {
-    return n1 + n2;
-}
-module.exports = add;
+
+// api calls (in their respective files/api locations)
+app.use('/api/loginUser', userAPI);
+app.use('/api/registerUser', registerUser);
 
 
 
@@ -71,14 +74,7 @@ app.get('/api/get/users', (req, res) => {
     });
 });
 
-// API/REGISTERUSER -- takes in the information from the request sent from the client, and stores
-//                      that into the database
-app.post('/api/registerUser', (req, res) => {
-    
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
+
 
     const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
     db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
@@ -88,7 +84,6 @@ app.post('/api/registerUser', (req, res) => {
             console.log(result);
         }
     });
-});
 
 app.post('/api/loginUser', (req,res)=>{
     const email = req.body.email;
@@ -185,6 +180,7 @@ app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
 });
 
 
+
 // APT/GET/CURRENTUSERINFO
 app.post('/api/get/currentUserInfo', (req, res) => {
     let userID = req.body.userID;
@@ -245,7 +241,49 @@ app.post('/api/createGoal', (goal,res)=>{
     });
 
 });
+app.post('/api/transaction/submit', (req, res) => {
 
+    //const sqlInsert = "INSERT INTO budgitdb.transactions (boardID, userID, category, amount, createDate, label, isRecurrent) VALUES (?,?,?,?,?,?,?);"
+    const sqlInsert = "CALL budgitdb.insertionSubmit (?,?,?,?,?,?,?);"
+    db.query(sqlInsert, [boardID, userID, category, amount, createDate, label, isRecurrent], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.get('/api/get/board/transactions', (req, res) => {
+    
+    const board = req.query.board;
+    const lowEnd = req.query.lowEnd;
+    const highEnd = req.query.highEnd;
+    const category = req.query.category;
+
+    //category 0, for this purpose, is all categories
+    if (category != 0 ) {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE category = ? AND boardID = ? AND createDate BETWEEN ? AND ? ORDER BY createDate;"
+    db.query(sqlSelect, [category, board, lowEnd, highEnd], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+    } else {
+    const sqlSelect = "SELECT * FROM budgitdb.transactions WHERE boardID = ? AND createDate BETWEEN ? AND ? ORDER BY createDate;"
+    db.query(sqlSelect, [board, lowEnd, highEnd], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+    }
+});
 
 app.listen(3002, () => {
     console.log('running on port 3002');

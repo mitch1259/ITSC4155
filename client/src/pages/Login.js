@@ -8,6 +8,7 @@ import { TextField } from '@mui/material';
 import SetCookie from '../context/cookies/setCookie';
 import AuthContext from '../context/AuthProvider';
 import EncryptToLocalStorage from '../context/encryption/EncryptToLocalStorage';
+import { Navigate, Outlet } from 'react-router-dom';
 // import { useCookies } from 'react-cookie';
 
 function Login() {
@@ -49,6 +50,12 @@ function Login() {
         console.log("clicked! email: ", email, " password: ", password );
       };
 
+    if (auth) {
+        return (
+            <Navigate to="/"></Navigate>
+        )    
+    }
+    
     return (
         <div className='login-wrapper'>
 
