@@ -1,9 +1,3 @@
-// const recent_transaction= [
-//     ["1/1/23","1/2/23","1/3/23"],
-//     ["resturant meal","netflix","chipotle"],
-//     [27.99,20.99,13.99]]
-
-
 const RecentTransaction=[
     {
     date:"1/1/23",

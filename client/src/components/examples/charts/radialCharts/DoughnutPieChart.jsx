@@ -77,9 +77,9 @@ function DoughnutPieChart(element,data) {
     arcs
     .append("text")
     .attr("text-anchor", "middle")
-    .text((d) => `${d.data.value}%`) // label text
+    .text((d) => `${d.data.title}`) // label text
     .style("fill", "#05386b") // label color
-    .style("font-size", "30px") // label size
+    .style("font-size", "15px") // label size
     .style("font-family","Varela Round")
     .attr("transform", (d) => {
       const [x, y] = arcGenerator.centroid(d);
@@ -88,7 +88,7 @@ function DoughnutPieChart(element,data) {
     .style("font-size", 0)
     .transition()
     .duration(700)
-    .style("font-size", "26px");
+    .style("font-size", "15px");
 }
 
 export default DoughnutPieChart;
