@@ -61,23 +61,23 @@ function Login() {
                         <div className='login-form-fields'>
                             <div className='login-input-wrapper'>
                                 <TextField className='login-input' 
-                                label='Email Address' 
-                                variant='filled'
-                                required
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
-                                }}
+                                    label='Email Address' 
+                                    variant='filled'
+                                    required
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                    }}
                                 />
                             </div>
                             <div className='login-input-wrapper'>
                                 <TextField className='login-input' 
-                                label='Password' 
-                                variant='filled'
-                                required
-                                type="password"
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                }}
+                                    label='Password' 
+                                    variant='filled'
+                                    required
+                                    type="password"
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
                                 />
                             </div>
                         </div>

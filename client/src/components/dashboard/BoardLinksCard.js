@@ -10,9 +10,9 @@ function BoardLinksCard(props) {
           <BoardLink
               boardName={"Example Board 1"}
           />
-        <BoardLink 
-            boardName={"Example Board 2"}
-        />
+          <BoardLink 
+              boardName={"Example Board 2"}
+          />
       </div>
     </div>
   )
