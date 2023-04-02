@@ -19,7 +19,7 @@ import { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
-// import RecentActivitySnippet from './RecentActivitySnippet';
+import RecentActivitySnippet from '../components/dashboard/RecentActivitySnippet';
 import { CircularProgress } from '@mui/material';
 
 // import { useCookies } from 'react-cookie';
@@ -82,7 +82,7 @@ useEffect(() => {
         setTransactionsLoading(false);
       });
   }, []);
-
+  console.log('recentTransactions:',recentTransactions)
 
   if(isLoading) {
     return <div className="account-dashboard-main">Loading...</div>
@@ -106,6 +106,9 @@ useEffect(() => {
                         recentChargeAmount2={"25.00"}
                     />
                   )} */}
+                  <p>
+                    {recentTransactions}
+                  </p>
                 </DialogContentText>
               </DialogContent>
              </h3>
