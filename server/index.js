@@ -9,6 +9,7 @@ require('dotenv').config();
 const router = express.Router();
 const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
+const savingGoal=require('./api/goalApi.js')
 
 const db = mysql.createPool({
     host: "localhost",
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // api calls (in their respective files/api locations)
 app.use('/api/loginUser', userAPI);
 app.use('/api/registerUser', registerUser);
+app.use('/api/createGoal',savingGoal)
 
 
 
@@ -238,27 +240,27 @@ app.post('/api/newTransaction', (req, res) => {
 
 
 
-app.post('/api/createGoal', (goal,res)=>{
-    const title=goal.body.title;
-    const savings=goal.body.savings;
-    const startingAmount=goal.body.startingAmount;
-    const startDate=goal.body.startDate;
-    const endDate=goal.body.endDate;
-    const description= goal.body.description;
+// app.post('/api/createGoal', (goal,res)=>{
+//     const title=goal.body.title;
+//     const savings=goal.body.savings;
+//     const startingAmount=goal.body.startingAmount;
+//     const startDate=goal.body.startDate;
+//     const endDate=goal.body.endDate;
+//     const description= goal.body.description;
     
-    const createGoalSqlInsert="INSERT INTO budgitdb.goal (title,savings,startingAmount,startDate,endDate,description) values (?,?,?,?,?,?);"
+//     const createGoalSqlInsert="INSERT INTO budgitdb.goal (title,savings,startingAmount,startDate,endDate,description) values (?,?,?,?,?,?);"
 
 
-    db.query(createGoalSqlInsert,[title,savings,startingAmount,startDate,endDate,description],(err,result)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-        }
-    });
+//     db.query(createGoalSqlInsert,[title,savings,startingAmount,startDate,endDate,description],(err,result)=>{
+//         if(err){
+//             console.log(err);
+//         }
+//         else{
+//             console.log(result);
+//         }
+//     });
 
-});
+// });
 
 app.post('/api/transaction/submit', (req, res) => {
 
