@@ -22,6 +22,7 @@ router.post('/', (goal,res)=>{
         }
         else{
             console.log(result);
+            res.send(result);
         }
     });
 
