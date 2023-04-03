@@ -143,6 +143,52 @@ p{
     font-weight: 500;
 }
 
+.login-button-style {
+    border-radius: 4px;
+    background-color: #05386b ;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    padding: 16px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    height: 10%;
+    text-decoration: none;
+    text-transform: none;
+    border-style: none;
+  }
+  
+  .login-button-style{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .login-button-style:after {
+    content: '»';
+    font-size: 40px;
+    position: absolute;
+    opacity: 0;  
+    top: 2px;
+    right: -25px;
+    transition: 0.5s;
+  }
+  
+  .login-button-style:hover{
+    padding-right: 24px;
+    padding-left:8px;
+    background: rgb(5,56,107);
+    background: linear-gradient(90deg, rgba(5,56,107,1) 0%, rgba(58,223,188,1) 100%);
+    transition: 0.5s;
+  }
+  
+  .login-button-style:hover:after {
+    opacity: 1;
+    right: 10px;
+  }
 /* 
 @media screen and (min-width: 1700px) {
     .login-wrapper {

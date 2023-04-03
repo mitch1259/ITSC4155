@@ -26,7 +26,8 @@ function SavingsBoardBucket({ remainingBudget, currentDay, transactions }) {
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 // console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--dynamic-height'));
-const percentage = clamp(remainingBudget / 500 * 100, 50, 300);
+const percentage = clamp(remainingBudget / 500 * 100, 50, 250);
+// const percentage = remainingBudget * 100 / 500;
 console.log(percentage);
 const bucketStyle = {
   height: percentage,

@@ -1,12 +1,16 @@
+import React from 'react';
 import '../css/login.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import FancyButton from '../components/navigation/FancyButton';
 import BudgitLogo from '../images/budgit-logo-colour.png';
+import AuthContext from '../context/AuthProvider';
 
 function Register() {
+
+  const { auth, setAuth} = React.useContext(AuthContext);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -33,11 +37,19 @@ function Register() {
         password: password
       }).then(() => {
         console.log('successful insert');
+        window.location = 'http://localhost:3000/login';
       });
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
      }
     };
 
+
+    if (auth) {
+      return (
+        <Navigate to="/"/>
+      )
+      
+    }
 
     return (
       <div className='register-wrapper'>

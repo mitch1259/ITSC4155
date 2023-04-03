@@ -90,20 +90,17 @@ function RecentActivityCard() {
     <div className='recent-activity-cards-wrapper'>
       <div className='react-activity-snippets'>
       <p className='recent-activity-header'>Recent Activity</p>
-      {user.map(entry => 
         <RecentActivitySnippet
-            boardName={entry.boardName}
-            remainingBudget={entry.remainBudget}
-            recentChargeDate1={entry.createDate}
+            boardName={"Example Board 1"}
+            remainingBudget={"300.23"}
+            recentChargeDate1={"02/15/23"}
             recentChargeDate2={"01/10/23"}
-            recentChargeName1={entry.label}
-            recentChargeAmount1={entry.amount}
+            recentChargeName1={"Verizon Bill"}
+            recentChargeAmount1={"92.34"}
             recentChargeName2={"Downtown Charlotte Parking Fee"}
             recentChargeAmount2={"25.00"}
         />
-      )}
-        
-        {/* <RecentActivitySnippet
+        <RecentActivitySnippet
             boardName={"Example Board 2"}
             remainingBudget={"220.76"}
             recentChargeDate1={"01/14/23"}
@@ -112,7 +109,7 @@ function RecentActivityCard() {
             recentChargeAmount1={"752.00"}
             recentChargeName2={"January Credit Card Payment"}
             recentChargeAmount2={"124.45"}
-        /> */}
+        />
       </div>
     </div>
   )

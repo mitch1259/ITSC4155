@@ -53,7 +53,7 @@ useEffect(() => {
         <RecentActivityCard />
       </div>
       <div className='dashboard-boards-links-wrapper'>
-        <BoardLinksCard />
+        <BoardLinksCard name={username} />
       </div>
       <div className='dashboard-chart-wrapper'>
         <DashboardChart />
