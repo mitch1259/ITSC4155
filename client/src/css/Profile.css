@@ -239,3 +239,10 @@ header {
     text-transform: none;
     color: #000;
 }
+
+#transaction-data-profile {
+    /* background-color: red; */
+    /* width: 50px;
+    height: 25px; */
+    margin: 10px;
+}

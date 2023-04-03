@@ -41,7 +41,7 @@ function Transactions(props) {
   const [boardsLoading, setBoardsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [userBoards, setUserBoards] = useState(null);
-  const [recentTransactions, setRecentTransactions] = useState(null);
+  const [recentTransactions, setRecentTransactions] = useState([]);
   const HashMap = require('hashmap');
 
   var current = DecryptFromLocalStorage("userId");
@@ -72,18 +72,21 @@ useEffect(() => {
 
     const firstName = name;
     console.log("Firstname", firstName);
-  
+  var transactionsData = [];
   useEffect(() => {
     Axios.post('http://localhost:3002/api/get/profileTransactions/recentTransactions', {userID: current}
       ).then((response) => {
-        var transactionsData = Array.from(response.data);
+        transactionsData = Array.from(response.data);
         // userObject = userData[0];
-        setRecentTransactions(transactionsData);
+        // console.log(transactionsData);
+        setRecentTransactions(Array.from(transactionsData));
         setTransactionsLoading(false);
       });
   }, []);
 
-
+  console.log(recentTransactions);
+  // setRecentTransactions(Array.from(recentTransactions));
+  console.log(typeof recentTransactions);
   if(isLoading) {
     return <div className="account-dashboard-main">Loading...</div>
   }
@@ -94,18 +97,9 @@ useEffect(() => {
              <h3>
               <DialogContent>
                 <DialogContentText>
-                  {/* {user.map(entry => 
-                    <RecentActivitySnippet
-                        boardName={entry.boardName}
-                        remainingBudget={entry.remainBudget}
-                        recentChargeDate1={entry.createDate}
-                        recentChargeDate2={"01/10/23"}
-                        recentChargeName1={entry.label}
-                        recentChargeAmount1={entry.amount}
-                        recentChargeName2={"Downtown Charlotte Parking Fee"}
-                        recentChargeAmount2={"25.00"}
-                    />
-                  )} */}
+                  {recentTransactions.map(transaction => 
+                    <p id='transaction-data-profile'>Transaction Name: {transaction.label} Transaction Amount: {transaction.amount} Transaction Date: {transaction.createDate.substring(0,10)} </p>
+                    )}
                 </DialogContentText>
               </DialogContent>
              </h3>
