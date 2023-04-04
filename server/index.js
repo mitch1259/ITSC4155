@@ -116,7 +116,7 @@ app.post('/api/get/currentUser', (req, res) => {
     const sqlQuery = "SELECT * FROM budgitdb.users WHERE userID = ?;";
     db.query(sqlQuery, [userID], (err, result) => {
         if (userID === undefined) {
-            console.log('userID is fucking undefined');
+            console.log('user is undefined');
         } else {
             res.send(result);
         }
