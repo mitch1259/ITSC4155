@@ -234,7 +234,7 @@ app.post('/api/newTransaction', (req, res) => {
         if (result) {
             res.send('successful insert');
         } else {
-            res.send('something fucky happened');
+            res.send('something bad happened');
         }
     });
 });
