@@ -195,6 +195,7 @@ app.post('/api/changeUserInfo', (req, res) => {
             console.log(err);
         } else {
             console.log(result);
+            res.send(result);
         }
     });
 });
