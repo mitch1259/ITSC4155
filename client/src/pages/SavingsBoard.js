@@ -164,8 +164,10 @@ function SavingsBoard() {
     var countArr = [];
 
 
-
+    // use dateMap function to createSortedDateMap
     const sortedDataMap = dateMap(firstDate, 7, newData);
+
+    // use populateDateMap function to create the populatedDateMap
     const populatedDateMap = populateDateMap(sortedDataMap, newData);
 
 
@@ -224,6 +226,8 @@ function SavingsBoard() {
     // }
     // console.log(populatedDateMap.values());
     // setBuckets(Array.from(populatedDateMap.values()));
+
+    // set buckets to be an array from the populatedDateMap
     setBuckets(Array.from(populatedDateMap.values()));
     // setBudget(tempBudget);
   }
