@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
 
-function SavingsBoardBucket({ date, amount }) {
+function SavingsBoardBucket({ remainingBudget, amount, currentDay, transactions }) {
 
   const budgetToClassesMap= (budget) => {
     switch(true){
