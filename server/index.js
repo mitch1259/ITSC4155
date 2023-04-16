@@ -327,6 +327,22 @@ app.post('/api/transaction/delete', (req, res) => {
     });
 });
 
+app.post('/api/board/create', (req, res) => {
+    const id = req.body.userID;
+    const name = req.body.name;
+    const description = req.body.description;
+    const budget = req.body.budget;
+
+    const sqlInsert = "INSERT INTO budgitdb.boards (`userID`, `boardName`, `boardDescription`, `recurTransactions`, `remainBudget`) VALUES (?,?,?,?,?);"
+    db.query(sqlInsert, [id, name, description, "", budget], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });

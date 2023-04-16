@@ -6,6 +6,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import Axios from 'axios';
+import DecryptFromLocalStorage from '../../context/encryption/DecryptFromLocalStorage';
+import AuthContext from '../../context/AuthProvider';
 
 function CreateBoard(props) {
   const [open, setOpen] = React.useState(false);
@@ -21,10 +24,20 @@ function CreateBoard(props) {
     setOpen(false);
   }
 
-  const createBoard = () => {
-    handleClose();
+  const { auth, setAuth} = React.useContext(AuthContext);
+  var current = DecryptFromLocalStorage("userId");
 
-    //NEEDS LOGIC/AXIOS CALL TO DELETE BOARD
+  const createBoard = () => {
+    Axios.post('http://localhost:3002/api/board/create', {
+      userID: current,
+      name: name,
+      description: desc,
+      budget: budget
+    }).then(() => {
+      console.log("successful board insert");
+    });
+    window.location.reload(true);
+    handleClose();
   }
 
   const sxFont = {

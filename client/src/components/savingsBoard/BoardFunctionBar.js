@@ -57,7 +57,7 @@ function BoardFunctionBar(props) {
     }, []);
 
     const handleUpdate = () => {
-        select();
+      window.location.reload(true);
     }
 
     const select = () => {
