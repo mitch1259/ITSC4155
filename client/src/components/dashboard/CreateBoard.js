@@ -110,8 +110,8 @@ function CreateBoard(props) {
             />
           </DialogContentText>
           <DialogActions>
-            <Button onClick={createBoard} sx={sxButton2}>Create Board</Button>
             <Button onClick={handleClose} sx={sxButton}>Cancel</Button>
+            <Button onClick={createBoard} sx={sxButton2}>Create Board</Button>
           </DialogActions>
         </DialogContent>
       </Dialog>
