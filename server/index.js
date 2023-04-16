@@ -314,6 +314,19 @@ app.get('/api/get/board/transactions', (req, res) => {
     }
 });
 
+app.post('/api/transaction/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.transactions WHERE transactionID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });
