@@ -314,6 +314,20 @@ app.get('/api/get/board/transactions', (req, res) => {
     }
 });
 
+app.get('/api/get/board/budget', (req, res) => {
+    const id = req.query.id;
+
+    const sqlSelect = "SELECT remainBudget FROM budgitdb.boards WHERE boardID = ?";
+    db.query(sqlSelect, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});
+
 app.post('/api/transaction/delete', (req, res) => {
     const id = req.body.id;
 

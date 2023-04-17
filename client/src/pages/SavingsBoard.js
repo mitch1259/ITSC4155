@@ -5,6 +5,7 @@ import BoardFunctionBar from '../components/savingsBoard/BoardFunctionBar';
 import '../css/savingsBoard/savingsBoard.css';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
 import AuthContext from '../context/AuthProvider';
+import Axios from 'axios';
 /*
 const buckets = [
   {
@@ -60,15 +61,29 @@ function SavingsBoard() {
     setData(dataFromChild);
     console.log(dataFromChild);
 
-    updateBuckets(dataFromChild);
+    //updateBuckets(dataFromChild);
+    updateBudget(dataFromChild);
   }
 
   const [remBudget, setBudget] = React.useState(0);
-  const [buckets, setBuckets] = React.useState([{}])
+  const updateBudget = (dataFromChild) => {
+    Axios.get('http://localhost:3002/api/get/board/budget', {
+      params: {id: 1 }
+    }).then((response) => {
+      response = Array.from(response.data);
+      response = response[0].remainBudget;
+      dataFromChild.push(response);
+      //console.log(dataFromChild[dataFromChild.length - 1] + " SJFHGKJSHFKWJHG")
+      updateBuckets(dataFromChild);
+    });
+  }
+
+
+  const [buckets, setBuckets] = React.useState([{}]);
   const updateBuckets = (newData) => {
     
     var tempArr = [];
-    var tempBudget = remBudget;
+    var tempBudget = newData[newData.length - 1];
     var oldmm = -1;
     var olddd = -1;
     var index = -1;
@@ -76,7 +91,7 @@ function SavingsBoard() {
     var count = 0;
     var countArr = [];
     
-    for (let i = 0; i < newData.length - 1; i ++) {  
+    for (let i = 0; i < newData.length - 2; i ++) {  
       var date = (newData[i].createDate).substring(0, 10);
       date = new Date(date);
       date.setDate(date.getDate() + 1)
@@ -123,7 +138,7 @@ function SavingsBoard() {
         <BoardHeader 
           boardTitle="Example Board 1"
           boardDescription="This is a sample description for a savings board."
-          remainingBudget="350"
+          remainingBudget={remBudget}
         />
       </div>
       <div className='savings-board-function-bar'>
