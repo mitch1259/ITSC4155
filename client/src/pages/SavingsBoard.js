@@ -65,14 +65,18 @@ function SavingsBoard() {
     updateBudget(dataFromChild);
   }
 
+  const [title, setTitle] = React.useState("");
+  const [description, setDesc] = React.useState("");
   const [remBudget, setBudget] = React.useState(0);
   const updateBudget = (dataFromChild) => {
     Axios.get('http://localhost:3002/api/get/board/budget', {
       params: {id: 1 }
     }).then((response) => {
       response = Array.from(response.data);
-      response = response[0].remainBudget;
-      dataFromChild.push(response);
+      //response = response[0].remainBudget;
+      dataFromChild.push(response[0].remainBudget);
+      setTitle(response[0].boardName);
+      setDesc(response[0].boardDescription);
       //console.log(dataFromChild[dataFromChild.length - 1] + " SJFHGKJSHFKWJHG")
       updateBuckets(dataFromChild);
     });
@@ -136,8 +140,8 @@ function SavingsBoard() {
     <div className='savings-board-wrapper'>
       <div className='savings-board-header-wrapper'>
         <BoardHeader 
-          boardTitle="Example Board 1"
-          boardDescription="This is a sample description for a savings board."
+          boardTitle={title}
+          boardDescription={description}
           remainingBudget={remBudget}
         />
       </div>
