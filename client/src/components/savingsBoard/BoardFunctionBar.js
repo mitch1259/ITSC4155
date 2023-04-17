@@ -70,8 +70,9 @@ function BoardFunctionBar(props) {
             category: category
             }
         }).then((response) => {
-          //Last value of data array is the new end date
+          //Last values of data array is the new start date and time gap
           response.data.push(age*7);
+          response.data.push(startDate);
           setData(Array.from(response.data));
           props.sendDataToParent(response.data);
         });

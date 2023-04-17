@@ -95,7 +95,7 @@ function SavingsBoard() {
     var count = 0;
     var countArr = [];
     
-    for (let i = 0; i < newData.length - 2; i ++) {  
+    for (let i = 0; i < newData.length - 3; i ++) {  
       var date = (newData[i].createDate).substring(0, 10);
       date = new Date(date);
       date.setDate(date.getDate() + 1)
@@ -127,6 +127,27 @@ function SavingsBoard() {
     oldmm = mm;
     olddd = dd;
     }
+
+
+    // Below inserts empty values for empty dates
+
+    var startDate = newData[newData.length - 2];
+    var date = new Date(startDate);
+    date.setDate(date.getDate() + 1);
+    for (let i = 0; i < newData[newData.length - 3]; i++) {
+      var mm = date.getMonth() + 1;
+      var dd = date.getDate();
+      var evaluator = mm + "/" + dd;
+
+      if (tempArr[i] == null || tempArr[i].currentDay != evaluator) {
+        tempArr.splice(i, 0, {"remainingBudget": 0,
+        "currentDay": evaluator,
+        "transactions" : []})
+      }
+      date.setDate(date.getDate() + 1);
+    }
+
+    
 
     setBuckets(tempArr);
     setBudget(tempBudget);
