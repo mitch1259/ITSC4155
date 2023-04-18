@@ -341,6 +341,19 @@ app.post('/api/transaction/delete', (req, res) => {
     });
 });
 
+app.post('/api/board/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.boards WHERE boardID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
 app.post('/api/board/create', (req, res) => {
     const id = req.body.userID;
     const name = req.body.name;

@@ -5,6 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Axios from 'axios';
 
 function DeleteBoard(props) {
   const [ready, setReady] = React.useState(false);
@@ -17,9 +18,14 @@ function DeleteBoard(props) {
   }
 
   const deleteBoard = () => {
-    handleClose();
-
-    //NEEDS LOGIC/AXIOS CALL TO DELETE BOARD
+    /*
+    Axios.post('http://localhost:3002/api/board/delete', {
+        id: props.id
+      }).then(() => {
+        console.log("successful delete");
+      });*/
+      window.location.reload(true);
+      handleClose();
   }
 
   const sxFont = {
