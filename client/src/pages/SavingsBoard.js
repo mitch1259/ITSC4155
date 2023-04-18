@@ -133,7 +133,8 @@ function SavingsBoard() {
 
     var startDate = newData[newData.length - 2];
     var date = new Date(startDate);
-    date.setDate(date.getDate() + 1);
+    //date.setDate(date.getDate() + 1);
+    console.log(date);
     for (let i = 0; i < newData[newData.length - 3]; i++) {
       var mm = date.getMonth() + 1;
       var dd = date.getDate();
