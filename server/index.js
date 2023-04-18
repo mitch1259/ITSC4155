@@ -10,6 +10,8 @@ const router = express.Router();
 const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
+const deleteGoal=require('./api/goalApi.js')
+const updateGoal=require("./api/goalApi.js")
 
 const db = mysql.createPool({
     host: "localhost",
@@ -29,6 +31,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api/loginUser', userAPI);
 app.use('/api/registerUser', registerUser);
 app.use('/api/createGoal',savingGoal);
+app.use('/api/deleteGoal',deleteGoal)
+app.use('/api/updateGoal',updateGoal)
 
 
 

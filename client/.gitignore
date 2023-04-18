@@ -25,3 +25,4 @@ yarn-error.log*
 #files
 App.js
 index.js
+package-lock.json

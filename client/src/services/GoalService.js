@@ -22,6 +22,9 @@ class GoalService{
     deleteGoal(goalId){
         return Axios.delete(CREATE_GOAL_BASE_URL+'/'+goalId);
     }
+    getGoal(goalId){
+        return Axios.get(CREATE_GOAL_BASE_URL+'/'+goalId)
+    }
 }
 
 
