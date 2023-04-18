@@ -55,7 +55,7 @@ const initialize = () => {
   for (let i = 0; i < transactions.length; i++) {
     //toSend = toSend + "Name: " + transactions[i].label + ", Date: " + transactions[i].createDate + ", Amount: " + transactions[i].amount + ", Category: " + transactions[i].category
 
-    toSend.push(<tr><td>{transactions[i].label}</td><td>$ {transactions[i].amount}</td><td>{transactions[i].category}</td><td><DeleteTransaction id={transactions[i].transactionID}/></td></tr>)
+    toSend.push(<tr><td>{transactions[i].label}‎ ‎ ‎ </td><td>$ {transactions[i].amount}‎ ‎ ‎ </td><td>{transactions[i].category}‎ ‎ ‎ </td><td><DeleteTransaction id={transactions[i].transactionID}/></td></tr>)
   }
 
   setTransacts(toSend);
@@ -87,9 +87,9 @@ const sxFont = {
             <table>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Amount</th>
-                  <th>Category</th>
+                  <th>Name‎ ‎ ‎ </th>
+                  <th>Amount‎ ‎ ‎ </th>
+                  <th>Category‎ ‎ ‎ </th>
                   <th></th>
                 </tr>
               </thead>
