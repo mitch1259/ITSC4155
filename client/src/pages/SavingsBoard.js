@@ -48,10 +48,12 @@ document.title = "Savings Board";
 function SavingsBoard() {
 
   var firstDate = new Date();
+  firstDate.setHours(0, 0, 0);
 
   //DO NO CHANGE THE DATE SET!!!!!!! WILL BREAK IF NOT DONE LIKE THIS
   var secondDate = new Date();
   secondDate = new Date(secondDate.setDate(firstDate.getDate() + 7));
+  secondDate.setHours(0, 0, 0);
 
   const { auth, setAuth} = React.useContext(AuthContext);
   var current = DecryptFromLocalStorage("userId");
