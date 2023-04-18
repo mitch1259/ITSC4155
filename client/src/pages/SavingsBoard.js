@@ -98,10 +98,9 @@ function SavingsBoard() {
     var countArr = [];
     
     for (let i = 0; i < newData.length - 3; i ++) {  
-      var date = (newData[i].createDate).substring(0, 10);
+      var date = new Date(newData[i].createDate);
       console.log(newData[i].createDate);
-      date = new Date(date);
-      date.setDate(date.getDate() + 1)
+      console.log(date)
       var mm = date.getMonth() + 1;
       var dd = date.getDate();
       

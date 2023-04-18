@@ -105,7 +105,6 @@ function AddTransactionButton(props) {
             recurrent = recur;
         }
         var today = new Date();
-        today.setHours(today.getHours() - (today.getUTCHours() - today.getHours()));
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
         console.log(amount*multiplier);
