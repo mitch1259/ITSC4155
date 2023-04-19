@@ -25,6 +25,10 @@ class GoalService{
     getGoal(goalId){
         return Axios.get(CREATE_GOAL_BASE_URL+'/'+goalId)
     }
+
+    updateContribution(goalId,goal){
+        return Axios.put(CREATE_GOAL_BASE_URL+'/contribution/'+goalId,goal)
+    }
 }
 
 

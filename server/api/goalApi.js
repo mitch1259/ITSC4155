@@ -96,4 +96,24 @@ router.get('/:goalId',(goal,res) =>{
     })
 })
 
+
+//add contributions to starting goal:
+
+
+router.put('/',(goal,res) =>{
+    const goalId=goal.body.goalId;
+    const addContribution=goal.body.startingAmount;
+    const updateContributions='UPDATE  budgitdb.goal SET startingAmount= ?';
+
+    db.query(updateContributions,[goalId,addContribution],(err,result) =>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
+
 module.exports=router;
