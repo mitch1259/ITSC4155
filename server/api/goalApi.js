@@ -116,4 +116,19 @@ router.put('/',(goal,res) =>{
     })
 })
 
+router.get('/',(goal,res) =>{
+
+    const getAllGoals= 'select * from budgitdb.goal';
+
+    db.query(getAllGoals,(err,result)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(result)
+        }
+    })
+})
+
+
 module.exports=router;

@@ -17,14 +17,10 @@ function LayoutOne({title,savings,rTransactions,uTransactions}){
                 <BaseInformationCard id="base-information-card" boardTitle={title} savingInformation={savings} />
             </div>
             <div>
-                <BasicDataCard 
-                    title="Recent Activity"
-                />
+                <BasicDataCard title="Recent Activity"/>
             </div>
             <div>
-                <BasicDataCard
-                    title="Upcoming Expense"
-                />
+                <BasicDataCard title="Upcoming Expense"/>
             </div>
             <div id="layout-one-chart">
                 <ChartComponent data={TransactiontypeData} />
