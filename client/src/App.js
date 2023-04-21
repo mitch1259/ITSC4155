@@ -8,7 +8,7 @@ import AppRoutes from './router/AppRoutes.js';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-testid='my-app'>
         <Header />
         <AppRoutes />
         {/* <Login /> */}

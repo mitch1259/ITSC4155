@@ -1,0 +1,93 @@
+.board-function-bar-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    align-items: center;
+}
+
+.board-function-bar-left {
+    display: flex;
+    float: left;
+    font-weight: 500;
+}
+
+.board-function-bar-weekof-wrapper {
+    display: flex;
+}
+
+.board-function-bar-weekof {
+    display: flex;
+    padding-right: 6px;
+    text-decoration: underline;
+}
+
+.board-function-bar-right {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.board-function-bar-viewby {
+    margin-right: 12px;
+}
+
+.board-function-bar-add-transaction {
+    display: flex;
+    align-items: center;
+    background-color: #05386b;
+    border-radius: 6px;
+    border-style: none;
+    margin-right: 20px;
+    transition: 0.15s;
+}
+
+.board-function-bar-add-transaction:hover {
+    background-color: #5cdb95;
+    transition: 0.15s;
+}
+
+.board-function-bar-plusIcon {
+    height: 25px;
+    width: auto;
+    margin-right: 6px;
+    border-radius: 90px;
+}
+
+
+.board-function-bar-add-transaction-text {
+    font-size: 20px;
+    font-weight: 500;
+    color: #edf5e1;
+}
+
+#submit-button-wrapper {
+    background-color: #05386b;
+    border-radius: 6px;
+    border-style: none;
+    margin-right: 20px;
+    transition: 0.15s;
+}
+
+#submit-button-wrapper:hover {
+    background-color: #5cdb95;
+    transition: 0.15s;
+}
+
+#nav-button {
+    color: #fff;
+    background-color: #05386b;
+    border-radius: 6px;
+    text-transform: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    transition: 0.15s;
+    margin-right: 12px;
+    margin-left:12px;
+}
+
+#nav-button:hover {
+    background-color: #5cdb95;
+    transition: 0.15s;
+}

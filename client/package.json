@@ -5,25 +5,41 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@hookform/resolvers": "^3.0.0",
     "@mui/material": "^5.11.9",
+    "@mui/x-date-pickers": "^6.0.4",
     "@react-spring/web": "^9.6.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@visx/axis": "^3.0.1",
+    "@visx/event": "^3.0.1",
+    "@visx/glyph": "^3.0.0",
     "@visx/gradient": "^3.0.0",
+    "@visx/grid": "^3.0.1",
     "@visx/group": "^3.0.0",
     "@visx/mock-data": "^3.0.0",
     "@visx/responsive": "^3.0.0",
     "@visx/scale": "^3.0.0",
     "@visx/shape": "^3.0.0",
+    "@visx/tooltip": "^3.0.0",
+    "@visx/xychart": "^3.1.2",
     "axios": "^1.2.6",
     "d3": "^7.8.2",
+<<<<<<< HEAD
+=======
+    "dayjs": "^1.11.7",
+    "hashmap": "^2.4.0",
+    "js-cookie": "^3.0.1",
+>>>>>>> 4a9999915ae631fd88c09e66dfb814182c889509
     "mysql": "^2.18.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.0.2"
   },
   "homepage": "http://localhost:3000/",
   "scripts": {

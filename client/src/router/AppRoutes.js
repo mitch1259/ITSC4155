@@ -6,16 +6,43 @@ import Login from '../pages/Login.js';
 import Registration from '../pages/Registration.js';
 import Allchart from '../pages/Allchart.js';
 import EditProfile from '../pages/EditProfile.js';
+<<<<<<< HEAD
+=======
+import SavingsBoard from '../pages/SavingsBoard.js';
+import PrivateRoutes from './PrivateRoutes.js';
+import CreateGoal from '../pages/CreateSavingGoal.js';
+// import AuthAPI from '../server/authentication/AuthAPI.js';
+>>>>>>> 4a9999915ae631fd88c09e66dfb814182c889509
 
 function AppRoutes() {
   return (
     <Routes>
+<<<<<<< HEAD
         <Route path="/" element={<AccountDashboard />} />
         <Route path="/savings-boards" element={<Allchart />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/profile/editprofile" element={<EditProfile />} />
+=======
+      
+        {/* PRIVATE ROUTES -- anything listed in the below <Route> block is unavailable to unauthenticated users */}
+        <Route element={<PrivateRoutes/>}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<AccountDashboard />} />
+          <Route path="/savings-boards" element={<Allchart />} />
+          <Route path="/profile/editprofile" element={<EditProfile />} />
+          <Route path="/savings-board/id" element={<SavingsBoard />} />
+          <Route path='/create-saving-goal' element={<CreateGoal/>} />
+        </Route>
+
+        {/* OPEN ROUTES -- anything listed in the below <Route> block is available to unauthenticated users */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/profile/editprofile" element={<EditProfile />} />
+        <Route path="/savings-board/id" element={<SavingsBoard />} />
+        
+>>>>>>> 4a9999915ae631fd88c09e66dfb814182c889509
     </Routes>
   )
 }

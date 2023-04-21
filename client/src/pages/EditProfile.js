@@ -1,69 +1,132 @@
 import '../css/EditProfile.css';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
+// import Axios from 'axios';
+import StickMan from '../images/stickman.jpg';
+import SimpleDialog from "../components/profile.jsx";
+// import { TextField } from '@mui/material';
+import '../css/login.css';
+import { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
+import {Link} from 'react-router-dom';
+import { TextField } from '@mui/material';
+import AuthContext from '../context/AuthProvider';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+
+
 
 function EditProfile() {
 
     const handleClick = () => {
         console.log("clicked");
     }
-
+    const [isLoading, setLoading] = useState(true);
+    
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [users, setUsers] = useState([]);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    useEffect(() => {
-      Axios.get('http://localhost:3002/api/get').then((response) => {
-        var data = Array.from(response.data);
-        setUsers(data);
-      });
-    }, []);
+    const { auth, setAuth} = useContext(AuthContext);
 
-    const submitName = () => {
-      Axios.post('http://localhost:3002/api/insert', {
+    var current = DecryptFromLocalStorage("userId");
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
+    ).then((response) => {
+      console.log(response.data);
+      // name = response.data[0].firstName + response.data[0].lastName + response.data[0].email;
+      // setUserName(name);
+      setLoading(false);
+      // setCurrentUser(response.data);
+    });
+}, []);
+
+    const updateUser = () => {
+      Axios.post('http://localhost:3002/api/changeUserInfo', {
+        userID: current,
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        email: email,
+        password: password
       }).then(() => {
-        console.log("successful insert");
+        console.log('successful insert');
       });
-      console.log("clicked! firstName: ", firstName, " lastName: ", lastName);
+      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
     };
 
+
+
+    if(isLoading) {
+      return <div className="account-dashboard-main">Loading...</div>
+    }
     return (
-        <div>
-        <header>
-          <p>Temp Space for the Navigation Bar</p>
-        </header>
-        <div class="container-content">
-            <form action="#">
-    
-                <div>
-                    <input type="text" name="name" id="name" placeholder="Name" required></input>
-                </div>
-        
-                <div>
-                    <input type="email" name="email" id="email" placeholder="Email" required></input>
-                </div>
-                    
-        
-                <div>
-                    <input type="tel" name="phone" id="phone" placeholder="Phone number" required></input>
-                </div>
-                    
-        
-                <div>
-                    <input type="number" name="count" id="count" min="1" max="20" placeholder="Enter Credit Card Information"></input>
-        
-                </div>
-                <div>
-                    <textarea name="message" id="message" placeholder="Special requests"></textarea>
-                </div>
-        
-                <div class="btn-purchase">
-                    <input type="submit" name="submit" id ="submit" value="Purchase"></input>
-                </div>
-                
-        </form>
+        <div className='register-wrapper'>
+        <div className='parent-wrapper'>
+            <div className="child-wrapper">
+            <h3 className='edit-profile-title'>Edit your Profile</h3>
+            <div class="pic-display">
+              {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
+              <img src={StickMan} alt="User profile picture" className="edit-profile-image"/>
+              <button className='new_pfp_button'> Click to upload new Picture</button>
+            </div>
+          <div>
+            <TextField
+              name="firstName"
+              className='edit-profile-textfield'
+              label='New First Name'
+              variant='filled'
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+            />
+            <TextField 
+              name="lastName"
+              className='edit-profile-textfield'
+              label='New Last Name'
+              variant='filled'
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <div>
+              <TextField
+                name="email"
+                className='edit-profile-textfield'
+                label='New Email Address'
+                variant='filled'
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <TextField
+                name="password"
+                className='edit-profile-textfield'
+                label='New Password'
+                variant='filled'
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <TextField className='edit-profile-textfield' label='New Confirm Password' variant='filled' />
+            </div>
+          </div>
+
+          <div className='login-buttons-wrapper'>
+            {/* currently routing back to /registration for ease of testing, switch back to /login when complete */}
+            <Link to="/profile">
+              <button className="update-user-information" onClick={updateUser}>Update Infomation</button>
+            </Link>
+            
+            <SimpleDialog></SimpleDialog>
+          </div>
+          
+          </div>
         </div>
         </div>
     );

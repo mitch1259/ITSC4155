@@ -27,6 +27,7 @@ body{
     display: flex;
     /* justify-content: center; */  
 }
+<<<<<<< HEAD
 h1{
     padding: 0.5rem; 
     /* border-radius: 5px;
@@ -35,12 +36,19 @@ h1{
     
     font-size: 1.5em;
 }
+=======
+.edit_profile_header{
+    text-align: center;
+}
+
+>>>>>>> 4a9999915ae631fd88c09e66dfb814182c889509
 .inside{
    margin-top: 1rem;
 }
 .inside-profile{
     margin-top: 7.50%;
 }
+<<<<<<< HEAD
 p{
     font-size: larger;
     font-weight: bolder;
@@ -59,8 +67,88 @@ button{
     background-color: #8ee4af;
     cursor: pointer;
 }
+=======
+
+.submit{
+    margin-left: 40%;
+}
+
+>>>>>>> 4a9999915ae631fd88c09e66dfb814182c889509
 header{
     text-align: center;
     box-shadow: 0px 5px 10px rgba(17, 12, 46, 0.8);
     background-color: white;
+}
+
+.edit-profile-textfield {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 80%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #edf5e1;
+}
+
+.edit-profile-image {
+    width: 100px;
+    height: 100px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 50px;
+    border-radius: 12px;
+}
+
+.pic-display {
+    display: flex;
+}
+
+.new_pfp_button{
+    cursor: pointer;
+    float: right;
+    height: 35px;
+    margin-left: 10px;
+    transform: translateY(200%);
+    background-color: rgb(5,98,107);
+    text-transform: none;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    border-color: #00000000;
+    border-radius: 5px;
+    transition: 0.2s all;
+}
+
+.new_pfp_button:hover {
+    background-color: rgb(0, 77, 66);
+    text-transform: none;
+    color: #000;
+    transition: 0.2s all;
+}
+
+.edit-profile-title {
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 5%;
+    -webkit-box-shadow: 0px 10px 5px -21px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 11px -21px rgba(0,0,0,0.75);
+    box-shadow: 0px 22px 10px -21px rgba(0,0,0,0.75);
+}
+
+.update-user-information {
+    background-color: rgb(5,98,107);
+    text-transform: none;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    border-color: #00000000;
+    border-radius: 5px;
+}
+
+.update-user-information:hover {
+    background-color: rgb(0, 77, 66);
+    text-transform: none;
+    color: #000;
+    transition: 0.2s all;
 }

@@ -6,13 +6,7 @@ import BasicDataCard from "../examples/Cards/DataCard";
 import ChartComponent from "../examples/charts/radialCharts/ChartComponent"
 import '../../css/LayoutOne.css';
 import '../../css/global.css';
-const data = [
-    { value: 60 },
-    { value: 25 },
-    { value: 15 },
-  ];
-
-
+import { TransactiontypeData } from "../../SampleData/Piechartdata/TransactionTypeSpendingData";
 
 function LayoutOne({title,savings,rTransactions,uTransactions}){
 
@@ -33,7 +27,7 @@ function LayoutOne({title,savings,rTransactions,uTransactions}){
                 />
             </div>
             <div id="layout-one-chart">
-                <ChartComponent data={data} />
+                <ChartComponent data={TransactiontypeData} />
             </div>
         </Stack>
         </div>
