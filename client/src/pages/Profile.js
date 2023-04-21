@@ -6,6 +6,9 @@ import Axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import { Link } from 'react-router-dom';
 import Transactions from "../components/profileTransactions.jsx";
+import BoardLinksCard from '../components/dashboard/BoardLinksCard';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+
 
 
 
@@ -14,9 +17,32 @@ function Profile(props) {
 
     
     const { auth, setAuth, currentUser, setCurrentUser } = useContext(AuthContext);
+    const [username, setUserName] = useState('');
     console.log(currentUser);
     document.title = "User Profile";
     const clicked = console.log('this was clicked')
+    const [isLoading, setLoading] = useState(true);
+  var current = DecryptFromLocalStorage("userId");
+  var name = "";
+  // setCurrentUser(current);
+  // console.log('currentUser state on dashboard: ', currentUser);
+  // console.log('data type of cookie value after parseInt: ', typeof current);
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
+    ).then((response) => {
+      name = response.data[0].firstName;
+      console.log("name: ", name);
+      setUserName(name);
+      setLoading(false);
+      // setCurrentUser(response.data);
+    });
+}, []);
+
+    const firstName = name;
+    console.log(firstName);
+  
+
     
 //changed it so hopefully it works
     const logOutUser = () => {
@@ -59,16 +85,7 @@ function Profile(props) {
             </div>
             <div className="saves-board">
                 <div className="inside">
-                  <p className='user-profile-boards-header'>Your Savings Boards</p>
-                  <div className="user-profile-board">
-                    <p className='user-profile-board-header'>Board 1</p>
-                    <p className='user-profile-board-savings'>Savings: $10,000</p>
-                  </div>
-
-                  <div className="user-profile-board">
-                    <p className='user-profile-board-header'>Board 2</p>
-                    <p className='user-profile-board-savings'>Savings: $532</p>
-                  </div>   
+                <BoardLinksCard name={username} />
                 </div>   
             </div>
         </div>
