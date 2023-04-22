@@ -29,7 +29,18 @@ function EditProfile() {
     const { auth, setAuth} = useContext(AuthContext);
 
     var current = DecryptFromLocalStorage("userId");
-    const [selectedImage, setSelectedImage] = useState(null);
+    // const [selectedImage, setSelectedImage] = useState(null);
+    // const [profilePicture, setProfilePicture] = useState({StickMan});
+    // const [file, setFile] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
+
+
+    const handleFileChange = (event) => {
+      setSelectedFile(event.target.files[0]);
+      setPreviewUrl(URL.createObjectURL(event.target.files[0]));
+    }
+
 
 useEffect(() => {
   Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
@@ -54,7 +65,8 @@ useEffect(() => {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        password: password
+        password: password,
+        profilePicture: selectedFile
       }).then(() => {
         console.log('successful insert');
       });
@@ -71,14 +83,21 @@ useEffect(() => {
         <div className='parent-wrapper'>
             <div className="child-wrapper">
             <h3 className='edit-profile-title'>Edit your Profile</h3>
-            {/*<img src={StickMan} alt="User profile picture" className="edit-profile-image"/>
-            <button className='new_pfp_button'> Click to upload new Picture</button>
-            {selectedImage && (
+            {/* <img src={StickMan} alt="User profile picture" className="edit-profile-image"/>
+            <button className='new_pfp_button'> Click to upload new Picture</button> */}
+            <div>
+              <img src={previewUrl || StickMan} alt="Profile picture" className="edit-profile-image"/>
+              <input type="file" onChange={handleFileChange} />
+            </div>
+
+
+
+            {/* {selectedImage && (
               <div class="pic-display">
                 
                 <img
                   alt="not found"
-                  width={"250px"}
+                  width={"100px"}
                   src={URL.createObjectURL(selectedImage)}
                 />
               </div>
@@ -91,7 +110,14 @@ useEffect(() => {
                 setSelectedImage(event.target.files[0]);
               }}
             /> */}
-            {selectedImage && (
+            {/* <input
+              type="file"
+              id="file"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+
+            <img src={file ? URL.createObjectURL(file) : StickMan} width={"50px"}/> */}
+            {/* {selectedImage && (
         <div>
           <img
             alt="not found"
@@ -101,11 +127,11 @@ useEffect(() => {
           <br />
           <button onClick={() => setSelectedImage(null)}>Remove</button>
         </div>
-      )}
+      )} */}
 
       <br />
       <br />
-      
+{/*       
       <input
         type="file"
         name="myImage"
@@ -113,7 +139,7 @@ useEffect(() => {
           console.log(event.target.files[0]);
           setSelectedImage(event.target.files[0]);
         }}
-      />
+      /> */}
           <div>
             <TextField
               name="firstName"
@@ -156,7 +182,7 @@ useEffect(() => {
                 label='Password'
                 defaultValue={password}
                 variant='filled'
-                
+                type='password'
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
@@ -167,7 +193,7 @@ useEffect(() => {
                className='edit-profile-textfield' 
                label='Confirm Password' 
                defaultValue={password}
-              //  hiddenLabel
+              type='password'
                variant='filled' />
             </div>
           </div>
