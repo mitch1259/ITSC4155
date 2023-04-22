@@ -191,7 +191,7 @@ app.post('/api/changeUserInfo', (req, res) => {
     const profilePicture = req.body.profilePicture;
 
     const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
-    db.query(sqlInsert, [firstName, lastName, email, password, userID], (err, result) => {
+    db.query(sqlInsert, [firstName, lastName, email, password, userID, profilePicture], (err, result) => {
         if (err) {
             console.log(err);
         } else {

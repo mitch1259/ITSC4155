@@ -25,6 +25,7 @@ function EditProfile() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [tempString, setString] = useState('');
 
     const { auth, setAuth} = useContext(AuthContext);
 
@@ -50,11 +51,30 @@ useEffect(() => {
       const lName =response.data[0].lastName
       const mail= response.data[0].email;
       const pWord = response.data[0].password;
+      const pfp = response.data[0].profilePicture;
       setFirstName(fName);
       setLastName(lName)
       setEmail(mail)
       setPassword(pWord)
       setLoading(false);
+      // setPreviewUrl(pfp)
+      console.log('pfp is:')
+      console.log(pfp)
+      console.log('type of pfp:')
+      console.log(typeof pfp)
+
+      // const base64String = btoa(String.fromCharCode(...new Uint8Array(pfp)));
+      const base64String = pfp.toString('base64')
+
+      console.log('pfp 2.0 is:')
+      console.log(base64String)
+      console.log('type of pfp 2.0:')
+      console.log(typeof base64String)
+      setString(base64String)
+      console.log("Temp string is:")
+      console.log(tempString)
+      console.log('Temp string type is:')
+      console.log(typeof tempString)
       // setCurrentUser(response.data);
     });
 }, []);
@@ -83,63 +103,11 @@ useEffect(() => {
         <div className='parent-wrapper'>
             <div className="child-wrapper">
             <h3 className='edit-profile-title'>Edit your Profile</h3>
-            {/* <img src={StickMan} alt="User profile picture" className="edit-profile-image"/>
-            <button className='new_pfp_button'> Click to upload new Picture</button> */}
             <div>
               <img src={previewUrl || StickMan} alt="Profile picture" className="edit-profile-image"/>
               <input type="file" onChange={handleFileChange} />
             </div>
-
-
-
-            {/* {selectedImage && (
-              <div class="pic-display">
-                
-                <img
-                  alt="not found"
-                  width={"100px"}
-                  src={URL.createObjectURL(selectedImage)}
-                />
-              </div>
-            )} 
-            <input
-              type="file"
-              name="myImage"
-              onChange={(event) => {
-                console.log(event.target.files[0]);
-                setSelectedImage(event.target.files[0]);
-              }}
-            /> */}
-            {/* <input
-              type="file"
-              id="file"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-
-            <img src={file ? URL.createObjectURL(file) : StickMan} width={"50px"}/> */}
-            {/* {selectedImage && (
-        <div>
-          <img
-            alt="not found"
-            width={"250px"}
-            src={URL.createObjectURL(selectedImage)}
-          />
-          <br />
-          <button onClick={() => setSelectedImage(null)}>Remove</button>
-        </div>
-      )} */}
-
-      <br />
-      <br />
-{/*       
-      <input
-        type="file"
-        name="myImage"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
-        }}
-      /> */}
+            <img src={`data:image/png;base64,${tempString}`} alt=""/>
           <div>
             <TextField
               name="firstName"
