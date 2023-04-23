@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SavingsBoardBucket from '../components/savingsBoard/SavingsBoardBucket';
 import BoardHeader from '../components/savingsBoard/BoardHeader.js';
 import BoardFunctionBar from '../components/savingsBoard/BoardFunctionBar';
 import '../css/savingsBoard/savingsBoard.css';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
 import AuthContext from '../context/AuthProvider';
+import { useParams } from 'react-router-dom';
+import Axios from 'axios';
 /*
 const buckets = [
   {
@@ -45,6 +47,23 @@ document.title = "Savings Board";
 
 
 function SavingsBoard() {
+
+  // get boardID from URL parameter
+  const { boardId } = useParams();
+  console.log("boardID: ", boardId);
+  const [boardInfo, setBoardInfo] = useState('');
+  const [isBoardInfoLoading, setIsBoardInfoLoading] = useState(true);
+
+  // use boardID to get all info on the current board and store it in the boardInfo state variable
+  useEffect(() => {
+    Axios.post('http://localhost:3002/api/get/currentBoard', {boardId: boardId}
+    ).then((response) => {
+      setBoardInfo(Array.from(response.data));
+      setIsBoardInfoLoading(false);
+    })
+  }, []);
+
+  console.log("current board info: ", boardInfo);
 
   var firstDate = new Date();
 
@@ -117,13 +136,17 @@ function SavingsBoard() {
   console.log("buckets: ", buckets);
   console.log("remaining budget: ", remBudget);
 
+  if (isBoardInfoLoading) {
+    return <div className='account-dashboard-main'>Loading...</div>
+  }
+
   return (
     <div className='savings-board-wrapper'>
       <div className='savings-board-header-wrapper'>
         <BoardHeader 
-          boardTitle="Example Board 1"
-          boardDescription="This is a sample description for a savings board."
-          remainingBudget="350"
+          boardTitle={boardInfo[0].boardName}
+          boardDescription={boardInfo[0].boardDescription}
+          remainingBudget={boardInfo[0].remainBudget}
         />
       </div>
       <div className='savings-board-function-bar'>

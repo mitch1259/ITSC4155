@@ -74,9 +74,9 @@ function RecentActivityCard() {
   
 
 
-  console.log("user: ", user);
-  console.log("boards: ", userBoards);
-  console.log("transactions: ", recentTransactions);
+  // console.log("user: ", user);
+  // console.log("boards: ", userBoards);
+  // console.log("transactions: ", recentTransactions);
 
   if(isUserLoading) {
     return (
