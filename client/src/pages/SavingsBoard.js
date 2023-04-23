@@ -86,7 +86,7 @@ function SavingsBoard() {
   }
 
   //NEEDS TO BE UPDATED TO A PROP
-  var boardID = 1;
+  var boardID = boardId;
 
   const [title, setTitle] = React.useState("");
   const [description, setDesc] = React.useState("");

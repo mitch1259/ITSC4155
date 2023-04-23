@@ -325,6 +325,8 @@ app.post('/api/get/currentBoard', (req, res) => {
             console.log("no results found");
         }
     })
+});
+
 app.get('/api/get/board/budget', (req, res) => {
     const id = req.query.id;
 
