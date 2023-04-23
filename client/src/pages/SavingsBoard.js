@@ -67,12 +67,15 @@ function SavingsBoard() {
     updateBudget(dataFromChild);
   }
 
+  //NEEDS TO BE UPDATED TO A PROP
+  var boardID = 1;
+
   const [title, setTitle] = React.useState("");
   const [description, setDesc] = React.useState("");
   const [remBudget, setBudget] = React.useState(0);
   const updateBudget = (dataFromChild) => {
     Axios.get('http://localhost:3002/api/get/board/budget', {
-      params: {id: 1 }
+      params: {id: boardID }
     }).then((response) => {
       response = Array.from(response.data);
       //response = response[0].remainBudget;
@@ -175,6 +178,7 @@ function SavingsBoard() {
           endDate={secondDate}
           sendDataToParent={handleData}
           userID={current}
+          boardID={boardID}
         />
       </div>
       <div className='savings-board-buckets'>
