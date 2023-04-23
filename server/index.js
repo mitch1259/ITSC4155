@@ -325,6 +325,60 @@ app.post('/api/get/currentBoard', (req, res) => {
             console.log("no results found");
         }
     })
+app.get('/api/get/board/budget', (req, res) => {
+    const id = req.query.id;
+
+    const sqlSelect = "SELECT * FROM budgitdb.boards WHERE boardID = ?";
+    db.query(sqlSelect, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});
+
+app.post('/api/transaction/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.transactions WHERE transactionID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/board/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.boards WHERE boardID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/board/create', (req, res) => {
+    const id = req.body.userID;
+    const name = req.body.name;
+    const description = req.body.description;
+    const budget = req.body.budget;
+
+    const sqlInsert = "INSERT INTO budgitdb.boards (`userID`, `boardName`, `boardDescription`, `recurTransactions`, `remainBudget`) VALUES (?,?,?,?,?);"
+    db.query(sqlInsert, [id, name, description, "", budget], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
 });
 
 app.listen(3002, () => {
