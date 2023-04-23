@@ -18,12 +18,11 @@ function DeleteBoard(props) {
   }
 
   const deleteBoard = () => {
-    /*
     Axios.post('http://localhost:3002/api/board/delete', {
-        id: props.id
+        id: props.boardId
       }).then(() => {
         console.log("successful delete");
-      });*/
+      });
       window.location.reload(true);
       handleClose();
   }
