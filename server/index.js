@@ -314,6 +314,17 @@ app.get('/api/get/board/transactions', (req, res) => {
     }
 });
 
+app.post('/api/get/currentBoard', (req, res) => {
+    let boardID = req.body.boardId;
+    console.log("BOARDID: ", boardID);
+    const sqlQuery = "SELECT * FROM budgitdb.boards WHERE boardID = ?"
+    db.query(sqlQuery, [boardID], (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
+        }
+    })
 app.get('/api/get/board/budget', (req, res) => {
     const id = req.query.id;
 
