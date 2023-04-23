@@ -110,7 +110,7 @@ function AddTransactionButton(props) {
         console.log(amount*multiplier);
 
         Axios.post('http://localhost:3002/api/transaction/submit', {
-            boardID: 1,
+            boardID: props.boardID,
             userID: props.userID,
             category: category,
             amount: amount*multiplier,

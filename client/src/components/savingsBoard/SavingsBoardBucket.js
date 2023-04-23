@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import DeleteTransaction from './DeleteTransaction';
 
 
 function SavingsBoardBucket({ remainingBudget, currentDay, transactions }) {
@@ -35,7 +36,11 @@ const bucketStyle = {
 
 const [open, setOpen] = React.useState(false);
 const handleOpen = () => {
-  setOpen(true);
+  if (transactions.length > 0) {
+    setOpen(true);
+  } else {
+    handleClose();
+  }
   initialize();
 }
 const handleClose = () => {
@@ -45,10 +50,12 @@ const handleClose = () => {
 const [transacts, setTransacts] = React.useState('');
 
 const initialize = () => {
-  var toSend = "";
+  var toSend = [];
 
   for (let i = 0; i < transactions.length; i++) {
-    toSend = toSend + "Name: " + transactions[i].label + ", Date: " + transactions[i].createDate + ", Amount: " + transactions[i].amount + ", Category: " + transactions[i].category + ", Recurrence: " + transactions[i].isRecurrent + "\n\n\n"
+    //toSend = toSend + "Name: " + transactions[i].label + ", Date: " + transactions[i].createDate + ", Amount: " + transactions[i].amount + ", Category: " + transactions[i].category
+
+    toSend.push(<tr><td>{transactions[i].label}‎ ‎ ‎ </td><td>$ {transactions[i].amount}‎ ‎ ‎ </td><td>{transactions[i].category}‎ ‎ ‎ </td><td><DeleteTransaction id={transactions[i].transactionID}/></td></tr>)
   }
 
   setTransacts(toSend);
@@ -77,10 +84,22 @@ const sxFont = {
         <DialogTitle sx={sxFont}>Transactions for {currentDay}:</DialogTitle>
         <DialogContent id='add-transaction-dialog-box'>
           <DialogContentText className='add-transaction-form' sx={sxFont}>
-            {transacts}
+            <table>
+              <thead>
+                <tr>
+                  <th>Name‎ ‎ ‎ </th>
+                  <th>Amount‎ ‎ ‎ </th>
+                  <th>Category‎ ‎ ‎ </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {transacts}
+              </tbody>
+            </table>
           </DialogContentText>
           <DialogActions>
-            <Button onClick={handleClose} sx={{color: "red", fontFamily: "Barlow Condensed", backgroundColor: "antiquewhite", fontSize: "18px", textTransform: "none"}}>Close</Button>
+            <Button onClick={handleClose} sx={{fontFamily: "Barlow Condensed", textTransform: "none", fontSize: "18px", backgroundColor: "lightgreen"}}>Close</Button>
           </DialogActions>
         </DialogContent>
       </Dialog>

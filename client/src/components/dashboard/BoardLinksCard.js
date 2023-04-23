@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../css/dashboard/boardLinksCard.css';
 import BoardLink from './BoardLink.js';
+import CreateBoardLink from './CreateBoardLink.js'
 
 function BoardLinksCard(props) {
   return (
@@ -13,6 +14,7 @@ function BoardLinksCard(props) {
           <BoardLink 
               boardName={"Example Board 2"}
           />
+          <CreateBoardLink/>
       </div>
     </div>
   )
