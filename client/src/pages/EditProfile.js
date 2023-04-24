@@ -20,7 +20,7 @@ function EditProfile() {
     const handleClick = () => {
         console.log("clicked");
     }
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(false);
     
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -36,6 +36,7 @@ function EditProfile() {
     // const [file, setFile] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [pictureString, setPictureString] = useState(null);
 
 
     const handleFileChange = (event) => {
@@ -44,6 +45,11 @@ function EditProfile() {
       } else {
         setSelectedFile(event.target.files[0]);
         setPreviewUrl(URL.createObjectURL(event.target.files[0]));
+        console.log("Preview Url, NO URL< VERY BAD: "+ event.target.files[0].size)
+        console.log('Set Preview URL is: '+ previewUrl)
+        // setProfilePicture(event.target.files[0])
+        // console.log("Profile Picture is: "+profilePicture)
+
       }
     }
 
@@ -57,18 +63,21 @@ useEffect(() => {
       const mail= response.data[0].email;
       const pWord = response.data[0].password;
       const userPictureString = response.data[0].profilePicture;
+      
+      console.log("user picture string from DB: "+userPictureString)
       // console.log("USER PICTURE STRING: ", userPictureString);
       // console.log("USERPICTURESTRING: ", userPictureString);
-      const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      // const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
       // console.log("BASE64IMAGE: ", base64Image);
       // console.log("BASE64IMAGE: ", base64Image);
-
+      // setPictureString(base64Image)
+      // console.log("User Picture String is: "+base64Image)
       setFirstName(fName);
       setLastName(lName)
       setEmail(mail)
       setPassword(pWord)
       setLoading(false);
-      setProfilePicture(base64Image);
+      setProfilePicture(userPictureString);
       // setCurrentUser(response.data);
     });
 }, []);
@@ -86,12 +95,21 @@ useEffect(() => {
 
 
     console.log("BASE64IMAGE: ", profilePicture);
+    // const pfp = cv.imread(profilePicture);
+    // const str = pfp.toString('base64');
+    // console.log(str)
+
     const updateUser = () => {
       // const buff2 = buffer.Buffer.from()
-      const buff = buffer.Buffer.from(previewUrl); // Node.js Buffer
-      console.log("UPDATE USER BUFF: ", buff);
-      const blob = new Blob([buff], {type: "image/jpg"}); // JavaScript Blob
-      console.log("UPDATE USER BLOB: ", blob);
+
+      //Temp commenting out for a test 
+
+      // const buff = buffer.Buffer.from(previewUrl); // Node.js Buffer
+      // console.log("UPDATE USER BUFF: ", buff);
+      // const blob = new Blob([buff], {type: "image/jpg"}); // JavaScript Blob
+      // console.log("UPDATE USER BLOB: ", blob);
+
+
         // Decode the base64 string using TextDecoder()
       // const base64NewImageString = buffer.Buffer.from(previewUrl).toString('base64');
       // const base64String = base64NewImageString;
@@ -106,11 +124,11 @@ useEffect(() => {
         lastName: lastName,
         email: email,
         password: password,
-        profilePicture: blob
+        profilePicture: profilePicture
       }).then(() => {
         console.log('successful insert');
       });
-      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password, " profilePicture: ", blob );
+      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password, " profilePicture: ", previewUrl );
     };
 
     // console.log("PROFILE PICTURE: ", profilePicture);
@@ -127,6 +145,7 @@ useEffect(() => {
               {/* <img src={`data:image/png;base64,${profilePicture}` || previewUrl} alt="User profile picture"/> */}
               <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image'/>
               {/* <img src={previewUrl || profilePicture} alt="Profile picture" className="edit-profile-image"/> */}
+              <img src= {previewUrl} alt= 'previewUrl' className='edit-profile-image' />
               <input type="file" onChange={handleFileChange} />
             </div>
           <div>
