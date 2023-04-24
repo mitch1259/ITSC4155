@@ -10,6 +10,7 @@ const router = express.Router();
 const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
+const buffer = require('buffer');
 
 const db = mysql.createPool({
     host: "localhost",
@@ -188,13 +189,17 @@ app.post('/api/changeUserInfo', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const userID = req.body.userID;
-    const profilePicture = req.body.profilePicture;
+    const profilePicture = new buffer.Blob();
+    // console.log(req.body.profilePicture);
+    console.log("PROFILE PICTURE: ", profilePicture);
 
-    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
-    db.query(sqlInsert, [firstName, lastName, email, password, userID, profilePicture], (err, result) => {
+
+    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ?, profilePicture = ? WHERE userID = ?";
+    db.query(sqlInsert, [firstName, lastName, email, password, profilePicture, userID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
+            console.log("SUCCESSFUL UPDATE");
             console.log(result);
             res.send(result);
         }

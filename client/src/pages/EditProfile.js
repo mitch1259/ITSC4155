@@ -11,7 +11,8 @@ import {Link} from 'react-router-dom';
 import { Hidden, TextField } from '@mui/material';
 import AuthContext from '../context/AuthProvider';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
-
+import buffer from 'buffer';
+import { Blob } from 'blob-polyfill';
 
 
 function EditProfile() {
@@ -31,15 +32,19 @@ function EditProfile() {
 
     var current = DecryptFromLocalStorage("userId");
     // const [selectedImage, setSelectedImage] = useState(null);
-    // const [profilePicture, setProfilePicture] = useState({StickMan});
+    const [profilePicture, setProfilePicture] = useState('');
     // const [file, setFile] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
 
 
     const handleFileChange = (event) => {
-      setSelectedFile(event.target.files[0]);
-      setPreviewUrl(URL.createObjectURL(event.target.files[0]));
+      if (!event.target.files[0]) {
+        return;
+      } else {
+        setSelectedFile(event.target.files[0]);
+        setPreviewUrl(URL.createObjectURL(event.target.files[0]));
+      }
     }
 
 
@@ -51,49 +56,64 @@ useEffect(() => {
       const lName =response.data[0].lastName
       const mail= response.data[0].email;
       const pWord = response.data[0].password;
-      const pfp = response.data[0].profilePicture;
+      const userPictureString = response.data[0].profilePicture;
+      // console.log("USER PICTURE STRING: ", userPictureString);
+      // console.log("USERPICTURESTRING: ", userPictureString);
+      const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      // console.log("BASE64IMAGE: ", base64Image);
+      // console.log("BASE64IMAGE: ", base64Image);
+
       setFirstName(fName);
       setLastName(lName)
       setEmail(mail)
       setPassword(pWord)
       setLoading(false);
-      // setPreviewUrl(pfp)
-      console.log('pfp is:')
-      console.log(pfp)
-      console.log('type of pfp:')
-      console.log(typeof pfp)
-
-      // const base64String = btoa(String.fromCharCode(...new Uint8Array(pfp)));
-      const base64String = pfp.toString('base64')
-
-      console.log('pfp 2.0 is:')
-      console.log(base64String)
-      console.log('type of pfp 2.0:')
-      console.log(typeof base64String)
-      setString(base64String)
-      console.log("Temp string is:")
-      console.log(tempString)
-      console.log('Temp string type is:')
-      console.log(typeof tempString)
+      setProfilePicture(base64Image);
       // setCurrentUser(response.data);
     });
 }, []);
 
+
+
+  // Send the Blob object to your server-side code along with any other relevant data
+  // const formData = new FormData();
+  // formData.append("image", blob, "filename.png");
+  // formData.append("metadata", JSON.stringify({ ... }));
+
+  // Send the formData object to your server using fetch or any other method
+
+  // In your server-side code, insert the Blob object into the mySQL database as a blob field
+
+
+    console.log("BASE64IMAGE: ", profilePicture);
     const updateUser = () => {
+      // const buff2 = buffer.Buffer.from()
+      const buff = buffer.Buffer.from(previewUrl); // Node.js Buffer
+      console.log("UPDATE USER BUFF: ", buff);
+      const blob = new Blob([buff], {type: "image/jpg"}); // JavaScript Blob
+      console.log("UPDATE USER BLOB: ", blob);
+        // Decode the base64 string using TextDecoder()
+      // const base64NewImageString = buffer.Buffer.from(previewUrl).toString('base64');
+      // const base64String = base64NewImageString;
+      // const byteCharacters = new TextDecoder('utf-8').decode(Uint8Array.from(atob(base64String), c => c.charCodeAt(0)));
+
+      // // Convert the byte array to a Blob object
+      // const byteArray = new Uint8Array([...byteCharacters].map(c => c.charCodeAt(0)));
+      // const blob = new Blob([byteArray], {type: "image/png"});
       Axios.post('http://localhost:3002/api/changeUserInfo', {
         userID: current,
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
-        profilePicture: selectedFile
+        profilePicture: blob
       }).then(() => {
         console.log('successful insert');
       });
-      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
+      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password, " profilePicture: ", blob );
     };
 
-
+    // console.log("PROFILE PICTURE: ", profilePicture);
 
     if(isLoading) {
       return <div className="account-dashboard-main">Loading...</div>
@@ -104,10 +124,11 @@ useEffect(() => {
             <div className="child-wrapper">
             <h3 className='edit-profile-title'>Edit your Profile</h3>
             <div>
-              <img src={previewUrl || StickMan} alt="Profile picture" className="edit-profile-image"/>
+              {/* <img src={`data:image/png;base64,${profilePicture}` || previewUrl} alt="User profile picture"/> */}
+              <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image'/>
+              {/* <img src={previewUrl || profilePicture} alt="Profile picture" className="edit-profile-image"/> */}
               <input type="file" onChange={handleFileChange} />
             </div>
-            <img src={`data:image/png;base64,${tempString}`} alt=""/>
           <div>
             <TextField
               name="firstName"
