@@ -45,10 +45,6 @@ function EditProfile() {
       } else {
         setSelectedFile(event.target.files[0]);
         setPreviewUrl(URL.createObjectURL(event.target.files[0]));
-        console.log("Preview Url, NO URL< VERY BAD: "+ event.target.files[0].size)
-        console.log('Set Preview URL is: '+ previewUrl)
-        // setProfilePicture(event.target.files[0])
-        // console.log("Profile Picture is: "+profilePicture)
 
       }
     }
@@ -64,7 +60,7 @@ useEffect(() => {
       const pWord = response.data[0].password;
       const userPictureString = response.data[0].profilePicture;
       
-      console.log("user picture string from DB: "+userPictureString)
+      // console.log("user picture string from DB: "+userPictureString)
       // console.log("USER PICTURE STRING: ", userPictureString);
       // console.log("USERPICTURESTRING: ", userPictureString);
       // const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
@@ -94,7 +90,7 @@ useEffect(() => {
   // In your server-side code, insert the Blob object into the mySQL database as a blob field
 
 
-    console.log("BASE64IMAGE: ", profilePicture);
+    // console.log("BASE64IMAGE: ", profilePicture);
     // const pfp = cv.imread(profilePicture);
     // const str = pfp.toString('base64');
     // console.log(str)

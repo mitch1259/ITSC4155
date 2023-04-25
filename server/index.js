@@ -200,7 +200,7 @@ app.post('/api/changeUserInfo', (req, res) => {
             console.log(err);
         } else {
             console.log("SUCCESSFUL UPDATE");
-            console.log(result);
+            console.log("result is: "+result);
             res.send(result);
         }
     });
