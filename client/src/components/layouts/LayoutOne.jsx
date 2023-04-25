@@ -8,13 +8,13 @@ import '../../css/LayoutOne.css';
 import '../../css/global.css';
 import { TransactiontypeData } from "../../SampleData/Piechartdata/TransactionTypeSpendingData";
 
-function LayoutOne({title,savings,rTransactions,uTransactions}){
+function LayoutOne({title,savings,contribution,rTransactions,uTransactions}){
 console.log("Layout one rendering")
     return(
         <div className="layout-one-wrapper">
         <Stack direction="row" spacing={3} justifyContent="center" id="layout-one-stack">
             <div>
-                <BaseInformationCard id="base-information-card" boardTitle={title} savingInformation={savings} />
+                <BaseInformationCard id="base-information-card" boardTitle={title} savingInformation={savings} contributions={contribution} />
             </div>
             <div>
                 <BasicDataCard title="Recent Activity"/>

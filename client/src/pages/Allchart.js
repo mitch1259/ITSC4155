@@ -4,6 +4,9 @@ import '../css/allchart.css';
 import '../css/gobal.css';
 import GoalService from '../services/GoalService';
 import AddContribution from '../components/savingsBoard/AddContributionButton';
+import CreateGoal from './CreateSavingGoal';
+import UpdateDeleteGoalList from '../components/savingsBoard/UpdateDeleteGoalList';
+import { Stack } from "@mui/material";
 
 
 function Allchart(){
@@ -18,7 +21,7 @@ function Allchart(){
     const getAllGoals =() =>{
         GoalService.getAllGoals().then((response) =>{
             setGoal(response.data)
-            console.log(response.data)
+            console.log(response.data+"all goals")
         });
     };
 
@@ -27,18 +30,24 @@ function Allchart(){
     return(
         <div className='all-charts-main'>
             <p className='all-dashboard-welcome-header'>Saving Boards</p>
-            <AddContribution/>
+            <Stack direction="row" spacing={2} justifyContent="right" id="button-stack">
+           <div>
+           <AddContribution/>
+           </div>
+            <div>
+            <CreateGoal/>
+            </div>
+            <div>
+            <UpdateDeleteGoalList/>
+            </div>
+            </Stack>
             {/* <div className='create-board-modal'>
                 <CreateBoard/>
             </div> */}
             <div className='all-charts-display'>
-                {/* <LayoutOne title="First Board" savings={10000}/>
-                <LayoutOne title="Second Board" savings={1000}/>
-                <LayoutOne title="Third Board" savings={30000}/> */}
-                
                 {goalList.map(
                     goal =>
-                    <LayoutOne title={goal.title} savings={goal.savings}  contributions ={goal.startingAmount}/>
+                    <LayoutOne title={goal.title} savings={goal.savings}  contribution={goal.startingAmount}/>
                 )}
                 
 
