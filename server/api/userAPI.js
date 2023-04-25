@@ -20,7 +20,7 @@ router.post('/', (req,res)=>{
         if (result.length > 0) {
             res.send(result);
         } else {
-            console.log('user not found');
+            console.log("could not find user");
         }
     });
 });

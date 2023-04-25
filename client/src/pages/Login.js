@@ -9,14 +9,13 @@ import SetCookie from '../context/cookies/setCookie';
 import AuthContext from '../context/AuthProvider';
 import EncryptToLocalStorage from '../context/encryption/EncryptToLocalStorage';
 import { Navigate, Outlet } from 'react-router-dom';
-// import { useCookies } from 'react-cookie';
 
 function Login() {
     
-    const { auth, setAuth } = useContext(AuthContext);
+    const {auth, setAuth } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [cookies, setCookie] = useCookies(['user']);
+    const [error, setError] = useState(false);
 
     const loginUser = (e) => {
         e.preventDefault();
@@ -26,6 +25,7 @@ function Login() {
         }
         Axios.post('http://localhost:3002/api/loginUser', userData)
         .then((response) => {
+            setError(false);
             console.log('received response: ', response.data);
             setAuth(true);
             console.log('response NO DATA: ', response);
@@ -34,19 +34,11 @@ function Login() {
             var temp = response.data[0];
             var currentUserID = temp.userID;
             EncryptToLocalStorage("userId", currentUserID);
-            // localStorage.setItem("userId",currentUserID);
             console.log('currentUserID: ', currentUserID);
-            // setCurrentUser(currentUserID);
-            // console.log('currentUser state: ', currentUser);
-            // setCookie('Email', email, { path: '/' });
-            // setCookie('Password', password, { path: '/' });
-            // var user = temp.map((val) => {
-            //     userID: val.userID
-            // });
-            // console.log(user);
-            // console.log(currentUser);
-            // SetCookie('user', temp.userID);
         });
+        if(!auth) {
+            setError(true);
+        }
         console.log("clicked! email: ", email, " password: ", password );
       };
 
@@ -85,6 +77,7 @@ function Login() {
                                     onChange={(e) => {
                                         setPassword(e.target.value);
                                     }}
+                                    helperText = {error ? "Invalid email and password combination" : ""}
                                 />
                             </div>
                         </div>
@@ -96,14 +89,11 @@ function Login() {
                                 </Link>
                             </div>
                             <div className="login-link-wrapper">
-                                    <button onClick={loginUser}> 
-                                        <Link to="/">
-                                            Login 
-                                        </Link>
+                                    <button onClick={loginUser}>
+                                        Login
                                     </button>
                             </div>
                         </div>
-
                 </div>
         </div>
     );

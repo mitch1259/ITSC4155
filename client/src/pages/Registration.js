@@ -17,6 +17,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(false);
 
     useEffect(() => {
       Axios.get('http://localhost:3002/api/get/users').then((response) => {
@@ -27,9 +28,15 @@ function Register() {
 
     const registerUser = () => {
       if(password != confirmPassword) {
-        console.log("Password and Confirm Password do not match");
+        //console.log("Password and Confirm Password do not match");
+        setError(true);
+      }
+      else if(firstName.length == 0 || lastName.length == 0 || email.length == 0 ||
+        password.length == 0 || confirmPassword.length == 0) {
+        setError(true);
       }
       else {
+       setError(false);
       Axios.post('http://localhost:3002/api/registerUser', {
         firstName: firstName,
         lastName: lastName,
@@ -67,6 +74,8 @@ function Register() {
               onChange={(e) => {
                 setFirstName(e.target.value);
               }}
+              error = {error&&firstName.length == 0}
+              helperText = {error&&firstName.length == 0 ? "First Name cannot be empty" : ""}
             />
             <TextField 
               name="lastName"
@@ -76,11 +85,14 @@ function Register() {
               onChange={(e) => {
                 setLastName(e.target.value);
               }}
+              error = {error&&lastName.length == 0}
+              helperText = {error&&lastName.length == 0 ? "Last Name cannot be empty" : ""}
             />
           </div>
           <div className='register-input-form-wrapper'>
             <div className='register-input-wrapper-full'>
               <TextField
+                
                 name="email"
                 className='register-input-full'
                 label='Email Address'
@@ -88,6 +100,8 @@ function Register() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
+                error = {error&&email.length == 0}
+                helperText = {error&&email.length == 0 ? "Email cannot be empty" : ""}
               />
             </div>
             <div className='register-input-wrapper-full'>
@@ -112,6 +126,8 @@ function Register() {
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
+              error = {error&&password != confirmPassword}
+              helperText = {error&&password != confirmPassword ? "Passwords do not match" : ""}
               />
             </div>
           </div>
