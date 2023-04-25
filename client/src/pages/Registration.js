@@ -26,14 +26,32 @@ function Register() {
       });
     }, []);
 
+    function validateEmail(email) {
+      var re = (
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+      return re.test(email);
+    }
+    function validatePassword(password) {
+      var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+      return re.test(password);
+    }
     const registerUser = () => {
-      if(password != confirmPassword) {
-        //console.log("Password and Confirm Password do not match");
+      //Series of if statements check for problems in data nad, if any is found, it will be handled accordingly
+      if(password.length == 0 || confirmPassword.length == 0 || password != confirmPassword || validatePassword(password) == false) {
+        //If either password textbox is empty,
+        //or if the passwords don't match,
+        //then an error is thrown here
         setError(true);
       }
-      else if(firstName.length == 0 || lastName.length == 0 || email.length == 0 ||
-        password.length == 0 || confirmPassword.length == 0) {
+      else if(email.length == 0 || validateEmail(email) == false) {
         setError(true);
+      }
+      else if(firstName.length == 0 || lastName.length == 0) {
+        setError(true);
+      }
+      else if(lastName.length == 0) {
+         setError(true);
       }
       else {
        setError(false);
@@ -48,8 +66,10 @@ function Register() {
       });
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
      }
-    };
 
+    };
+   
+    
 
     if (auth) {
       return (
@@ -100,8 +120,8 @@ function Register() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                error = {error&&email.length == 0}
-                helperText = {error&&email.length == 0 ? "Email cannot be empty" : ""}
+                error = {error&&email.length == 0 || error&&validateEmail(email) == false}
+                helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :""}
               />
             </div>
             <div className='register-input-wrapper-full'>
@@ -114,7 +134,8 @@ function Register() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-              />
+                error = {error&&password != confirmPassword || error&&password.length == 0 || error&&confirmPassword.length == 0}
+             />
             </div>
             <div className='register-input-wrapper-full'>
               <TextField 
@@ -126,8 +147,10 @@ function Register() {
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
-              error = {error&&password != confirmPassword}
-              helperText = {error&&password != confirmPassword ? "Passwords do not match" : ""}
+              error = {error&&password != confirmPassword || error&&password.length == 0 || error&&confirmPassword.length == 0}
+              helperText = {error&&password != confirmPassword ? "Passwords do not match" :""|| error&&password.length == 0 || error&&confirmPassword.length == 0 ? "Passwords cannot be empty" : ""|| error&&validatePassword(password) == false ? "Password must be between 7-15 characters, and must include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character":""}
+              
+              
               />
             </div>
           </div>
