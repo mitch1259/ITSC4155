@@ -8,7 +8,7 @@ class GoalService{
 
 
     getAllGoals(){
-        return Axios.get(CREATE_GOAL_BASE_URL);
+        return Axios.get("http://localhost:3002/api/createGoal/");
     }
 
     createGoal(goal){

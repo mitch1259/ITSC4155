@@ -9,9 +9,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as Yup from 'yup';
 import {useState,useEffect} from 'react'
-import{Link,useParams,useNavigate} from 'react-router-dom'
+// import{Link,useParams,useNavigate} from 'react-router-dom'
 import GoalService from '../services/GoalService';
-
 
 function CreateGoal(){
 
@@ -34,7 +33,6 @@ function CreateGoal(){
     const [endDate, setEndDate] = useState('')
     const [description, setDescription] = useState('')
     // const navigate= useNavigate();
-    const {savingGoalId}= useParams();
     // const createGoal={title}
     const savingGoal={title,savings,startingAmount,startDate,endDate,description}
 

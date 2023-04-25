@@ -9,7 +9,7 @@ import '../../css/global.css';
 import { TransactiontypeData } from "../../SampleData/Piechartdata/TransactionTypeSpendingData";
 
 function LayoutOne({title,savings,rTransactions,uTransactions}){
-
+console.log("Layout one rendering")
     return(
         <div className="layout-one-wrapper">
         <Stack direction="row" spacing={3} justifyContent="center" id="layout-one-stack">

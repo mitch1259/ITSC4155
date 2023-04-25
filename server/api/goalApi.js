@@ -31,7 +31,6 @@ router.post('/', (goal,res)=>{
 
 //UPDATE GOAL USING THE GOAL ID FROM THE USER
 //API/UPDATEGOAL/GOALID --
-
 router.put('/:goalId',(req,res)=>{
     const title=goal.body.title;
     const savings=goal.body.savings;
@@ -80,7 +79,6 @@ router.delete('/:goalId',(goal,res)=>{
 
 
 //get a single goal object from server
-
 router.get('/:goalId',(goal,res) =>{
     const goalId=goal.body.goalId;
 
@@ -97,9 +95,7 @@ router.get('/:goalId',(goal,res) =>{
 })
 
 
-//add contributions to starting goal:
-
-
+//add contributions to saving goal:
 router.put('/',(goal,res) =>{
     const goalId=goal.body.goalId;
     const addContribution=goal.body.startingAmount;
@@ -116,6 +112,7 @@ router.put('/',(goal,res) =>{
     })
 })
 
+//get all goals
 router.get('/',(goal,res) =>{
 
     const getAllGoals= 'select * from budgitdb.goal';
@@ -123,9 +120,11 @@ router.get('/',(goal,res) =>{
     db.query(getAllGoals,(err,result)=>{
         if(err){
             console.log(err)
+            
         }
         else{
             console.log(result)
+            res.send(result)
         }
     })
 })

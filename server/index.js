@@ -30,9 +30,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 // api calls (in their respective files/api locations)
 app.use('/api/loginUser', userAPI);
 app.use('/api/registerUser', registerUser);
-app.use('/api/createGoal',savingGoal);
-app.use('/api/deleteGoal',deleteGoal)
-app.use('/api/updateGoal',updateGoal)
+app.use('/api/createGoal/',savingGoal);
+app.use('/api/createGoal/',deleteGoal)
+app.use('/api/createGoal/:goalId',updateGoal)
 
 
 

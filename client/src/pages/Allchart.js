@@ -3,6 +3,7 @@ import LayoutOne from '../components/layouts/LayoutOne';
 import '../css/allchart.css';
 import '../css/gobal.css';
 import GoalService from '../services/GoalService';
+import AddContribution from '../components/savingsBoard/AddContributionButton';
 
 
 function Allchart(){
@@ -25,7 +26,8 @@ function Allchart(){
 
     return(
         <div className='all-charts-main'>
-            <p className='all-dashboard-welcome-header'>All Boards</p>
+            <p className='all-dashboard-welcome-header'>Saving Boards</p>
+            <AddContribution/>
             {/* <div className='create-board-modal'>
                 <CreateBoard/>
             </div> */}
@@ -36,7 +38,7 @@ function Allchart(){
                 
                 {goalList.map(
                     goal =>
-                    <LayoutOne title={goal.title} savings={goal.savings} contributions ={goal.startingAmount} />
+                    <LayoutOne title={goal.title} savings={goal.savings}  contributions ={goal.startingAmount}/>
                 )}
                 
 
