@@ -32,14 +32,17 @@
     display: flex;
 }
 
-.recent-activity-snippet-details-chargeNameDate {
+.recent-activity-snippet-details-chargeDate {
     font-size: 24px;
     padding-left: 4.4%;
     padding-top: 1%;
     padding-bottom: 1%;
-    width: 75%;
     text-overflow: ellipsis;
     float: left;
+    width: 13%;
+    border-right-style: solid;
+    border-right-color: #05386b;
+    border-right-width: 1px;
 }
 
 .recent-activity-snippet-details-chargeAmount {
@@ -47,8 +50,16 @@
     padding-right: 4.4%;
     padding-top: 1%;
     padding-bottom: 1%;
-    width: 25%;
     text-overflow: ellipsis;
     float: right;
     text-align: right;
+    width: 22%;
+}
+
+.recent-activity-snippet-details-chargeName {
+    font-size: 24px;
+    padding-top: 1%;
+    margin-left: 2.5%;
+    width: 65%;
+    text-overflow: ellipsis;
 }

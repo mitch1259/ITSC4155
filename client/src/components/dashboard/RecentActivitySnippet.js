@@ -1,19 +1,20 @@
 import React from 'react'
 import '../../css/dashboard/recentActivitySnippet.css';
+import RecentActivityTransaction from './RecentActivityTransaction';
+import { useState } from 'react';
 
-function RecentActivitySnippet(props) {
+function RecentActivitySnippet({ boardName, transactions, boardID }) {
+
+  const [propTransactions, setPropTransactions] = useState(transactions);
+
+
   return (
     <div className='recent-activity-snippet-wrapper'>
-        <p className='recent-activity-snippet-header'>{props.boardName} -- &#40;Remaining Budget: ${props.remainingBudget}&#41;</p>
-        <div className='recent-activity-snippet-details-wrapper'>
-            <p className='recent-activity-snippet-details-chargeNameDate'>{props.recentChargeDate1} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; {props.recentChargeName1}</p>
-            <p className='recent-activity-snippet-details-chargeAmount'>${props.recentChargeAmount1}</p>
-        </div>
-        <div className='recent-activity-snippet-details-wrapper'>
-            <p className='recent-activity-snippet-details-chargeNameDate'>{props.recentChargeDate2} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; {props.recentChargeName2}</p>
-            <p className='recent-activity-snippet-details-chargeAmount'>${props.recentChargeAmount2}</p>
-        </div>
-        
+        <p className='recent-activity-snippet-header'>{boardName}</p>
+        {/* <RecentActivityTransaction recentChargeAmount="700" recentChargeDate="999999" recentChargeName="Verizon" /> */}
+        {propTransactions.map((transaction) => {
+          return <RecentActivityTransaction recentChargeAmount={transaction.amount} recentChargeDate={transaction.createDate} recentChargeName={transaction.label} boardId={boardID}/>
+        })}
     </div>
   )
 }
