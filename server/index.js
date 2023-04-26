@@ -24,6 +24,7 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 
 // api calls (in their respective files/api locations)
@@ -189,10 +190,13 @@ app.post('/api/changeUserInfo', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const userID = req.body.userID;
-    const profilePicture = new buffer.Blob();
+    const profilePicture = req.body.profilePicture;
+
     // console.log(req.body.profilePicture);
     console.log("PROFILE PICTURE: ", profilePicture);
-
+    // const blobBuffer = buffer.Buffer.from(profilePicture, 'base64'); 
+    // console.log("BLOB BUFFER: ", blobBuffer);
+    // console.log("type of blob buffer ", typeof blobBuffer);
 
     const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ?, profilePicture = ? WHERE userID = ?";
     db.query(sqlInsert, [firstName, lastName, email, password, profilePicture, userID], (err, result) => {

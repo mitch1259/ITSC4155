@@ -14,7 +14,6 @@ import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStora
 import buffer from 'buffer';
 import { Blob } from 'blob-polyfill';
 
-
 function EditProfile() {
 
     const handleClick = () => {
@@ -35,6 +34,8 @@ function EditProfile() {
     // const [file, setFile] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [newProfilePicture, setNewProfilePicture] = useState('');
+    const [newProfilePictureB64, setNewProfilePictureB64] = useState('');
 
 
     const handleFileChange = (event) => {
@@ -43,6 +44,18 @@ function EditProfile() {
       } else {
         setSelectedFile(event.target.files[0]);
         setPreviewUrl(URL.createObjectURL(event.target.files[0]));
+        console.log("SELECTED FILE: ", selectedFile);
+        // const fileReader = new FileReader();
+        // fileReader.readAsBinaryString(selectedFile);
+        // setNewProfilePicture(fileReader.result);
+        fetch(URL.createObjectURL(event.target.files[0]))
+        .then(function (response) {
+          return response.blob();
+        })
+        .then(function(blob) {
+          console.log("BLOB SIZE: ", blob.size);
+          setNewProfilePicture(blob);
+        })
       }
     }
 
@@ -84,18 +97,26 @@ useEffect(() => {
   // In your server-side code, insert the Blob object into the mySQL database as a blob field
 
 
-    console.log("BASE64IMAGE: ", profilePicture);
+    // console.log("BASE64IMAGE: ", profilePicture);
     const updateUser = () => {
       // const buff2 = buffer.Buffer.from()
-      const buff = buffer.Buffer.from(previewUrl); // Node.js Buffer
-      console.log("UPDATE USER BUFF: ", buff);
-      const blob = new Blob([buff], {type: "image/jpg"}); // JavaScript Blob
-      console.log("UPDATE USER BLOB: ", blob);
+      // const buff = buffer.Buffer.from(previewUrl); // Node.js Buffer
+      // console.log("UPDATE USER BUFF: ", buff);
+      // const blob = new Blob([buff], {type: "image/jpg"}); // JavaScript Blob
+      // console.log("UPDATE USER BLOB: ", blob);
         // Decode the base64 string using TextDecoder()
       // const base64NewImageString = buffer.Buffer.from(previewUrl).toString('base64');
       // const base64String = base64NewImageString;
       // const byteCharacters = new TextDecoder('utf-8').decode(Uint8Array.from(atob(base64String), c => c.charCodeAt(0)));
-
+      // console.log("SELECTED FILE: ", file);
+      console.log("NEW PROFILE PICTURE: ", newProfilePicture);
+      const reader = new FileReader();
+      reader.onload = () => {
+        const B64string = reader.result.split(',')[1];
+        setNewProfilePictureB64(B64string);
+      }
+      reader.readAsDataURL(newProfilePicture);
+      console.log('NEW PROFILE PICTURE STATE VARIABLE: ', newProfilePicture);
       // // Convert the byte array to a Blob object
       // const byteArray = new Uint8Array([...byteCharacters].map(c => c.charCodeAt(0)));
       // const blob = new Blob([byteArray], {type: "image/png"});
@@ -105,14 +126,18 @@ useEffect(() => {
         lastName: lastName,
         email: email,
         password: password,
-        profilePicture: blob
+        profilePicture: previewUrl
+      },{
+        headers: { 'Content-Type': 'application/json'}
       }).then(() => {
         console.log('successful insert');
       });
-      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password, " profilePicture: ", blob );
+      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password, " profilePicture: ", newProfilePicture );
     };
 
     // console.log("PROFILE PICTURE: ", profilePicture);
+    // console.log("PREVIEW URL: ", previewUrl);
+    // console.log("SELECTED FILE ", selectedFile);
 
     if(isLoading) {
       return <div className="account-dashboard-main">Loading...</div>
@@ -126,9 +151,11 @@ useEffect(() => {
             <button className='new_pfp_button'> Click to upload new Picture</button> */}
             <div>
               {/* <img src={`data:image/png;base64,${profilePicture}` || previewUrl} alt="User profile picture"/> */}
-              <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image'/>
+              <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image' id="edit-profile-image-selection"/>
               {/* <img src={previewUrl || profilePicture} alt="Profile picture" className="edit-profile-image"/> */}
               <input type="file" onChange={handleFileChange} />
+              <img src={`data:image/png;base64,${profilePicture}`} alt="PROFILE PICTURE" className='edit-profile-image'/>
+              <img src={previewUrl} alt="PREVIEW URL" className='edit-profile-image'/>
             </div>
             
 
