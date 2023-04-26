@@ -25,6 +25,7 @@ function EditProfile() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [tempString, setString] = useState('');
 
     const { auth, setAuth} = useContext(AuthContext);
 
@@ -147,8 +148,6 @@ useEffect(() => {
         <div className='parent-wrapper'>
             <div className="child-wrapper">
             <h3 className='edit-profile-title'>Edit your Profile</h3>
-            {/* <img src={StickMan} alt="User profile picture" className="edit-profile-image"/>
-            <button className='new_pfp_button'> Click to upload new Picture</button> */}
             <div>
               {/* <img src={`data:image/png;base64,${profilePicture}` || previewUrl} alt="User profile picture"/> */}
               <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image' id="edit-profile-image-selection"/>
@@ -157,58 +156,6 @@ useEffect(() => {
               <img src={`data:image/png;base64,${profilePicture}`} alt="PROFILE PICTURE" className='edit-profile-image'/>
               <img src={previewUrl} alt="PREVIEW URL" className='edit-profile-image'/>
             </div>
-            
-
-
-
-            {/* {selectedImage && (
-              <div class="pic-display">
-                
-                <img
-                  alt="not found"
-                  width={"100px"}
-                  src={URL.createObjectURL(selectedImage)}
-                />
-              </div>
-            )} 
-            <input
-              type="file"
-              name="myImage"
-              onChange={(event) => {
-                console.log(event.target.files[0]);
-                setSelectedImage(event.target.files[0]);
-              }}
-            /> */}
-            {/* <input
-              type="file"
-              id="file"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-
-            <img src={file ? URL.createObjectURL(file) : StickMan} width={"50px"}/> */}
-            {/* {selectedImage && (
-        <div>
-          <img
-            alt="not found"
-            width={"250px"}
-            src={URL.createObjectURL(selectedImage)}
-          />
-          <br />
-          <button onClick={() => setSelectedImage(null)}>Remove</button>
-        </div>
-      )} */}
-
-      <br />
-      <br />
-{/*       
-      <input
-        type="file"
-        name="myImage"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
-        }}
-      /> */}
           <div>
             <TextField
               name="firstName"
