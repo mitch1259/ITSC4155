@@ -383,6 +383,22 @@ app.post('/api/board/create', (req, res) => {
     });
 });
 
+app.post('/api/boards/getRecentTwo', (req, res) => {
+    const boardID = req.body.boardID;
+    const currentDate = req.body.currentDate;
+
+    const sqlQuery = "SELECT * FROM budgitdb.transactions WHERE boardID = ? AND createDate <= ? ORDER BY createDate DESC LIMIT 2";
+    db.query(sqlQuery, [boardID, currentDate], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("result: ", result);
+            res.send(result);
+        }
+    });
+});
+
+
 app.listen(3002, () => {
     console.log('running on port 3002');
 });

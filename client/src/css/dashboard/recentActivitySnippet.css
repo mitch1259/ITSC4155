@@ -30,6 +30,18 @@
 
 .recent-activity-snippet-details-wrapper {
     display: flex;
+    border-bottom-style: solid;
+    border-bottom-color: #05386b6e;
+    border-bottom-width: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: all 0.15s ease 0s;
+}
+
+.recent-activity-snippet-details-wrapper:hover {
+    padding-left: 10px;
+    transition: all 0.15s ease 0s;
+    background-color: #ffffff5e;
 }
 
 .recent-activity-snippet-details-chargeDate {
@@ -37,11 +49,12 @@
     padding-left: 4.4%;
     padding-top: 1%;
     padding-bottom: 1%;
+    padding-right: 3%;
     text-overflow: ellipsis;
     float: left;
-    width: 13%;
+    width: 17%;
     border-right-style: solid;
-    border-right-color: #05386b;
+    border-right-color: #05386b6e;
     border-right-width: 1px;
 }
 
