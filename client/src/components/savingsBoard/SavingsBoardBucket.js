@@ -9,27 +9,35 @@ import Button from '@mui/material/Button';
 import DeleteTransaction from './DeleteTransaction';
 
 
-function SavingsBoardBucket({ remainingBudget, currentDay, transactions }) {
+function SavingsBoardBucket({ remainingBudget, currentDay, transactions, maxBudget }) {
 
-  const budgetToClassesMap= (budget) => {
+  const budgetToClassesMap= (budget, maxBudget) => {
     switch(true){
-  case (budget <= 300):
+  // if budget is less than 25%
+  case (budget <= (maxBudget * .25)):
     return "low-budget-red"; 
-  case (budget > 300 && budget <= 400):
+  // if budget is greater than 25% but less than/equal to 50%
+  case (budget > (maxBudget * .25) && budget <= (maxBudget * .5)):
     return "medium-budget-orange"; 
-  case (budget > 400):
+  // if budget is greater than 50%
+  case (budget > (maxBudget * .5)):
     return "savings-board-bucket-wrapper"; 
   default: 
     return "budget-unknown";
   }
 }
 
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+// console.log("remainingBudget: ", remainingBudget);
+// console.log("currentDay: ", currentDay);
+// console.log("transactions: ", transactions);
+
+// const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 // console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--dynamic-height'));
-const percentage = clamp(remainingBudget / 500 * 100, 50, 250);
+// const percentage = clamp(remainingBudget / 500 * 100, 50, 250);
+const percentage = remainingBudget / maxBudget * 100 + '%';
 // const percentage = remainingBudget * 100 / 500;
-console.log(percentage);
+console.log("percentage: ", percentage);
 const bucketStyle = {
   height: percentage,
 }
@@ -73,9 +81,9 @@ const sxFont = {
   return (
     <>
       <div className='savings-bucket-wrapper-wrapper' onClick={handleOpen}>
-        <div className={budgetToClassesMap(remainingBudget)} style={bucketStyle}>
+        <div className={budgetToClassesMap(remainingBudget, maxBudget)} style={bucketStyle}>
           <div className='savings-board-bucket'>
-            <p className='savings-board-bucket-remaining-budget'>${ remainingBudget }</p>
+            <p className='savings-board-bucket-remaining-budget'>${ Math.round(remainingBudget * 100) / 100 }</p>
             <p className='savings-board-bucket-day'>{ currentDay }</p>
           </div>
         </div>

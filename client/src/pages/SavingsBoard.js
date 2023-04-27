@@ -53,6 +53,8 @@ function SavingsBoard() {
   console.log("boardID: ", boardId);
   const [boardInfo, setBoardInfo] = useState('');
   const [isBoardInfoLoading, setIsBoardInfoLoading] = useState(true);
+  const [clonedBucketArray, setClonedBucketArray] = useState([]);
+
 
   // use boardID to get all info on the current board and store it in the boardInfo state variable
   useEffect(() => {
@@ -178,12 +180,35 @@ function SavingsBoard() {
     console.log(tempArr);
   }
 
+  
   console.log("buckets: ", buckets);
   console.log("remaining budget: ", remBudget);
+
+
+
 
   if (isBoardInfoLoading) {
     return <div className='account-dashboard-main'>Loading...</div>
   }
+
+  const cumulativeValues = buckets.reduce((accumulator, currentBucket) => {
+    const lastValue = accumulator.length > 0 ? accumulator[accumulator.length - 1] : boardInfo[0].remainBudget;
+    accumulator.push(lastValue + currentBucket.remainingBudget);
+    return accumulator;
+  }, []);
+  const clonedBuckets = buckets.map((bucket, index) => {
+    return { ...bucket, cumulativeBudget: cumulativeValues[index]}
+  })
+
+  const maxBudget = clonedBuckets.reduce((maxValue, bucket) => {
+    if (bucket.cumulativeBudget > maxValue) {
+      return bucket.cumulativeBudget;
+    } else {
+      return maxValue;
+    }
+  }, boardInfo[0].remainBudget);
+
+  console.log("MAX BUDGET: ", maxBudget);
 
   return (
     <div className='savings-board-wrapper'>
@@ -191,7 +216,7 @@ function SavingsBoard() {
         <BoardHeader 
           boardTitle={title}
           boardDescription={description}
-          remainingBudget={remBudget}
+          remainingBudget={Math.round(remBudget * 100) / 100}
         />
       </div>
       <div className='savings-board-function-bar'>
@@ -204,9 +229,12 @@ function SavingsBoard() {
         />
       </div>
       <div className='savings-board-buckets'>
-        { buckets.map(bucket => 
+        {/* { buckets.map(bucket => 
           <SavingsBoardBucket remainingBudget={bucket.remainingBudget} currentDay={bucket.currentDay} transactions={bucket.transactions} />
-        ) }
+        ) } */}
+        { clonedBuckets.map((bucket) => {
+          return <SavingsBoardBucket remainingBudget={bucket.cumulativeBudget} currentDay={bucket.currentDay} transactions={bucket.transactions} maxBudget={maxBudget}/>
+        })}
       </div>
       <div className='savings-board-buckets-timeline' />
     </div>
