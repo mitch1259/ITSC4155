@@ -10,6 +10,7 @@ const router = express.Router();
 const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
+// const updateGoal=require("./api/goalApi.js")
 
 const db = mysql.createPool({
     host: "localhost",
@@ -28,7 +29,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 // api calls (in their respective files/api locations)
 app.use('/api/loginUser', userAPI);
 app.use('/api/registerUser', registerUser);
-app.use('/api/createGoal',savingGoal);
+app.use('/api/createGoal/',savingGoal);
+// app.use('/api/createGoal/deleteGoal',deleteGoal)
+// app.use('/api/createGoal/updateGoal/:goalId',updateGoal)
 
 
 
@@ -239,30 +242,6 @@ app.post('/api/newTransaction', (req, res) => {
     });
 });
 
-
-
-// app.post('/api/createGoal', (goal,res)=>{
-//     const title=goal.body.title;
-//     const savings=goal.body.savings;
-//     const startingAmount=goal.body.startingAmount;
-//     const startDate=goal.body.startDate;
-//     const endDate=goal.body.endDate;
-//     const description= goal.body.description;
-    
-//     const createGoalSqlInsert="INSERT INTO budgitdb.goal (title,savings,startingAmount,startDate,endDate,description) values (?,?,?,?,?,?);"
-
-
-//     db.query(createGoalSqlInsert,[title,savings,startingAmount,startDate,endDate,description],(err,result)=>{
-//         if(err){
-//             console.log(err);
-//         }
-//         else{
-//             console.log(result);
-//         }
-//     });
-
-// });
-
 app.post('/api/transaction/submit', (req, res) => {
 
     const boardID = req.body.boardID;
@@ -314,6 +293,52 @@ app.get('/api/get/board/transactions', (req, res) => {
     }
 });
 
+
+//Delete GOAL USING GOAL ID 
+app.post('/api/createGoal/deleteGoal/',(goal,res)=>{
+    const goalId=goal.body.goalId;
+    const deleteGoalSql="delete FROM budgitdb.goal where goalId = ?;"
+
+
+    db.query(deleteGoalSql,[goalId],(err,result) =>{
+        if(err){
+            console.log('there was a error in deleting')
+            res.send({err: err});
+        }
+        if(result){
+            console.log("successful deletion")
+            res.send(result);
+        }
+        else{
+            console.log("Item does not exist");
+        }
+    });
+});
+
+
+//UPDATE GOAL USING THE GOAL ID FROM THE USER
+//API/UPDATEGOAL/GOALID --
+app.put('/api/createGoal/:goalId',(goal,res)=>{
+    const goalId=goal.body.goalId
+    const title=goal.body.title;
+    const savings=goal.body.savings;
+    const startingAmount=goal.body.startingAmount;
+    const startDate=goal.body.startDate;
+    const endDate=goal.body.endDate;
+    const description= goal.body.description;
+
+
+    const updateGoalSqlInsert="update budgitdb.goal set title = ?, saving = ?, startingAmount = ?, startDate = ? WHERE goalId = ?";
+
+    db.query(updateGoalSqlInsert,[goalId,title,savings,startingAmount,startDate,endDate,description],(errs,result) =>{
+        if(err){
+            console.log(errs)
+            console.log("update did not go through")
+        }
+        else{
+            console.log(result);
+            res.send(result);
+
 app.post('/api/get/currentBoard', (req, res) => {
     let boardID = req.body.boardId;
     console.log("BOARDID: ", boardID);
@@ -363,9 +388,30 @@ app.post('/api/board/delete', (req, res) => {
             console.log(err);
         } else {
             console.log(result);
+
         }
     });
 });
+
+
+
+//get a single goal object from server
+app.get('/api/createGoal/:goalId',(goal,res) =>{
+    const goalId=goal.body.goalId;
+
+    const getGoalById="select * from budgitdb.goal where goalId= ?;";
+
+    db.query(getGoalById,[goalId],(err,result) =>{
+        if(goalId==undefined){
+            console.log('goal is underdefined for getting single goal')
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})
+
 
 app.post('/api/board/create', (req, res) => {
     const id = req.body.userID;
@@ -397,6 +443,7 @@ app.post('/api/boards/getRecentTwo', (req, res) => {
         }
     });
 });
+
 
 
 app.listen(3002, () => {
