@@ -12,7 +12,6 @@ import { Hidden, TextField } from '@mui/material';
 import AuthContext from '../context/AuthProvider';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
 import buffer from 'buffer';
-import { Blob } from 'blob-polyfill';
 
 function EditProfile() {
 
@@ -36,30 +35,31 @@ function EditProfile() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [newProfilePicture, setNewProfilePicture] = useState('');
-    const [newProfilePictureB64, setNewProfilePictureB64] = useState('');
 
+    const [imageUrl, setImageUrl] = useState("");
+    const [image, setImage] = useState("");
 
-    const handleFileChange = (event) => {
-      if (!event.target.files[0]) {
-        return;
-      } else {
-        setSelectedFile(event.target.files[0]);
-        setPreviewUrl(URL.createObjectURL(event.target.files[0]));
-        console.log("SELECTED FILE: ", selectedFile);
-        // const fileReader = new FileReader();
-        // fileReader.readAsBinaryString(selectedFile);
-        // setNewProfilePicture(fileReader.result);
-        fetch(URL.createObjectURL(event.target.files[0]))
-        .then(function (response) {
-          return response.blob();
+    const handleImageFetch = () => {
+      Axios.get(imageUrl)
+        .then(response => {
+          console.log("image: ", response.data);
+          setImage(response.data);
         })
-        .then(function(blob) {
-          console.log("BLOB SIZE: ", blob.size);
-          setNewProfilePicture(blob);
-        })
-      }
+        .catch(error => {
+          console.error(error);
+        });
     }
 
+    const handleImageUrlChange = (event) => {
+      setImageUrl(event.target.value);
+    }
+    
+    const handlePaste = (event) => {
+      event.preventDefault();
+      const pastedText = event.clipboardData.getData("text");
+      setImageUrl(pastedText);
+    }
+    
 
 useEffect(() => {
   Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
@@ -69,10 +69,10 @@ useEffect(() => {
       const lName =response.data[0].lastName
       const mail= response.data[0].email;
       const pWord = response.data[0].password;
-      const userPictureString = response.data[0].profilePicture;
+      const userPicture = response.data[0].profilePicture;
       // console.log("USER PICTURE STRING: ", userPictureString);
       // console.log("USERPICTURESTRING: ", userPictureString);
-      const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      // const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
       // console.log("BASE64IMAGE: ", base64Image);
       // console.log("BASE64IMAGE: ", base64Image);
 
@@ -81,21 +81,11 @@ useEffect(() => {
       setEmail(mail)
       setPassword(pWord)
       setLoading(false);
-      setProfilePicture(base64Image);
+      setImageUrl(userPicture);
       // setCurrentUser(response.data);
     });
 }, []);
 
-
-
-  // Send the Blob object to your server-side code along with any other relevant data
-  // const formData = new FormData();
-  // formData.append("image", blob, "filename.png");
-  // formData.append("metadata", JSON.stringify({ ... }));
-
-  // Send the formData object to your server using fetch or any other method
-
-  // In your server-side code, insert the Blob object into the mySQL database as a blob field
 
 
     // console.log("BASE64IMAGE: ", profilePicture);
@@ -110,14 +100,14 @@ useEffect(() => {
       // const base64String = base64NewImageString;
       // const byteCharacters = new TextDecoder('utf-8').decode(Uint8Array.from(atob(base64String), c => c.charCodeAt(0)));
       // console.log("SELECTED FILE: ", file);
-      console.log("NEW PROFILE PICTURE: ", newProfilePicture);
-      const reader = new FileReader();
-      reader.onload = () => {
-        const B64string = reader.result.split(',')[1];
-        setNewProfilePictureB64(B64string);
-      }
-      reader.readAsDataURL(newProfilePicture);
-      console.log('NEW PROFILE PICTURE STATE VARIABLE: ', newProfilePicture);
+      // console.log("NEW PROFILE PICTURE: ", newProfilePicture);
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //   const B64string = reader.result.split(',')[1];
+      //   setNewProfilePictureB64(B64string);
+      // }
+      // reader.readAsDataURL(newProfilePicture);
+      // console.log('NEW PROFILE PICTURE STATE VARIABLE: ', newProfilePicture);
       // // Convert the byte array to a Blob object
       // const byteArray = new Uint8Array([...byteCharacters].map(c => c.charCodeAt(0)));
       // const blob = new Blob([byteArray], {type: "image/png"});
@@ -127,12 +117,14 @@ useEffect(() => {
         lastName: lastName,
         email: email,
         password: password,
-        profilePicture: previewUrl
+        profilePicture: imageUrl
       },{
         headers: { 'Content-Type': 'application/json'}
       }).then(() => {
         console.log('successful insert');
       });
+      console.log("image: ", image);
+      console.log("imageUrl", imageUrl);
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password, " profilePicture: ", newProfilePicture );
     };
 
@@ -150,11 +142,35 @@ useEffect(() => {
             <h3 className='edit-profile-title'>Edit your Profile</h3>
             <div>
               {/* <img src={`data:image/png;base64,${profilePicture}` || previewUrl} alt="User profile picture"/> */}
-              <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image' id="edit-profile-image-selection"/>
-              {/* <img src={previewUrl || profilePicture} alt="Profile picture" className="edit-profile-image"/> */}
-              <input type="file" onChange={handleFileChange} />
+              {/* <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image' id="edit-profile-image-selection"/> */}
+              {/* {imageData.data && <img src={imageData.data} alt="User submitted image" />} */}
+              {/* <input type="file" onChange={handleFileChange} />
               <img src={`data:image/png;base64,${profilePicture}`} alt="PROFILE PICTURE" className='edit-profile-image'/>
-              <img src={previewUrl} alt="PREVIEW URL" className='edit-profile-image'/>
+              <img src={previewUrl} alt="PREVIEW URL" className='edit-profile-image'/> */}
+              
+              {/* <img src={} */}
+              {/* <TextField
+                name="profilePicture"
+                className='edit-profile-textfield'
+                label='URL to new profile picture'
+                defaultValue={imageData.url}
+                variant='filled'
+                onChange={(e) => {
+                  setImageData({ ...imageData, url: e.target.value });
+                }}
+                inputProps={{ onPaste: handlePaste }}
+            /> */}
+                <TextField 
+                  label="Image URL" 
+                  value={imageUrl} 
+                  onChange={handleImageUrlChange} 
+                  onPaste={handlePaste} 
+                  className='edit-profile-textfield'
+                />
+                <button onClick={handleImageFetch}>Fetch Image</button>
+                <img src={imageUrl || image} alt="User-entered Image" className='edit-profile-image'/>
+            
+    
             </div>
           <div>
             <TextField
