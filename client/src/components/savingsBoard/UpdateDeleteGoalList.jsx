@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { DialogContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Link } from 'react-router-dom';
+import{useNavigate} from 'react-router-dom'
 
 
 
@@ -12,6 +13,7 @@ import { Link } from 'react-router-dom';
 function UpdateDeleteGoalList(){
     const [goalList,setGoalList]=useState([]);
     const [open, setOpen] = React.useState(false);
+    const navigate= useNavigate();
 
 
 
@@ -19,23 +21,31 @@ function UpdateDeleteGoalList(){
 
 
 
-    const displayAllGoals = () =>{
-        GoalService.getAllGoals().then((response) =>{
-            setGoalList(response.data)
-            console.log(response.data)
-        })
-    };
 
+    
     useEffect(
         () =>{
             displayAllGoals()
         },[])
 
 
+        const displayAllGoals = () =>{
+            GoalService.getAllGoals().then((response) =>{
+                setGoalList(response.data)
+                console.log(response.data)
+            })
+        };
+    
+
+
     const deleteGoal=(goalId) =>{
             GoalService.deleteGoal(goalId).then((response)=>{
-                displayAllGoals()
+                // displayAllGoals()
+                setGoalList(response.data0)
+                navigate("/")
+                console.log("success")
             }).catch(error=>{
+                console.log("Delete api failed to connect with server")
                 console.log(error)
             })
         }
@@ -68,7 +78,7 @@ function UpdateDeleteGoalList(){
                                 <TableRow key={goal.goalId}>
                                     <TableCell>{goal.title}</TableCell>
                                     <TableCell>
-                                    <Button variant={"Contained"} component={Link} to= {`/edit-goal/${goal.goalId}`}>Update</Button>
+                                    <Button variant={"Contained"} component={Link} to= {`/createGoal/${goal.goalId}`}>Update</Button>
                                         <Button 
                                         variant={'Contained'} 
                                         color={"secondary"} 

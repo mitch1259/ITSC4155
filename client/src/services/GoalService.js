@@ -20,7 +20,7 @@ class GoalService{
     }
 
     deleteGoal(goalId){
-        return Axios.delete(CREATE_GOAL_BASE_URL+'/'+goalId);
+        return Axios.post('http://localhost:3002/api/createGoal/deleteGoal/',goalId);
     }
     getGoal(goalId){
         return Axios.get(CREATE_GOAL_BASE_URL+'/'+goalId)

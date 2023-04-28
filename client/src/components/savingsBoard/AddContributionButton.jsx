@@ -80,8 +80,8 @@ function AddContribution() {
                         sx={{ width: 400 }}
                         renderInput={(params) => <TextField {...params} label="Saving goals" />}
                         onChange={option => {
-                            setGoalId(option.target.value)
-                            console.log(option.target)
+                            setGoalId(option.target.id)
+                            console.log(option.id)
                         }
                         }
                     />

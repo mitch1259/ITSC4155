@@ -25,7 +25,7 @@ function AppRoutes() {
           <Route path="/profile/editprofile" element={<EditProfile />} />
           <Route path="/savings-board/id" element={<SavingsBoard />} />
           <Route path='/create-saving-goal' element={<CreateGoal/>} />
-          <Route path='/edit-goal/:goalId' element={<UpdateGoal/>}/>
+          <Route path='/createGoal/:goalId' element={<UpdateGoal/>}/>
         </Route>
 
         {/* OPEN ROUTES -- anything listed in the below <Route> block is available to unauthenticated users */}
