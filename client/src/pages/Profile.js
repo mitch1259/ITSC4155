@@ -38,14 +38,19 @@ useEffect(() => {
       name = response.data[0].firstName;
       const userPictureString = response.data[0].profilePicture;
 
-      console.log("name: ", name);
+      // console.log("name: ", name);
       console.log("This is the User Profile Pic: "+userPictureString)
 
       const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      // console.log("This is the User Profile Pic: "+userPictureString)
+
+      // const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
       setUserName(name);
       setLoading(false);
       
       setPFP(base64Image)
+      
+      setPFP(userPictureString)
       // setCurrentUser(response.data);
     });
 }, []);
@@ -69,8 +74,9 @@ useEffect(() => {
               <div className="inside-profile">
                 <div className="pic-display">
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-                  {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
+                  {/* {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
                   <img src={`data:image/png;base64,${pfp}`} alt="User profile picture" className='user-profile-image'/>
+                  <img src={pfp} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
                   <p className='user-profile-header'>Placeholder User</p>
@@ -106,4 +112,3 @@ useEffect(() => {
   }
   
   export default Profile;
-  

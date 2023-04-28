@@ -7,6 +7,11 @@ import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
 
+import buffer from 'buffer';
+import { useEffect, useState } from 'react';
+import Axios from 'axios';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+
 
 // images
 import StickMan from '../images/stickman.jpg';
@@ -59,19 +64,20 @@ useEffect(() => {
                         </h1>
                     </td> 
                     {auth ?
-                    (<td>
+                    <td>
                         <div className="Links"> 
                             <Link to="/" className="nav-link">Dashboard</Link> | 
                             <Link to="/savings-boards" className="nav-link">Savings Boards</Link> | 
                             <Link to="/profile" className="nav-link">
                                 Profile
                                 {/* If the user has a profile picture, display the profile picture, else display default Stickman image */}
-                                {/* <img className="nav-user-profile-picture" src={props.userProfilePicture ? props.userProfilePicture : StickMan} /> */}
+                                {/* {/* <img className="nav-user-profile-picture" src={props.userProfilePicture ? props.userProfilePicture : StickMan} /> */}
                                 <img src={`data:image/png;base64,${pfp}`} alt="User profile picture" className='nav-user-profile-picture'/>
+                                <img src={pfp} alt="User profile picture" className='nav-user-profile-picture'/>
 
-                            </Link>&nbsp;&nbsp;
+                            </Link>
                         </div>
-                    </td>)
+                    </td>
                     : <></>}
                 </tr>
             </table>

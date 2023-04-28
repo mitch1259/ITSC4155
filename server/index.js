@@ -191,8 +191,6 @@ app.post('/api/changeUserInfo', (req, res) => {
     const password = sha256(req.body.password).toString();;
     const userID = req.body.userID;
     const profilePicture = req.body.profilePicture;
-
-    const profilePicture = req.body.profilePicture;
     // console.log(req.body.profilePicture);
     console.log("PROFILE PICTURE: ", profilePicture);
     // const blobBuffer = buffer.Buffer.from(profilePicture, 'base64'); 
