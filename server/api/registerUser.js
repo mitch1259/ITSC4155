@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
     const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
     db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
         if (err) {
-            console.log(err);
+            console.log("error: ", err);
         } else {
             console.log(result);
             res.send("successful user registration");
