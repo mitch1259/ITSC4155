@@ -31,7 +31,8 @@ router.post('/', (goal,res)=>{
 
 //UPDATE GOAL USING THE GOAL ID FROM THE USER
 //API/UPDATEGOAL/GOALID --
-router.put('/:goalId',(req,res)=>{
+router.put('/updateGoal/:goalId',(goal,res)=>{
+    const goalId=goal.body.goalId
     const title=goal.body.title;
     const savings=goal.body.savings;
     const startingAmount=goal.body.startingAmount;
@@ -42,9 +43,9 @@ router.put('/:goalId',(req,res)=>{
 
     const updateGoalSqlInsert="update budgitdb.goal set title = ?, saving = ?, startingAmount = ?, startDate = ? WHERE goalId = ?";
 
-    db.query(updateGoalSqlInsert,[title,savings,startingAmount,startDate,endDate,description],(errs,result) =>{
+    db.query(updateGoalSqlInsert,[goalId,title,savings,startingAmount,startDate,endDate,description],(errs,result) =>{
         if(err){
-            console.log(err)
+            console.log(errs)
         }
         else{
             console.log(result);
@@ -82,7 +83,7 @@ router.delete('/:goalId',(goal,res)=>{
 router.get('/:goalId',(goal,res) =>{
     const goalId=goal.body.goalId;
 
-    const getGoalById="select * from budgitdb.goal where goalId= ?"
+    const getGoalById="select * from budgitdb.goal where goalId= ?;";
 
     db.query(getGoalById,[goalId],(err,result) =>{
         if(goalId==undefined){
@@ -96,10 +97,10 @@ router.get('/:goalId',(goal,res) =>{
 
 
 //add contributions to saving goal:
-router.put('/',(goal,res) =>{
+router.put('/contribution/',(goal,res) =>{
     const goalId=goal.body.goalId;
     const addContribution=goal.body.startingAmount;
-    const updateContributions='UPDATE  budgitdb.goal SET startingAmount= ?';
+    const updateContributions='UPDATE budgitdb.goal SET startingAmount= ?';
 
     db.query(updateContributions,[goalId,addContribution],(err,result) =>{
         if(err){

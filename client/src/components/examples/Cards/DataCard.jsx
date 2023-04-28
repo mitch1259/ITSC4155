@@ -15,7 +15,15 @@ import '../../../css/global.css';
  * @param {string} title - title you want your card to be
  * @param {Array} transactions - The parameter that you put your transaction array in with date,label,amount titled columns
 */
-const BasicDataCard=({title})=>{
+const BasicDataCard=({title,transactions})=>{
+    const convertToDate= (dateData) =>{
+
+        const valueOfDate= new Date(dateData)
+        const formatedDate= String((new Date(valueOfDate).getMonth())+'/'+(new Date(valueOfDate).getDate()))
+        return formatedDate
+    }
+
+    // const transactionsArray=Array.from(transactions)
     return (
         <Card style={{borderRadius:10}}>
             <CardContent style={{backgroundColor:"#8ee4af"}}>
@@ -31,9 +39,9 @@ const BasicDataCard=({title})=>{
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {RecentTransaction.map((transaction)=>(
-                                <TableRow key={transaction.date} >
-                                    <TableCell>{transaction.date}</TableCell>
+                            {transactions?.map((transaction)=>(
+                                <TableRow key={transaction.transactionID} >
+                                    <TableCell>{convertToDate(transaction.createDate)}</TableCell>
                                     <TableCell align="center">{transaction.label}</TableCell>
                                     <TableCell align="center">{transaction.amount}</TableCell>
                                 </TableRow>

@@ -3,7 +3,6 @@ import * as React from 'react';
 // import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -22,17 +21,15 @@ function UpdateGoal(){
     const [endDate, setEndDate] = useState('')
     const [description, setDescription] = useState('')
     const navigate= useNavigate();
-    const {goalId}= useParams();
-    const[goalList,setGoalList]=useState([]);
-    
+    const {goalId}= useParams();    
     const savingGoal = { title, savings, startingAmount, startDate, endDate, description }
 
 
     const updateGoal = (e) => {
         e.preventDefault();
         if (goalId) {
-            GoalService.updateExercise(goalId, savingGoal).then((response) => {
-                navigate("/exercise")
+            GoalService.updateGoal(goalId, savingGoal).then((response) => {
+                navigate("/savings-boards")
             }).catch(error => {
                 console.log(error)
             })
@@ -56,7 +53,6 @@ function UpdateGoal(){
 
     return(
         <div>
-            <container>
             {/* <Button variant='contained' onClick={handleClickOpen}>Crate a Goal</Button>
             <Dialog open={open} onClose={handleClose}> */}
                 <DialogTitle>Update Goal</DialogTitle>
@@ -66,6 +62,7 @@ function UpdateGoal(){
                         margin="dense"
                         id="goaltitle"
                         label="Goal Title"
+                        value={title}
                         type="text"
                         fullWidth
                         variant="standard"
@@ -149,7 +146,7 @@ function UpdateGoal(){
                 </DialogActions>
 
             {/* </Dialog> */}
-            </container>
+            {/* </container> */}
         </div>
     )
 }

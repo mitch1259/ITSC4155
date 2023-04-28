@@ -32,7 +32,7 @@ app.use('/api/loginUser', userAPI);
 app.use('/api/registerUser', registerUser);
 app.use('/api/createGoal/',savingGoal);
 app.use('/api/createGoal/',deleteGoal)
-app.use('/api/createGoal/:goalId',updateGoal)
+app.use('/api/createGoal/updateGoal/:goalId',updateGoal)
 
 
 

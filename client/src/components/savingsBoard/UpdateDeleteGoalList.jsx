@@ -34,7 +34,7 @@ function UpdateDeleteGoalList(){
 
     const deleteGoal=(goalId) =>{
             GoalService.deleteGoal(goalId).then((response)=>{
-                
+                displayAllGoals()
             }).catch(error=>{
                 console.log(error)
             })

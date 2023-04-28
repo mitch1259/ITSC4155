@@ -16,7 +16,7 @@ class GoalService{
     }
 
     updateGoal(goalId, goal){
-        return Axios.put(CREATE_GOAL_BASE_URL+"/"+goalId,goal);
+        return Axios.put(CREATE_GOAL_BASE_URL+"/updateGoal/"+goalId,goal);
     }
 
     deleteGoal(goalId){
