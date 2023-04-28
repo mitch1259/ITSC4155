@@ -7,11 +7,10 @@ import { TextField } from '@mui/material';
 import FancyButton from '../components/navigation/FancyButton';
 import BudgitLogo from '../images/budgit-logo-colour.png';
 import AuthContext from '../context/AuthProvider';
-
 function Register() {
 
   const { auth, setAuth} = React.useContext(AuthContext);
-
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,7 +24,7 @@ function Register() {
         console.log(data);
       });
     }, []);
-
+    
     function validateEmail(email) {
       var re = (
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -36,25 +35,41 @@ function Register() {
       var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
       return re.test(password);
     }
+    function searchUser(email) {
+     // const foundUser = new Boolean();
+      Axios.post('http://localhost:3002/api/search/users', {
+        email: email
+      }).then((res, err) => {
+        if(err){
+          console.log(err);
+          return true;
+         // foundUser = true;
+        } 
+        else {
+          console.log("There is already a user: ", res.data);
+          return false;
+        //  foundUser = false;
+        }
+      })
+      //return foundUser;
+    }
     const registerUser = () => {
+      setError(false);
       //Series of if statements check for problems in data nad, if any is found, it will be handled accordingly
       if(password.length == 0 || confirmPassword.length == 0 || password != confirmPassword || validatePassword(password) == false) {
-        //If either password textbox is empty,
-        //or if the passwords don't match,
-        //then an error is thrown here
         setError(true);
       }
-      else if(email.length == 0 || validateEmail(email) == false) {
+      else if(email.length == 0 || validateEmail(email) == false || searchUser(email) == false) {
         setError(true);
       }
-      else if(firstName.length == 0 || lastName.length == 0) {
+      else if(firstName.length == 0) {
         setError(true);
       }
       else if(lastName.length == 0) {
          setError(true);
       }
       else {
-       setError(false);
+      setError(false);
       Axios.post('http://localhost:3002/api/registerUser', {
         firstName: firstName,
         lastName: lastName,
@@ -120,8 +135,8 @@ function Register() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                error = {error&&email.length == 0 || error&&validateEmail(email) == false}
-                helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :""}
+                error = {error&&email.length == 0 || error&&validateEmail(email) == false || error&&searchUser(email) == false}
+                helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :"" || error&&searchUser(email) == false ? "A user with this email already exists":""}
               />
             </div>
             <div className='register-input-wrapper-full'>

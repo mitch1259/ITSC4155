@@ -19,6 +19,7 @@ function Login() {
 
     const loginUser = (e) => {
         e.preventDefault();
+        //const hashedPassword = bcrypt.(password, 10)
         const userData = {
             email: email,
             password: password
@@ -27,19 +28,21 @@ function Login() {
         .then((response) => {
             setError(false);
             console.log('received response: ', response.data);
+            var temp = response.data[0];
             setAuth(true);
             console.log('response NO DATA: ', response);
             console.log('response WITH DATA: ' ,response.data);
             console.log('response WITH DATA[0]: ', response.data[0]);
-            var temp = response.data[0];
+            
             var currentUserID = temp.userID;
             EncryptToLocalStorage("userId", currentUserID);
             console.log('currentUserID: ', currentUserID);
+            
         });
         if(!auth) {
             setError(true);
         }
-        console.log("clicked! email: ", email, " password: ", password );
+        console.log("clicked! email: ", email, " password: ", password);
       };
 
     if (auth) {
