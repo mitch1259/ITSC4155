@@ -22,7 +22,7 @@ function AppRoutes() {
           <Route path="/" element={<AccountDashboard />} />
           <Route path="/savings-boards" element={<Allchart />} />
           <Route path="/profile/editprofile" element={<EditProfile />} />
-          <Route path="/savings-board/id" element={<SavingsBoard />} />
+          <Route path="/savings-board/:boardId" element={<SavingsBoard />} />
           <Route path='/create-saving-goal' element={<CreateGoal/>} />
         </Route>
 

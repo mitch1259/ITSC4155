@@ -80,6 +80,21 @@
     top: 80vh;
 }
 
+.account-dashboard-main {
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+ 
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
 @media screen and (min-width: 1700px) {
     .dashboard-chart-wrapper {
         top: 85vh;

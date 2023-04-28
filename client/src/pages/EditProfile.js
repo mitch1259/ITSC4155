@@ -26,7 +26,7 @@ function EditProfile() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { auth, setAuth} = useContext(AuthContext);
+    const { auth, setAuth } = useContext(AuthContext);
 
     var current = DecryptFromLocalStorage("userId");
 
