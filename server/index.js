@@ -183,13 +183,13 @@ app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
 });
 
 app.post('/api/changeUserInfo', (req, res) => {
-    
+    const sha256 = require('crypto-js/sha256');
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = sha256(req.body.password).toString();;
     const userID = req.body.userID;
-    const profilePicture = new buffer.Blob();
+    const profilePicture = req.body.profilePicture;
     // console.log(req.body.profilePicture);
     console.log("PROFILE PICTURE: ", profilePicture);
 
