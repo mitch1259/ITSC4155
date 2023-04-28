@@ -338,6 +338,9 @@ app.put('/api/createGoal/:goalId',(goal,res)=>{
         else{
             console.log(result);
             res.send(result);
+        } 
+    })
+});
 
 app.post('/api/get/currentBoard', (req, res) => {
     let boardID = req.body.boardId;
@@ -409,8 +412,8 @@ app.get('/api/createGoal/:goalId',(goal,res) =>{
         else{
             res.send(result)
         }
-    })
-})
+    });
+});
 
 
 app.post('/api/board/create', (req, res) => {
