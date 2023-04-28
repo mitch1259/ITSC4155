@@ -6,6 +6,10 @@ import Axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import { Link } from 'react-router-dom';
 import Transactions from "../components/profileTransactions.jsx";
+import BoardLinksCard from '../components/dashboard/BoardLinksCard';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+import buffer from 'buffer';
+
 
 
 
@@ -14,9 +18,47 @@ function Profile(props) {
 
     
     const { auth, setAuth, currentUser, setCurrentUser } = useContext(AuthContext);
+    const [username, setUserName] = useState('');
+    
     console.log(currentUser);
     document.title = "User Profile";
     const clicked = console.log('this was clicked')
+    const [isLoading, setLoading] = useState(true);
+    var current = DecryptFromLocalStorage("userId");
+    var name = "";
+  
+  const [pfp, setPFP] = useState('');
+  // setCurrentUser(current);
+  // console.log('currentUser state on dashboard: ', currentUser);
+  // console.log('data type of cookie value after parseInt: ', typeof current);
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
+    ).then((response) => {
+      name = response.data[0].firstName;
+      const userPictureString = response.data[0].profilePicture;
+
+      // console.log("name: ", name);
+      console.log("This is the User Profile Pic: "+userPictureString)
+
+      const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      // console.log("This is the User Profile Pic: "+userPictureString)
+
+      // const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      setUserName(name);
+      setLoading(false);
+      
+      setPFP(base64Image)
+      
+      setPFP(userPictureString)
+      // setCurrentUser(response.data);
+    });
+}, []);
+
+    const firstName = name;
+    console.log(firstName);
+  
+
     
 //changed it so hopefully it works
     const logOutUser = () => {
@@ -32,7 +74,9 @@ function Profile(props) {
               <div className="inside-profile">
                 <div className="pic-display">
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-                  <img className="user-profile-image" src={StickMan} alt="User Image"/>
+                  {/* {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
+                  <img src={`data:image/png;base64,${pfp}`} alt="User profile picture" className='user-profile-image'/>
+                  <img src={pfp} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
                   <p className='user-profile-header'>Placeholder User</p>
@@ -59,16 +103,7 @@ function Profile(props) {
             </div>
             <div className="saves-board">
                 <div className="inside">
-                  <p className='user-profile-boards-header'>Your Savings Boards</p>
-                  <div className="user-profile-board">
-                    <p className='user-profile-board-header'>Board 1</p>
-                    <p className='user-profile-board-savings'>Savings: $10,000</p>
-                  </div>
-
-                  <div className="user-profile-board">
-                    <p className='user-profile-board-header'>Board 2</p>
-                    <p className='user-profile-board-savings'>Savings: $532</p>
-                  </div>   
+                <BoardLinksCard name={username} />
                 </div>   
             </div>
         </div>
@@ -77,4 +112,3 @@ function Profile(props) {
   }
   
   export default Profile;
-  
