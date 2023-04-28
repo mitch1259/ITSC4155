@@ -23,15 +23,15 @@ function RecentActivityCard() {
   const userMap = new HashMap();
 
   // get current user information by userID
-  useEffect(() => {
-    Axios.post('http://localhost:3002/api/get/currentUserInfo', {userID: current}
-      ).then((response) => {
-        const userData = Array.from(response.data);
-        // userObject = userData[0];
-        setUser(userData);
-        setIsUserLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   Axios.post('http://localhost:3002/api/get/currentUserInfo', {userID: current}
+  //     ).then((response) => {
+  //       const userData = Array.from(response.data);
+  //       // userObject = userData[0];
+  //       setUser(userData);
+  //       setIsUserLoading(false);
+  //     });
+  // }, []);
 
   // const groupedByBoards = user.reduce(function (r, a) {
   //   r[a.boardID] = r[a.boardID] || [];
@@ -53,7 +53,7 @@ function RecentActivityCard() {
       ).then((response) => {
         var boardsData = Array.from(response.data);
         // userObject = userData[0];
-        setUserBoards(boardsData[0]);
+        setUserBoards(boardsData);
         setBoardsLoading(false);
       });
   }, []);
@@ -74,11 +74,14 @@ function RecentActivityCard() {
   
 
 
-  console.log("user: ", user);
-  console.log("boards: ", userBoards);
+  console.log("user boards: ", userBoards);
   console.log("transactions: ", recentTransactions);
 
-  if(isUserLoading) {
+  // userBoards.map((board) => {
+  //   console.log(board.boardName);
+  // })
+
+  if(transactionsLoading||boardsLoading) {
     return (
       <div className='loading'>
         <CircularProgress color="success"/>
@@ -90,26 +93,10 @@ function RecentActivityCard() {
     <div className='recent-activity-cards-wrapper'>
       <div className='react-activity-snippets'>
       <p className='recent-activity-header'>Recent Activity</p>
-        <RecentActivitySnippet
-            boardName={"Example Board 1"}
-            remainingBudget={"300.23"}
-            recentChargeDate1={"02/15/23"}
-            recentChargeDate2={"01/10/23"}
-            recentChargeName1={"Verizon Bill"}
-            recentChargeAmount1={"92.34"}
-            recentChargeName2={"Downtown Charlotte Parking Fee"}
-            recentChargeAmount2={"25.00"}
-        />
-        <RecentActivitySnippet
-            boardName={"Example Board 2"}
-            remainingBudget={"220.76"}
-            recentChargeDate1={"01/14/23"}
-            recentChargeDate2={"01/23/23"}
-            recentChargeName1={"January Rent Payment"}
-            recentChargeAmount1={"752.00"}
-            recentChargeName2={"January Credit Card Payment"}
-            recentChargeAmount2={"124.45"}
-        />
+        { userBoards.map( (board) => {
+            return <RecentActivitySnippet boardName={board.boardName} transactions={recentTransactions} boardID={board.boardID}/>
+          })
+        }
       </div>
     </div>
   )

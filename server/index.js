@@ -293,6 +293,7 @@ app.get('/api/get/board/transactions', (req, res) => {
     }
 });
 
+
 //Delete GOAL USING GOAL ID 
 app.post('/api/createGoal/deleteGoal/',(goal,res)=>{
     const goalId=goal.body.goalId;
@@ -337,9 +338,61 @@ app.put('/api/createGoal/:goalId',(goal,res)=>{
         else{
             console.log(result);
             res.send(result);
+
+app.post('/api/get/currentBoard', (req, res) => {
+    let boardID = req.body.boardId;
+    console.log("BOARDID: ", boardID);
+    const sqlQuery = "SELECT * FROM budgitdb.boards WHERE boardID = ?"
+    db.query(sqlQuery, [boardID], (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
+        }
+    })
+});
+
+app.get('/api/get/board/budget', (req, res) => {
+    const id = req.query.id;
+
+    const sqlSelect = "SELECT * FROM budgitdb.boards WHERE boardID = ?";
+    db.query(sqlSelect, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
         }
     });
 });
+
+app.post('/api/transaction/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.transactions WHERE transactionID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/board/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.boards WHERE boardID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+
+        }
+    });
+});
+
 
 
 //get a single goal object from server
@@ -358,6 +411,38 @@ app.get('/api/createGoal/:goalId',(goal,res) =>{
         }
     })
 })
+
+
+app.post('/api/board/create', (req, res) => {
+    const id = req.body.userID;
+    const name = req.body.name;
+    const description = req.body.description;
+    const budget = req.body.budget;
+
+    const sqlInsert = "INSERT INTO budgitdb.boards (`userID`, `boardName`, `boardDescription`, `recurTransactions`, `remainBudget`) VALUES (?,?,?,?,?);"
+    db.query(sqlInsert, [id, name, description, "", budget], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/boards/getRecentTwo', (req, res) => {
+    const boardID = req.body.boardID;
+    const currentDate = req.body.currentDate;
+
+    const sqlQuery = "SELECT * FROM budgitdb.transactions WHERE boardID = ? AND createDate <= ? ORDER BY createDate DESC LIMIT 2";
+    db.query(sqlQuery, [boardID, currentDate], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("result: ", result);
+            res.send(result);
+        }
+    });
+});
 
 
 

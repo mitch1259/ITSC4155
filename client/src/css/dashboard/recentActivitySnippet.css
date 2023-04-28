@@ -1,7 +1,7 @@
 .recent-activity-snippet-wrapper {
     box-shadow: 0px 24px 3px -24px #05386b;
     margin-top: 2%;
-    margin-bottom: 6%;
+    margin-bottom: 3.5%;
     margin-left: 2%;
     margin-right: 2%;
     border-radius: 6px;
@@ -30,16 +30,32 @@
 
 .recent-activity-snippet-details-wrapper {
     display: flex;
+    border-bottom-style: solid;
+    border-bottom-color: #05386b6e;
+    border-bottom-width: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: all 0.15s ease 0s;
 }
 
-.recent-activity-snippet-details-chargeNameDate {
+.recent-activity-snippet-details-wrapper:hover {
+    padding-left: 10px;
+    transition: all 0.15s ease 0s;
+    background-color: #ffffff5e;
+}
+
+.recent-activity-snippet-details-chargeDate {
     font-size: 24px;
     padding-left: 4.4%;
     padding-top: 1%;
     padding-bottom: 1%;
-    width: 75%;
+    padding-right: 3%;
     text-overflow: ellipsis;
     float: left;
+    width: 17%;
+    border-right-style: solid;
+    border-right-color: #05386b6e;
+    border-right-width: 1px;
 }
 
 .recent-activity-snippet-details-chargeAmount {
@@ -47,8 +63,16 @@
     padding-right: 4.4%;
     padding-top: 1%;
     padding-bottom: 1%;
-    width: 25%;
     text-overflow: ellipsis;
     float: right;
     text-align: right;
+    width: 22%;
+}
+
+.recent-activity-snippet-details-chargeName {
+    font-size: 24px;
+    padding-top: 1%;
+    margin-left: 2.5%;
+    width: 65%;
+    text-overflow: ellipsis;
 }
