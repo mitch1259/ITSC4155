@@ -137,7 +137,7 @@ function Register() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                error = {error&&email.length == 0 || error&&validateEmail(email) == false || error&&isUserFound == false}
+                error = {error&&email.length == 0 || error&&validateEmail(email) == false /*|| error&&isUserFound == false*/}
                 helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :"" /*|| error&&isUserFound == false ? "A user with this email already exists":""*/}
               />
             </div>
