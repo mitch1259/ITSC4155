@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Transactions from "../components/profileTransactions.jsx";
 import BoardLinksCard from '../components/dashboard/BoardLinksCard';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+import buffer from 'buffer';
 
 
 
@@ -18,12 +19,15 @@ function Profile(props) {
     
     const { auth, setAuth, currentUser, setCurrentUser } = useContext(AuthContext);
     const [username, setUserName] = useState('');
+    
     console.log(currentUser);
     document.title = "User Profile";
     const clicked = console.log('this was clicked')
     const [isLoading, setLoading] = useState(true);
-  var current = DecryptFromLocalStorage("userId");
-  var name = "";
+    var current = DecryptFromLocalStorage("userId");
+    var name = "";
+  
+  const [pfp, setPFP] = useState('');
   // setCurrentUser(current);
   // console.log('currentUser state on dashboard: ', currentUser);
   // console.log('data type of cookie value after parseInt: ', typeof current);
@@ -32,9 +36,16 @@ useEffect(() => {
   Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
     ).then((response) => {
       name = response.data[0].firstName;
-      console.log("name: ", name);
+      const userPictureString = response.data[0].profilePicture;
+
+      // console.log("name: ", name);
+      // console.log("This is the User Profile Pic: "+userPictureString)
+
+      // const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
       setUserName(name);
       setLoading(false);
+      
+      setPFP(userPictureString)
       // setCurrentUser(response.data);
     });
 }, []);
@@ -58,7 +69,8 @@ useEffect(() => {
               <div className="inside-profile">
                 <div className="pic-display">
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-                  <img className="user-profile-image" src={StickMan} alt="User Image"/>
+                  {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
+                  <img src={pfp} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
                   <p className='user-profile-header'>Placeholder User</p>
@@ -94,4 +106,3 @@ useEffect(() => {
   }
   
   export default Profile;
-  
