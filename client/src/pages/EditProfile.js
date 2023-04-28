@@ -12,7 +12,6 @@ import { Hidden, TextField } from '@mui/material';
 import AuthContext from '../context/AuthProvider';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
 import buffer from 'buffer';
-import { Blob } from 'blob-polyfill';
 
 function EditProfile() {
 
@@ -37,9 +36,21 @@ function EditProfile() {
     // const [file, setFile] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [newProfilePicture, setNewProfilePicture] = useState('');
+
+    const [imageUrl, setImageUrl] = useState("");
+    const [image, setImage] = useState("");
 
     const [error, setError] = useState(false);
 
+    const handleImageUrlChange = (event) => {
+      setImageUrl(event.target.value);
+    }
+    
+    const handlePaste = (event) => {
+      event.preventDefault();
+      const pastedText = event.clipboardData.getData("text");
+      setImageUrl(pastedText);
     function validateEmail(email) {
       var re = (
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -151,7 +162,15 @@ useEffect(() => {
     // const base64String = base64NewImageString;
      // console.log("The base64 string is: "+base64String)
       // const byteCharacters = new TextDecoder('utf-8').decode(Uint8Array.from(atob(base64String), c => c.charCodeAt(0)));
-
+      // console.log("SELECTED FILE: ", file);
+      // console.log("NEW PROFILE PICTURE: ", newProfilePicture);
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //   const B64string = reader.result.split(',')[1];
+      //   setNewProfilePictureB64(B64string);
+      // }
+      // reader.readAsDataURL(newProfilePicture);
+      // console.log('NEW PROFILE PICTURE STATE VARIABLE: ', newProfilePicture);
       // // Convert the byte array to a Blob object
       // const byteArray = new Uint8Array([...byteCharacters].map(c => c.charCodeAt(0)));
       // const blob = new Blob([byteArray], {type: "image/png"});
@@ -195,6 +214,8 @@ useEffect(() => {
   };
 
     // console.log("PROFILE PICTURE: ", profilePicture);
+    // console.log("PREVIEW URL: ", previewUrl);
+    // console.log("SELECTED FILE ", selectedFile);
 
     if(isLoading) {
       return <div className="account-dashboard-main">Loading...</div>
@@ -312,6 +333,6 @@ useEffect(() => {
         </div>
     );
   }
-  
+}
   export default EditProfile;
   
