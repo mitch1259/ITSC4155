@@ -25,6 +25,13 @@ function Allchart(){
         });
     };
 
+    const savedDataArray= (savedAmount, sGoalAmount) => {
+        const remainingSavingsGoal=Number(sGoalAmount)-Number(savedAmount)
+        console.log(remainingSavingsGoal)
+        const sArray=[{value:Number(savedAmount),title:"Saved"},{value:Number(remainingSavingsGoal),title:"Goal"}]
+        return sArray
+    }
+
     document.title = "Savings Boards";
 
     return(
@@ -47,7 +54,7 @@ function Allchart(){
             <div className='all-charts-display'>
                 {goalList.map(
                     goal =>
-                    <LayoutOne title={goal.title} savings={goal.savings}  contribution={goal.startingAmount}/>
+                    <LayoutOne title={goal.title} savings={goal.savings}  contribution={goal.startingAmount} savingGoalData={savedDataArray(goal.startingAmount,goal.savings)}/>
                 )}
                 
 

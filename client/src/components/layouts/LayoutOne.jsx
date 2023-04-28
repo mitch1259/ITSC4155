@@ -14,7 +14,7 @@ import DecryptFromLocalStorage from '../../context/encryption/DecryptFromLocalSt
 
 
 
-function LayoutOne({title,savings,contribution,rTransactions,uTransactions}){
+function LayoutOne({title,savings,contribution,savingGoalData}){
 console.log("Layout one rendering")
 
 const [recentTransactions, setRecentTransactions] = useState(['']);
@@ -30,10 +30,9 @@ var current = DecryptFromLocalStorage("userId");
     Axios.post('http://localhost:3002/api/get/currentUser/recentTransactions', {userID: current}
       ).then((response) => {
         var transactionsData = Array.from(response.data);
-        var recurrentDataArray=transactionsData.filter((key) =>key.includes(key.userID===1))
-        // userObject = userData[0];
+        // var recurrentDataArray=transactionsData.filter((key) =>key.includes(key.userID===1))
         setRecentTransactions(transactionsData);
-        setRecurrent(recurrentDataArray);
+        // setRecurrent(recurrentDataArray);
         setTransactionsLoading(false);
       });
   }, []);
@@ -55,10 +54,10 @@ var current = DecryptFromLocalStorage("userId");
                 <BasicDataCard title="Recent Activity" transactions={recentTransactions}/>
             </div>
             <div>
-                <BasicDataCard title="Upcoming Expense" transactions={recurrent}/>
+                <BasicDataCard title="Upcoming Expense" transactions={recentTransactions}/>
             </div>
             <div id="layout-one-chart">
-                <ChartComponent data={TransactiontypeData} />
+                <ChartComponent data={savingGoalData} />
             </div>
         </Stack>
         </div>
