@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import DeleteTransaction from './DeleteTransaction';
+import { Tooltip } from '@mui/material';
 
 
 function SavingsBoardBucket({ remainingBudget, currentDay, transactions, maxBudget }) {
@@ -26,17 +27,10 @@ function SavingsBoardBucket({ remainingBudget, currentDay, transactions, maxBudg
     return "budget-unknown";
   }
 }
+const percentage = remainingBudget / maxBudget * 100 > 0 ? remainingBudget / maxBudget * 100 + '%' : '1%';
 
-// console.log("remainingBudget: ", remainingBudget);
-// console.log("currentDay: ", currentDay);
-// console.log("transactions: ", transactions);
 
-// const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-// console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--dynamic-height'));
-// const percentage = clamp(remainingBudget / 500 * 100, 50, 250);
-const percentage = remainingBudget / maxBudget * 100 + '%';
-// const percentage = remainingBudget * 100 / 500;
 console.log("percentage: ", percentage);
 const bucketStyle = {
   height: percentage,
@@ -77,13 +71,16 @@ const sxFont = {
 
 // document.documentElement.style.setProperty('--dynamic-height', percentage);
 // console.log(remainingBudget / 500);
-  
+// const toolTipText = "Remaining budget as of " + {remainingBudget};
+
   return (
     <>
       <div className='savings-bucket-wrapper-wrapper' onClick={handleOpen}>
         <div className={budgetToClassesMap(remainingBudget, maxBudget)} style={bucketStyle}>
           <div className='savings-board-bucket'>
-            <p className='savings-board-bucket-remaining-budget'>${ Math.round(remainingBudget * 100) / 100 }</p>
+            <Tooltip title={'Remaining budget as of ' + currentDay} arrow>
+              <p className='savings-board-bucket-remaining-budget'>${ Math.round(remainingBudget * 100) / 100 }</p>
+            </Tooltip>
             <p className='savings-board-bucket-day'>{ currentDay }</p>
           </div>
         </div>

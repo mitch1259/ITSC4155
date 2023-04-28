@@ -14,6 +14,7 @@
 
 .board-function-bar-weekof-wrapper {
     display: flex;
+    line-height: 50px;
 }
 
 .board-function-bar-weekof {
@@ -29,7 +30,9 @@
 }
 
 .board-function-bar-viewby {
-    margin-right: 12px;
+    margin-left: 40px;
+    margin-right: 3px;
+    line-height: 50px;
 }
 
 .board-function-bar-add-transaction {

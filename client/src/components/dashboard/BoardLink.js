@@ -11,7 +11,7 @@ function BoardLink({boardName, boardId}) {
       <Link to={"/savings-board/" + boardId}>
         <button className='board-link-button'>Go to board</button>
       </Link>
-      <DeleteBoard boardId={boardId}/> {/* NEEDS PROPS FOR BOARD ID */}
+      {/* <DeleteBoard boardId={boardId}/> NEEDS PROPS FOR BOARD ID */}
     </div>
   )
 }

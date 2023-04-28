@@ -217,6 +217,7 @@ function SavingsBoard() {
           boardTitle={title}
           boardDescription={description}
           remainingBudget={Math.round(remBudget * 100) / 100}
+          weeklyBudget={boardInfo[0].remainBudget}
         />
       </div>
       <div className='savings-board-function-bar'>
@@ -241,4 +242,4 @@ function SavingsBoard() {
   )
 }
 
-export default SavingsBoard
+export default SavingsBoard;
