@@ -12,6 +12,13 @@
     padding-bottom: 1%;
 }
 
+.board-links {
+    max-height: 325px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-color: green;
+}
+
 .board-links-card-header {
     font-size: 28px;
     font-weight: 600;

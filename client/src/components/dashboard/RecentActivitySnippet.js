@@ -43,7 +43,7 @@ function RecentActivitySnippet({ boardName, boardID }) {
       <div className='recent-activity-snippet-wrapper'>
           <p className='recent-activity-snippet-header'>{boardName}</p>
           <div className='recent-activity-snippet-details-wrapper'>
-          <p className='recent-activity-snippet-details-chargeName'>go spend some money idiot</p>
+            <p className='recent-activity-snippet-details-no-transactions'>No recent transactions found</p>
           </div>
       </div>
     )

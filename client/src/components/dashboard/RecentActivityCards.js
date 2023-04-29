@@ -88,18 +88,31 @@ function RecentActivityCard() {
       </div>
     )
   }
-
-  return (
-    <div className='recent-activity-cards-wrapper'>
-      <div className='react-activity-snippets'>
-      <p className='recent-activity-header'>Recent Activity</p>
-        { userBoards.map( (board) => {
-            return <RecentActivitySnippet boardName={board.boardName} transactions={recentTransactions} boardID={board.boardID}/>
-          })
-        }
+  if (userBoards.length > 0) {
+    return (
+      <div className='recent-activity-cards-wrapper'>
+        <div className='react-activity-snippets'>
+        <p className='recent-activity-header'>Recent Activity</p>
+        <div className='recent-activity-snippets-scroll'>
+            { userBoards.map( (board) => {
+              return <RecentActivitySnippet boardName={board.boardName} transactions={recentTransactions} boardID={board.boardID}/>
+            })
+          }
+        </div>
+        </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className='recent-activity-cards-wrapper'>
+        <div className='react-activity-snippets'>
+        <p className='recent-activity-header'>Recent Activity</p>
+          <h2>No boards found.</h2>
+        </div>
+      </div>
+    )
+  }
+  
 
 }
 

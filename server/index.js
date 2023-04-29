@@ -410,14 +410,14 @@ app.post('/api/transaction/delete', (req, res) => {
 
 app.post('/api/board/delete', (req, res) => {
     const id = req.body.id;
-
+    console.log("received id: ", id);
     const sqlDelete = "DELETE FROM budgitdb.boards WHERE boardID = ?;"
     db.query(sqlDelete, [id], (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
-
+            console.log("deleted board: ", result);
+            res.send(result);
         }
     });
 });

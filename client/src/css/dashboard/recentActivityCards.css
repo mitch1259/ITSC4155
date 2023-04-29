@@ -32,3 +32,10 @@
     color: #05386b;
     box-shadow: -19px 24px 5px -24px #05386b;
 }
+
+.recent-activity-snippets-scroll {
+    max-height: 435px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: green;
+}
