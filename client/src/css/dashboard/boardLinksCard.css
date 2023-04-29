@@ -21,4 +21,17 @@
     padding-bottom: 2.5%;
     margin-bottom: 35px;
     box-shadow: -5px 24px 5px -24px #05386b;
+    display: flex;
+    width: 100%;
+}
+
+.board-links-card-name {
+    width: 62%;
+    border-right: 1px solid #05386b6c;
+}
+
+.board-links-create-board {
+    width: 25%;
+    float: right;
+    margin-left: 15px;
 }

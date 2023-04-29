@@ -6,36 +6,43 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import DeleteTransaction from './DeleteTransaction';
+import { Tooltip } from '@mui/material';
 
 
-function SavingsBoardBucket({ remainingBudget, currentDay, transactions }) {
+function SavingsBoardBucket({ remainingBudget, currentDay, transactions, maxBudget }) {
 
-  const budgetToClassesMap= (budget) => {
+  const budgetToClassesMap= (budget, maxBudget) => {
     switch(true){
-  case (budget <= 300):
+  // if budget is less than 25%
+  case (budget <= (maxBudget * .25)):
     return "low-budget-red"; 
-  case (budget > 300 && budget <= 400):
+  // if budget is greater than 25% but less than/equal to 50%
+  case (budget > (maxBudget * .25) && budget <= (maxBudget * .5)):
     return "medium-budget-orange"; 
-  case (budget > 400):
+  // if budget is greater than 50%
+  case (budget > (maxBudget * .5)):
     return "savings-board-bucket-wrapper"; 
   default: 
     return "budget-unknown";
   }
 }
+const percentage = remainingBudget / maxBudget * 100 > 0 ? remainingBudget / maxBudget * 100 + '%' : '1%';
 
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-// console.log(window.getComputedStyle(document.documentElement).getPropertyValue('--dynamic-height'));
-const percentage = clamp(remainingBudget / 500 * 100, 50, 250);
-// const percentage = remainingBudget * 100 / 500;
-console.log(percentage);
+
+console.log("percentage: ", percentage);
 const bucketStyle = {
   height: percentage,
 }
 
 const [open, setOpen] = React.useState(false);
 const handleOpen = () => {
-  setOpen(true);
+  if (transactions.length > 0) {
+    setOpen(true);
+  } else {
+    handleClose();
+  }
   initialize();
 }
 const handleClose = () => {
@@ -45,10 +52,12 @@ const handleClose = () => {
 const [transacts, setTransacts] = React.useState('');
 
 const initialize = () => {
-  var toSend = "";
+  var toSend = [];
 
   for (let i = 0; i < transactions.length; i++) {
-    toSend = toSend + "Name: " + transactions[i].label + ", Date: " + transactions[i].createDate + ", Amount: " + transactions[i].amount + ", Category: " + transactions[i].category + ", Recurrence: " + transactions[i].isRecurrent + "\n\n\n"
+    //toSend = toSend + "Name: " + transactions[i].label + ", Date: " + transactions[i].createDate + ", Amount: " + transactions[i].amount + ", Category: " + transactions[i].category
+
+    toSend.push(<tr><td>{transactions[i].label}‎ ‎ ‎ </td><td>$ {transactions[i].amount}‎ ‎ ‎ </td><td>{transactions[i].category}‎ ‎ ‎ </td><td><DeleteTransaction id={transactions[i].transactionID}/></td></tr>)
   }
 
   setTransacts(toSend);
@@ -62,13 +71,16 @@ const sxFont = {
 
 // document.documentElement.style.setProperty('--dynamic-height', percentage);
 // console.log(remainingBudget / 500);
-  
+// const toolTipText = "Remaining budget as of " + {remainingBudget};
+
   return (
     <>
       <div className='savings-bucket-wrapper-wrapper' onClick={handleOpen}>
-        <div className={budgetToClassesMap(remainingBudget)} style={bucketStyle}>
+        <div className={budgetToClassesMap(remainingBudget, maxBudget)} style={bucketStyle}>
           <div className='savings-board-bucket'>
-            <p className='savings-board-bucket-remaining-budget'>${ remainingBudget }</p>
+            <Tooltip title={'Remaining budget as of ' + currentDay} arrow>
+              <p className='savings-board-bucket-remaining-budget'>${ Math.round(remainingBudget * 100) / 100 }</p>
+            </Tooltip>
             <p className='savings-board-bucket-day'>{ currentDay }</p>
           </div>
         </div>
@@ -77,10 +89,22 @@ const sxFont = {
         <DialogTitle sx={sxFont}>Transactions for {currentDay}:</DialogTitle>
         <DialogContent id='add-transaction-dialog-box'>
           <DialogContentText className='add-transaction-form' sx={sxFont}>
-            {transacts}
+            <table>
+              <thead>
+                <tr>
+                  <th>Name‎ ‎ ‎ </th>
+                  <th>Amount‎ ‎ ‎ </th>
+                  <th>Category‎ ‎ ‎ </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {transacts}
+              </tbody>
+            </table>
           </DialogContentText>
           <DialogActions>
-            <Button onClick={handleClose} sx={{color: "red", fontFamily: "Barlow Condensed", backgroundColor: "antiquewhite", fontSize: "18px", textTransform: "none"}}>Close</Button>
+            <Button onClick={handleClose} sx={{fontFamily: "Barlow Condensed", textTransform: "none", fontSize: "18px", backgroundColor: "lightgreen"}}>Close</Button>
           </DialogActions>
         </DialogContent>
       </Dialog>

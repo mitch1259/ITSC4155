@@ -28,7 +28,7 @@ function EditProfile() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [tempString, setString] = useState('');
 
-    const { auth, setAuth} = useContext(AuthContext);
+    const { auth, setAuth } = useContext(AuthContext);
 
     var current = DecryptFromLocalStorage("userId");
     // const [selectedImage, setSelectedImage] = useState(null);
