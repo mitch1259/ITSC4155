@@ -11,10 +11,10 @@ const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
 
+
 const buffer = require('buffer');
 
 // const updateGoal=require("./api/goalApi.js")
-
 
 const db = mysql.createPool({
     host: "localhost",
@@ -79,7 +79,21 @@ app.get('/api/get/users', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
+           res.send(result);
+        }
+    });
+});
+
+// API/search/user -- search database for users matching email
+app.post('/api/search/users', (req, res) => {
+    const email = req.body.email;
+    const sqlQuery = "SELECT * FROM budgitdb.users WHERE email = ?";
+    
+    db.query(sqlQuery, [email], (err, result) => {
+        if (result.length > 0) {
+            res.send(result);
+        } else {
+            console.log(err);
         }
     });
 });
