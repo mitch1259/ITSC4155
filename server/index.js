@@ -78,16 +78,19 @@ app.get('/api/get/users', (req, res) => {
 });
 
 // API/search/user -- search database for users matching email
-app.post('/api/search/users', (req, res) => {
-    const email = req.body.email;
-    const sqlQuery = "SELECT * FROM budgitdb.users WHERE email = ?";
+app.get('/api/get-emails', (req, res) => {
+    const sqlQuery = "SELECT email FROM budgitdb.users";
     
-    db.query(sqlQuery, [email], (err, result) => {
-        if (result.length > 0) {
-            res.send(result);
-        } else {
-            console.log(err);
+    db.query(sqlQuery, (err, results) => {
+        if(err) {
+            console.error(err);
+            res.status(500).send('Internal server error');
+            return;
         }
+
+        const emailArray = results.map((result) => result.email);
+
+        res.send(emailArray);
     });
 });
 

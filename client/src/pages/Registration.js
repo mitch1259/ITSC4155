@@ -17,13 +17,19 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
-  //const [isUserFound, setIsUserFound] = useState(false);
+  const [emailArray, setEmailArray] = useState([]);
 
     useEffect(() => {
-      Axios.get('http://localhost:3002/api/get/users').then((response) => {
-        var data = Array.from(response.data);
-        console.log(data);
-      });
+      const getEmails = async () => {
+        try {
+        const response = await Axios.get('http://localhost:3002/api/get-emails');
+        setEmailArray(response.data);
+        } catch {
+          console.error(error);
+        }
+      };
+
+      getEmails();
     }, []);
     
     function validateEmail(email) {
@@ -55,11 +61,12 @@ function Register() {
       })
     }*/
     const registerUser = () => {
+      
       //Series of if statements check for problems in data and, if any is found, it will be handled accordingly
       if(password.length == 0 || confirmPassword.length == 0 || password != confirmPassword || validatePassword(password) == false) {
         setError(true);
       }
-      else if(email.length == 0 && validateEmail(email) == false /*|| searchUser(email) == false*/) {
+      else if(email.length == 0 || validateEmail(email) == false || emailArray.includes(email) == true) {
         setError(true);
         //console.log('should be here');
       }
@@ -137,8 +144,8 @@ function Register() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                error = {error&&email.length == 0 || error&&validateEmail(email) == false /*|| error&&isUserFound == false*/}
-                helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :"" /*|| error&&isUserFound == false ? "A user with this email already exists":""*/}
+                error = {error&&email.length == 0 || error&&validateEmail(email) == false || error&&emailArray.includes(email) == true}
+                helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :"" || error&&emailArray.includes(email) == true ? "A user with this email already exists":""}
               />
             </div>
             <div className='register-input-wrapper-full'>
