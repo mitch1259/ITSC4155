@@ -10,7 +10,11 @@ const router = express.Router();
 const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
+
+const buffer = require('buffer');
+
 // const updateGoal=require("./api/goalApi.js")
+
 
 const db = mysql.createPool({
     host: "localhost",
@@ -24,6 +28,7 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 
 // api calls (in their respective files/api locations)
@@ -185,18 +190,25 @@ app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
 });
 
 app.post('/api/changeUserInfo', (req, res) => {
-    
+    const sha256 = require('crypto-js/sha256');
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = sha256(req.body.password).toString();;
     const userID = req.body.userID;
+    const profilePicture = req.body.profilePicture;
+    // console.log(req.body.profilePicture);
+    console.log("PROFILE PICTURE: ", profilePicture);
+    // const blobBuffer = buffer.Buffer.from(profilePicture, 'base64'); 
+    // console.log("BLOB BUFFER: ", blobBuffer);
+    // console.log("type of blob buffer ", typeof blobBuffer);
 
-    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
-    db.query(sqlInsert, [firstName, lastName, email, password, userID], (err, result) => {
+    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ?, profilePicture = ? WHERE userID = ?";
+    db.query(sqlInsert, [firstName, lastName, email, password, profilePicture, userID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
+            console.log("SUCCESSFUL UPDATE");
             console.log(result);
             res.send(result);
         }
