@@ -10,13 +10,15 @@ import '../../../css/global.css';
  */
 
 
-function BaseInformationCard({boardTitle,savingInformation}){
+function BaseInformationCard({boardTitle,savingInformation,contributions}){
     return(
         <Card id="base-info-card-wrapper" style={{backgroundColor:"#8ee4af",borderRadius:10}}>
             <CardContent style={{backgroundColor:"#b6e9ca"}}>
                 <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>{boardTitle}</Typography>
                 <br></br>
                 <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>Savings: ${savingInformation}</Typography>
+                <br></br>
+                <Typography style={{color:"#05386b",fontSize:"30px",fontFamily:"Varela Round"}}>saved: ${contributions}</Typography>
             </CardContent>
         </Card>
     )

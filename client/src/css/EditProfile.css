@@ -62,8 +62,9 @@ header{
     height: 100px;
     margin-top: 15px;
     margin-bottom: 15px;
-    margin-left: 50px;
+    margin-left: 15px;
     border-radius: 12px;
+    border: 2px solid #05386b;
 }
 
 .pic-display {
@@ -119,4 +120,15 @@ header{
     text-transform: none;
     color: #000;
     transition: 0.2s all;
+}
+
+.edit-profile-image-div {
+    display: flex;
+}
+
+.edit-profile-image-text {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 18px;
+    margin-left: 55px;
 }

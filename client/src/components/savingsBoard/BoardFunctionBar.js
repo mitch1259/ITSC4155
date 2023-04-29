@@ -57,21 +57,22 @@ function BoardFunctionBar(props) {
     }, []);
 
     const handleUpdate = () => {
-        select();
+      window.location.reload(true);
     }
 
     const select = () => {
 
         Axios.get('http://localhost:3002/api/get/board/transactions', {
             params: {  
-            board: 1, 
+            board: props.boardID, 
             lowEnd: startDate,
             highEnd: endDate,
             category: category
             }
         }).then((response) => {
-          //Last value of data array is the new end date
+          //Last values of data array is the new start date and time gap
           response.data.push(age*7);
+          response.data.push(startDate);
           setData(Array.from(response.data));
           props.sendDataToParent(response.data);
         });
@@ -109,7 +110,7 @@ function BoardFunctionBar(props) {
   return (
     <div className='board-function-bar-wrapper'>
         <div className='board-function-bar-left'>
-        <AddTransactionButton sendDataToParent={(handleUpdate)} userID={props.userID}/>
+        <AddTransactionButton sendDataToParent={(handleUpdate)} userID={props.userID} boardID={props.boardID}/>
             <p className='board-function-bar-weekof-wrapper'>
                 {/*<p className='board-function-bar-weekof'>{header} </p> */}
                 <p className='board-function-bar-viewby'>View by:</p>

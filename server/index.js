@@ -12,6 +12,10 @@ const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
 
 
+const buffer = require('buffer');
+
+// const updateGoal=require("./api/goalApi.js")
+
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
@@ -24,12 +28,15 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 
 // api calls (in their respective files/api locations)
 app.use('/api/loginUser', userAPI);
 app.use('/api/registerUser', registerUser);
-app.use('/api/createGoal',savingGoal);
+app.use('/api/createGoal/',savingGoal);
+// app.use('/api/createGoal/deleteGoal',deleteGoal)
+// app.use('/api/createGoal/updateGoal/:goalId',updateGoal)
 
 
 
@@ -197,18 +204,25 @@ app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
 });
 
 app.post('/api/changeUserInfo', (req, res) => {
-    
+    const sha256 = require('crypto-js/sha256');
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = sha256(req.body.password).toString();;
     const userID = req.body.userID;
+    const profilePicture = req.body.profilePicture;
+    // console.log(req.body.profilePicture);
+    console.log("PROFILE PICTURE: ", profilePicture);
+    // const blobBuffer = buffer.Buffer.from(profilePicture, 'base64'); 
+    // console.log("BLOB BUFFER: ", blobBuffer);
+    // console.log("type of blob buffer ", typeof blobBuffer);
 
-    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
-    db.query(sqlInsert, [firstName, lastName, email, password, userID], (err, result) => {
+    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ?, profilePicture = ? WHERE userID = ?";
+    db.query(sqlInsert, [firstName, lastName, email, password, profilePicture, userID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
+            console.log("SUCCESSFUL UPDATE");
             console.log(result);
             res.send(result);
         }
@@ -253,30 +267,6 @@ app.post('/api/newTransaction', (req, res) => {
         }
     });
 });
-
-
-
-// app.post('/api/createGoal', (goal,res)=>{
-//     const title=goal.body.title;
-//     const savings=goal.body.savings;
-//     const startingAmount=goal.body.startingAmount;
-//     const startDate=goal.body.startDate;
-//     const endDate=goal.body.endDate;
-//     const description= goal.body.description;
-    
-//     const createGoalSqlInsert="INSERT INTO budgitdb.goal (title,savings,startingAmount,startDate,endDate,description) values (?,?,?,?,?,?);"
-
-
-//     db.query(createGoalSqlInsert,[title,savings,startingAmount,startDate,endDate,description],(err,result)=>{
-//         if(err){
-//             console.log(err);
-//         }
-//         else{
-//             console.log(result);
-//         }
-//     });
-
-// });
 
 app.post('/api/transaction/submit', (req, res) => {
 
@@ -328,6 +318,162 @@ app.get('/api/get/board/transactions', (req, res) => {
     });
     }
 });
+
+
+//Delete GOAL USING GOAL ID 
+app.post('/api/createGoal/deleteGoal/',(goal,res)=>{
+    const goalId=goal.body.goalId;
+    const deleteGoalSql="delete FROM budgitdb.goal where goalId = ?;"
+
+
+    db.query(deleteGoalSql,[goalId],(err,result) =>{
+        if(err){
+            console.log('there was a error in deleting')
+            res.send({err: err});
+        }
+        if(result){
+            console.log("successful deletion")
+            res.send(result);
+        }
+        else{
+            console.log("Item does not exist");
+        }
+    });
+});
+
+
+//UPDATE GOAL USING THE GOAL ID FROM THE USER
+//API/UPDATEGOAL/GOALID --
+app.put('/api/createGoal/:goalId',(goal,res)=>{
+    const goalId=goal.body.goalId
+    const title=goal.body.title;
+    const savings=goal.body.savings;
+    const startingAmount=goal.body.startingAmount;
+    const startDate=goal.body.startDate;
+    const endDate=goal.body.endDate;
+    const description= goal.body.description;
+
+
+    const updateGoalSqlInsert="update budgitdb.goal set title = ?, saving = ?, startingAmount = ?, startDate = ? WHERE goalId = ?";
+
+    db.query(updateGoalSqlInsert,[goalId,title,savings,startingAmount,startDate,endDate,description],(errs,result) =>{
+        if(err){
+            console.log(errs)
+            console.log("update did not go through")
+        }
+        else{
+            console.log(result);
+            res.send(result);
+        } 
+    })
+});
+
+app.post('/api/get/currentBoard', (req, res) => {
+    let boardID = req.body.boardId;
+    console.log("BOARDID: ", boardID);
+    const sqlQuery = "SELECT * FROM budgitdb.boards WHERE boardID = ?"
+    db.query(sqlQuery, [boardID], (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            console.log("no results found");
+        }
+    })
+});
+
+app.get('/api/get/board/budget', (req, res) => {
+    const id = req.query.id;
+
+    const sqlSelect = "SELECT * FROM budgitdb.boards WHERE boardID = ?";
+    db.query(sqlSelect, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});
+
+app.post('/api/transaction/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.transactions WHERE transactionID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/board/delete', (req, res) => {
+    const id = req.body.id;
+
+    const sqlDelete = "DELETE FROM budgitdb.boards WHERE boardID = ?;"
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+
+        }
+    });
+});
+
+
+
+//get a single goal object from server
+app.get('/api/createGoal/:goalId',(goal,res) =>{
+    const goalId=goal.body.goalId;
+
+    const getGoalById="select * from budgitdb.goal where goalId= ?;";
+
+    db.query(getGoalById,[goalId],(err,result) =>{
+        if(goalId==undefined){
+            console.log('goal is underdefined for getting single goal')
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    });
+});
+
+
+app.post('/api/board/create', (req, res) => {
+    const id = req.body.userID;
+    const name = req.body.name;
+    const description = req.body.description;
+    const budget = req.body.budget;
+
+    const sqlInsert = "INSERT INTO budgitdb.boards (`userID`, `boardName`, `boardDescription`, `recurTransactions`, `remainBudget`) VALUES (?,?,?,?,?);"
+    db.query(sqlInsert, [id, name, description, "", budget], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/boards/getRecentTwo', (req, res) => {
+    const boardID = req.body.boardID;
+    const currentDate = req.body.currentDate;
+
+    const sqlQuery = "SELECT * FROM budgitdb.transactions WHERE boardID = ? AND createDate <= ? ORDER BY createDate DESC LIMIT 2";
+    db.query(sqlQuery, [boardID, currentDate], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("result: ", result);
+            res.send(result);
+        }
+    });
+});
+
+
 
 app.listen(3002, () => {
     console.log('running on port 3002');

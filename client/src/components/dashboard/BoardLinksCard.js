@@ -1,18 +1,26 @@
 import React from 'react'
 import '../../css/dashboard/boardLinksCard.css';
 import BoardLink from './BoardLink.js';
+import CreateBoard from './CreateBoard';
 
-function BoardLinksCard(props) {
+function BoardLinksCard({currentUserName, currentUserBoards}) {
+
   return (
     <div className='board-links-card-wrapper'>
       <div className='board-links-card'>
-        <p className='board-links-card-header'>{props.name}'s Savings Boards</p>
-          <BoardLink
-              boardName={"Example Board 1"}
-          />
-          <BoardLink 
-              boardName={"Example Board 2"}
-          />
+      
+          <div className='board-links-card-header'>
+            <p className='board-links-card-name'>{currentUserName}'s Savings Boards</p>
+            <div className='board-links-create-board'>
+              <CreateBoard currentUserName={currentUserName}/>
+            </div>
+            
+          </div>
+        
+          {currentUserBoards.map(board => {
+            return <BoardLink boardName={board.boardName} boardId={board.boardID}/>
+          })}
+          {/* <CreateBoardLink/> */}
       </div>
     </div>
   )

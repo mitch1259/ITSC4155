@@ -14,33 +14,43 @@ import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStora
 function AccountDashboard() {
   const [isLoading, setLoading] = useState(true);
   const [username, setUserName] = useState('');
+  const [currentUserBoards, setCurrentUserBoards] = useState('');
+  const [areBoardsLoading, setAreBoardsLoading] = useState(true);
 
-  const { auth, setAuth} = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   var current = DecryptFromLocalStorage("userId");
   var name = "";
+  var boards = [];
   // setCurrentUser(current);
   // console.log('currentUser state on dashboard: ', currentUser);
   // console.log('data type of cookie value after parseInt: ', typeof current);
 
-useEffect(() => {
-  Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
-    ).then((response) => {
-      name = response.data[0].firstName;
-      console.log("name: ", name);
-      setUserName(name);
-      setLoading(false);
-      // setCurrentUser(response.data);
-    });
-}, []);
+  useEffect(() => {
+    Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
+      ).then((response) => {
+        name = response.data[0].firstName;
+        setUserName(name);
+        setLoading(false);
+        // setCurrentUser(response.data);
+      });
+  }, []);
 
-    const firstName = name;
-    console.log("Firstname", firstName);
+  useEffect(() => {
+    Axios.post('http://localhost:3002/api/get/currentUser/allBoards', {userID: current}
+    ).then(response => {
+      boards = Array.from(response.data);
+      console.log("boards: ", boards);
+      setCurrentUserBoards(boards);
+      setAreBoardsLoading(false);
+    })
+  }, []);
+
   
 
   document.title = "Account Dashboard";
 
-  if(isLoading) {
+  if(isLoading || areBoardsLoading) {
     return <div className="account-dashboard-main">Loading...</div>
   }
 
@@ -53,7 +63,7 @@ useEffect(() => {
         <RecentActivityCard />
       </div>
       <div className='dashboard-boards-links-wrapper'>
-        <BoardLinksCard name={username} />
+        <BoardLinksCard currentUserName={username} currentUserBoards={currentUserBoards}/>
       </div>
       <div className='dashboard-chart-wrapper'>
         <DashboardChart />
