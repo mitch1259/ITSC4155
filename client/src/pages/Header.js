@@ -7,11 +7,6 @@ import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
 
-import buffer from 'buffer';
-import { useEffect, useState } from 'react';
-import Axios from 'axios';
-import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
-
 
 // images
 import StickMan from '../images/stickman.jpg';
@@ -42,11 +37,11 @@ useEffect(() => {
 
       
 
-      const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+    //   const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
       setLoading(false);
       
-      setPFP(base64Image)
-      console.log("this is the header pfp: "+base64Image)
+      setPFP(userPictureString)
+    //   console.log("this is the header pfp: "+base64Image)
       // setCurrentUser(response.data);
     });
 }, []);
@@ -72,8 +67,8 @@ useEffect(() => {
                                 Profile
                                 {/* If the user has a profile picture, display the profile picture, else display default Stickman image */}
                                 {/* {/* <img className="nav-user-profile-picture" src={props.userProfilePicture ? props.userProfilePicture : StickMan} /> */}
-                                <img src={`data:image/png;base64,${pfp}`} alt="User profile picture" className='nav-user-profile-picture'/>
                                 <img src={pfp} alt="User profile picture" className='nav-user-profile-picture'/>
+                                {/* <img src={pfp} alt="User profile picture" className='nav-user-profile-picture'/> */}
 
                             </Link>
                         </div>

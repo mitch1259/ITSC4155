@@ -51,6 +51,8 @@ function EditProfile() {
       event.preventDefault();
       const pastedText = event.clipboardData.getData("text");
       setImageUrl(pastedText);
+    }
+
     function validateEmail(email) {
       var re = (
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -333,6 +335,6 @@ useEffect(() => {
         </div>
     );
   }
-}
+
   export default EditProfile;
   

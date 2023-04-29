@@ -19,6 +19,8 @@ function Profile(props) {
     
     const { auth, setAuth, currentUser, setCurrentUser } = useContext(AuthContext);
     const [username, setUserName] = useState('');
+    const [areBoardsLoading, setAreBoardsLoading] = useState(true);
+    const [currentUserBoards, setCurrentUserBoards] = useState(true);
     
     console.log(currentUser);
     document.title = "User Profile";
@@ -26,6 +28,7 @@ function Profile(props) {
     const [isLoading, setLoading] = useState(true);
     var current = DecryptFromLocalStorage("userId");
     var name = "";
+    var boards = [];
   
   const [pfp, setPFP] = useState('');
   // setCurrentUser(current);
@@ -55,6 +58,17 @@ useEffect(() => {
     });
 }, []);
 
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser/allBoards', {userID: current}
+  ).then(response => {
+    boards = Array.from(response.data);
+    console.log("boards: ", boards);
+    setCurrentUserBoards(boards);
+    setAreBoardsLoading(false);
+  })
+}, []);
+
     const firstName = name;
     console.log(firstName);
   
@@ -66,6 +80,9 @@ useEffect(() => {
       setAuth(false);
     }
 
+    if (areBoardsLoading) {
+      return <div className="account-dashboard-main">Loading...</div>
+    }
 
     return (
         <div className='profile-wrapper'>
@@ -75,7 +92,7 @@ useEffect(() => {
                 <div className="pic-display">
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
                   {/* {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
-                  <img src={`data:image/png;base64,${pfp}`} alt="User profile picture" className='user-profile-image'/>
+                  {/* <img src={pfp} alt="User profile picture" className='user-profile-image'/> */}
                   <img src={pfp} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
@@ -103,7 +120,7 @@ useEffect(() => {
             </div>
             <div className="saves-board">
                 <div className="inside">
-                <BoardLinksCard name={username} />
+                <BoardLinksCard name={username} currentUserBoards={currentUserBoards}/>
                 </div>   
             </div>
         </div>
