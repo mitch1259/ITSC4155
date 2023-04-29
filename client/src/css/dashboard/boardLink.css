@@ -1,9 +1,9 @@
 .board-link-wrapper {
     display: flex;
     background-color: #b6e9ca;
-    margin-bottom: 5%;
-    max-height: 125px;
-    line-height: 115px;
+    margin-bottom: 2.5%;
+    max-height: 80px;
+    line-height: 80px;
     -webkit-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
     -moz-box-shadow: 0px -6px 1px -4px rgba(5,56,107,1);
     box-shadow: 0px 24px 5px -24px #05386b;
@@ -29,14 +29,12 @@
     color: #fff;
     text-align: center;
     font-size: 20px;
-    padding: 16px;
-    width: 25%;
-    min-width: 120px;
+    /* padding: 16px; */
+    min-width: 130px;
     transition: all 0.5s;
     cursor: pointer;
-    margin: 36px;
-    height: 10%;
     min-height: 50px;
+    margin-right: 10px;
   }
   
   .board-link-button{
@@ -48,7 +46,7 @@
   
   .board-link-button:after {
     content: '»';
-    font-size: 40px;
+    font-size: 35px;
     position: absolute;
     opacity: 0;  
     top: 2px;
@@ -67,4 +65,53 @@
   .board-link-button:hover:after {
     opacity: 1;
     right: 10px;
+  }
+
+  .create-board-button-icon {
+    width: 25px;
+  }
+
+  .board-link-button-add {
+    border-radius: 90px;
+    padding: 10px;
+    background-color: #05386b ;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    line-height: 20px;
+    /* padding: 16px; */
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  
+  .board-link-button-add {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .board-link-button-add:after {
+    content: "Create New Board";
+    font-size: 18px;
+    position: absolute;
+    opacity: 0;  
+    right: -25px;
+    width: 125px;
+    transition: 0.5s;
+  }
+  
+  .board-link-button-add:hover{
+    padding-right: 135px;
+    padding-left:8px;
+    background: rgb(5,56,107);
+    background: linear-gradient(90deg, rgba(5,56,107,1) 0%, rgba(58,223,188,1) 100%);
+    transition: 0.5s;
+  }
+  
+  .board-link-button-add:hover:after {
+    opacity: 1;
+    right: 10px;
+    width: 125px;
   }
