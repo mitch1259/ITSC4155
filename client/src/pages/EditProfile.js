@@ -115,6 +115,7 @@ useEffect(() => {
       const lName =response.data[0].lastName
       const mail= response.data[0].email;
       const pWord = response.data[0].password;
+      const profilePicture = response.data[0].profilePicture
       // const userPictureString = response.data[0].profilePicture;
       // console.log("USER PICTURE STRING: ", userPictureString);
       // console.log("USERPICTURESTRING: ", userPictureString);
@@ -135,7 +136,7 @@ useEffect(() => {
       console.log('step 2:', databasePassword);
       setLoading(false);
       // setProfilePicture(base64Image);
-
+      setImageUrl(profilePicture);
       // setCurrentUser(response.data);
     });
 }, []);
@@ -205,7 +206,7 @@ useEffect(() => {
           lastName: lastName,
           email: email,
           password: password,
-          // profilePicture: blob
+          profilePicture: imageUrl
         }).then(() => {
           console.log('successful insert');
           window.location = 'http://localhost:3000/profile';
@@ -227,12 +228,23 @@ useEffect(() => {
         <div className='parent-wrapper'>
             <div className="child-wrapper">
             <h3 className='edit-profile-title'>Edit your Profile</h3>
-            <div>
+            <div className='edit-profile-image-div'>
               {/* <img src={`data:image/png;base64,${profilePicture}` || previewUrl} alt="User profile picture"/> */}
               {/* <img src={previewUrl || `data:image/png;base64,${profilePicture}`} alt="User profile picture" className='edit-profile-image'/> */}
               {/* <img src={previewUrl || profilePicture} alt="Profile picture" className="edit-profile-image"/> */}
               {/* <input type="file" onChange={handleFileChange} /> */}
-            </div>
+                <p className='edit-profile-image-text'>Profile picture:</p>
+                <img src={imageUrl || image} alt="User-entered Image" className='edit-profile-image'/>
+              </div>
+              <TextField 
+                  label="Image URL" 
+                  variant='filled'
+                  value={imageUrl} 
+                  onChange={handleImageUrlChange} 
+                  onPaste={handlePaste} 
+                  className='edit-profile-textfield'
+              />
+            
           <div>
             <TextField
               name="firstName"
