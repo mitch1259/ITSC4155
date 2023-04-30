@@ -111,7 +111,7 @@ useEffect(() => {
                 <div className='savings-display'>
                   <p> Total Savings: $10,532</p>
                 </div>
-                <div className='transation-button'>
+                <div className='transaction-button'>
                   {/* <button className='user-profile-button'>View Transaction History</button> */}
                   <Transactions></Transactions>
                 </div>
