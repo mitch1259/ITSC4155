@@ -41,13 +41,9 @@ useEffect(() => {
     ).then((response) => {
       name = response.data[0].firstName + " " + response.data[0].lastName;
       const userPictureString = response.data[0].profilePicture;
-      console.log("This is the User Profile Pic: "+userPictureString)
-      const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      const userFirstName = response.data[0].firstName;
       setUserName(name);
-
-      setUserFirstName(response.data[0].firstName);
-      setPFP(base64Image)
-
+      setUserFirstName(userFirstName);
       setPFP(userPictureString)
       setLoading(false);
     });

@@ -54,6 +54,7 @@ function SavingsBoard() {
   const [boardInfo, setBoardInfo] = useState('');
   const [isBoardInfoLoading, setIsBoardInfoLoading] = useState(true);
   const [clonedBucketArray, setClonedBucketArray] = useState([]);
+  const [timeframe, setTimeframe] = useState();
 
 
   // use boardID to get all info on the current board and store it in the boardInfo state variable
@@ -112,13 +113,15 @@ function SavingsBoard() {
   const updateBuckets = (newData) => {
     
     var tempArr = [];
-    var tempBudget = newData[newData.length - 1];
+    var tempBudget = newData[newData.length - 1] * (newData[newData.length - 3] / 7);
     var oldmm = -1;
     var olddd = -1;
     var index = -1;
     var j = 0;
     var count = 0;
     var countArr = [];
+
+    console.log("tempBudget:" , tempBudget);
     
     for (let i = 0; i < newData.length - 3; i ++) {  
       var date = new Date(newData[i].createDate);
@@ -174,7 +177,7 @@ function SavingsBoard() {
     }
 
     
-
+    setTimeframe((newData[newData.length - 3] / 7));
     setBuckets(tempArr);
     setBudget(tempBudget);
     console.log(tempArr);
@@ -184,15 +187,12 @@ function SavingsBoard() {
   console.log("buckets: ", buckets);
   console.log("remaining budget: ", remBudget);
 
-
-
-
   if (isBoardInfoLoading) {
     return <div className='account-dashboard-main'>Loading...</div>
   }
 
   const cumulativeValues = buckets.reduce((accumulator, currentBucket) => {
-    const lastValue = accumulator.length > 0 ? accumulator[accumulator.length - 1] : boardInfo[0].remainBudget;
+    const lastValue = accumulator.length > 0 ? accumulator[accumulator.length - 1] : boardInfo[0].remainBudget * timeframe;
     accumulator.push(lastValue + currentBucket.remainingBudget);
     return accumulator;
   }, []);
