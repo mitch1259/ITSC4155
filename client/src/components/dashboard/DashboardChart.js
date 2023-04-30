@@ -8,7 +8,11 @@ const data = [
     { value: 40 },
     { value: 60 },
   ];
-function DashboardChart() {
+
+const element = [
+    {}
+]
+function DashboardChart({currentUserName}) {
   return (
     <div className='account-dashboard-chart-wrapper'>
         <div className='account-dashboard-chart-text-wrapper'>
@@ -16,7 +20,7 @@ function DashboardChart() {
                 Savings Visualization
             </p>
             <p className='account-dashboard-chart-text'>
-                Nice going, Placeholder! You've been making good progress towards your savings goals.
+                Nice going, {currentUserName}! You've been making good progress towards your savings goals.
             </p>
             <p className='account-dashboard-chart-text'>
                 Take a look and see for yourself.
