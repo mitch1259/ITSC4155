@@ -28,36 +28,6 @@ router.post('/', (goal,res)=>{
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//add contributions to saving goal:
-router.put('/contribution/',(goal,res) =>{
-    const goalId=goal.body.goalId;
-    const addContribution=goal.body.startingAmount;
-    const updateContributions='UPDATE budgitdb.goal SET startingAmount= ?';
-
-    db.query(updateContributions,[goalId,addContribution],(err,result) =>{
-        if(err){
-            console.log(err)
-        }
-        else{
-            console.log(result);
-            res.send(result);
-        }
-    })
-})
-
 //get all goals
 router.get('/',(goal,res) =>{
 
