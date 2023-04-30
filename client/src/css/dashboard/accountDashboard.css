@@ -108,3 +108,21 @@
         top: 63vh;
     }
 }
+
+@media screen and (max-width: 1500px) {
+    .account-dashboard-main {
+        min-height: 110vh;
+    }
+
+    .dashboard-chart-wrapper {
+        top: 85vh;
+    }
+
+    .dashboard-boards-links-wrapper {
+        top: 58vh;
+    }
+    
+    .dashboard-recent-activity-card-wrapper {
+        top: 70vh;
+    }
+}
