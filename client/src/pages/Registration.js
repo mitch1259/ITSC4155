@@ -12,9 +12,7 @@ function Register() {
   //Global context variable
   const { auth, setAuth } = React.useContext(AuthContext);
 
-
   //Local state variables
-
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -22,7 +20,6 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
   const [emailArray, setEmailArray] = useState([]);
-
 
   /*
   * Component that runs upon landing on the page that grabs all the emails
@@ -42,7 +39,6 @@ function Register() {
   }, []);
 
   //Email validation that uses RegEx to validate the email is a proper email
-
   function validateEmail(email) {
     var re = (
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -50,18 +46,16 @@ function Register() {
     return re.test(email);
   }
 
-
   /*
   * Password validation that uses RegEx to validate the passwords
   * The passwords will require users to have password between 7-15 characters,
   * at least 1 lowercase, uppercase, and special character as well as at
   * least one number
   */
-
   function validatePassword(password) {
     var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     return re.test(password);
-}
+  }
 
   /*
   * Main handling code - 
@@ -82,7 +76,6 @@ function Register() {
     }
     else if (email.length == 0 || validateEmail(email) == false || emailArray.includes(email) == true) {
       setError(true);
-
     }
     else if (firstName.length == 0) {
       setError(true);
@@ -99,20 +92,25 @@ function Register() {
         password: password
       }).then(() => {
         console.log('successful insert');
-        //window.location = 'http://localhost:3000/login';
+        window.location = 'http://localhost:3000/login';
       });
-
     }
   };
 
-
   //Conditional statement checks if the user is authenticated or not to prevent the user from visiting pages they aren't supposed to
-
   if (auth) {
     return (
       <Navigate to="/" />
     )
+  }
 
+  /*
+  * Front end side of the page - 
+  * Front end contains a series of TextFields and buttons and links for different purposes.
+  * The text fields take in data for the components above, as well as, display errors if any
+  * are found.
+  * The buttons and links enable the components and redirect the users based on their role.
+  */
   return (
     <div className='register-wrapper'>
       <div className='parent-wrapper'>
@@ -126,25 +124,36 @@ function Register() {
               className='register-input-half-left'
               label='First Name'
               variant='filled'
-
+              //Assigns value in TextField to firstName local state variable
+              onChange={(e) => { setFirstName(e.target.value) }}
+              //Error handling that will highlight and display the error in text if one exists
+              error={error&&firstName.length == 0}
+              helperText={error&&firstName.length == 0 ? "First Name cannot be empty" : ""}
             />
             <TextField
               name="lastName"
               className='register-input-half-right'
               label='Last Name'
               variant='filled'
-
+              //Assigns value in TextField to lastName local state variable
+              onChange={(e) => { setLastName(e.target.value); }}
+              //Error handling that will highlight and display the error in text if one exists
+              error={error&&lastName.length == 0}
+              helperText={error&&lastName.length == 0 ? "Last Name cannot be empty" : ""}
             />
           </div>
           <div className='register-input-form-wrapper'>
             <div className='register-input-wrapper-full'>
               <TextField
-
                 name="email"
                 className='register-input-full'
                 label='Email Address'
                 variant='filled'
-
+                //Assigns value in TextField to email local state variable
+                onChange={(e) => { setEmail(e.target.value) }}
+                //Error handling that will highlight and display the error in text if one exists
+                error={error&&email.length == 0 || error&&validateEmail(email) == false || error&&emailArray.includes(email) == true}
+                helperText={error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" : "" || error&&emailArray.includes(email) == true ? "A user with this email already exists" : ""}
               />
             </div>
             <div className='register-input-wrapper-full'>
@@ -154,7 +163,9 @@ function Register() {
                 type="password"
                 label='Password'
                 variant='filled'
-
+                //Assigns value in TextField to password local state variable
+                onChange={(e) => { setPassword(e.target.value) }}
+                //Error handling that will highlight if one exists
                 error={error && password != confirmPassword || error && password.length == 0 || error && confirmPassword.length == 0}
               />
             </div>
@@ -165,7 +176,15 @@ function Register() {
                 label='Confirm Password'
                 variant='filled'
                 type="password"
-
+                //Assigns value in TextField to confirmPassword local state variable
+                onChange={(e) => { setConfirmPassword(e.target.value) }}
+                //Error handling that will highlight and display the error in text if one exists
+                error={error && password != confirmPassword || error && password.length == 0 || error && confirmPassword.length == 0}
+                helperText={
+                  error && password != confirmPassword ? "Passwords do not match" : "" || error && password.length == 0
+                    || error && confirmPassword.length == 0 ? "Passwords cannot be empty" : "" || error && validatePassword(password) == false
+                    ? "Password must be between 7-15 characters, and must include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character" : ""
+                }
               />
             </div>
           </div>
@@ -179,7 +198,6 @@ function Register() {
               <button onClick={registerUser}>Signup</button>
             </Link>
           </div>
-
         </div>
       </div>
     </div>
