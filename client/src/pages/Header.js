@@ -67,7 +67,7 @@ useEffect(() => {
                                 Profile
                                 {/* If the user has a profile picture, display the profile picture, else display default Stickman image */}
                                 {/* {/* <img className="nav-user-profile-picture" src={props.userProfilePicture ? props.userProfilePicture : StickMan} /> */}
-                                <img src={pfp} alt="User profile picture" className='nav-user-profile-picture'/>
+                                <img src={pfp || StickMan} alt="User profile picture" className='nav-user-profile-picture'/>
                                 {/* <img src={pfp} alt="User profile picture" className='nav-user-profile-picture'/> */}
 
                             </Link>

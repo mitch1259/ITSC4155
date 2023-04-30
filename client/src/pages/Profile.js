@@ -51,7 +51,7 @@ useEffect(() => {
       setUserName(name);
       setLoading(false);
       
-      setPFP(base64Image)
+      //setPFP(base64Image)
       
       setPFP(userPictureString)
       // setCurrentUser(response.data);
@@ -93,7 +93,7 @@ useEffect(() => {
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
                   {/* {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
                   {/* <img src={pfp} alt="User profile picture" className='user-profile-image'/> */}
-                  <img src={pfp} alt="User profile picture" className='user-profile-image'/>
+                  <img src={pfp || StickMan} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
                   <p className='user-profile-header'>Placeholder User</p>

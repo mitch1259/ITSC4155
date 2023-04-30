@@ -7,10 +7,12 @@ import { TextField } from '@mui/material';
 import FancyButton from '../components/navigation/FancyButton';
 import BudgitLogo from '../images/budgit-logo-colour.png';
 import AuthContext from '../context/AuthProvider';
-function Register() {
 
-  const { auth, setAuth} = React.useContext(AuthContext);
-  
+function Register() {
+  //Global context variable
+  const { auth, setAuth } = React.useContext(AuthContext);
+
+  //Local state variables
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,66 +21,70 @@ function Register() {
   const [error, setError] = useState(false);
   const [emailArray, setEmailArray] = useState([]);
 
-    useEffect(() => {
-      const getEmails = async () => {
-        try {
+  /*
+  * Component that runs upon landing on the page that grabs all the emails
+  * from the database and stores them to help the application find duplicate emails
+  */
+  useEffect(() => {
+    const getEmails = async () => {
+      try {
         const response = await Axios.get('http://localhost:3002/api/get-emails');
         setEmailArray(response.data);
-        } catch {
-          console.error(error);
-        }
-      };
+      } catch {
+        console.error(error);
+      }
+    };
+    //call the above event
+    getEmails();
+  }, []);
 
-      getEmails();
-    }, []);
-    
-    function validateEmail(email) {
-      var re = (
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-      return re.test(email);
+  //Email validation that uses RegEx to validate the email is a proper email
+  function validateEmail(email) {
+    var re = (
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    return re.test(email);
+  }
+
+  /*
+  * Password validation that uses RegEx to validate the passwords
+  * The passwords will require users to have password between 7-15 characters,
+  * at least 1 lowercase, uppercase, and special character as well as at
+  * least one number
+  */
+  function validatePassword(password) {
+    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    return re.test(password);
+  }
+
+  /*
+  * Main handling code - 
+  * Code will look for certain requirement for each of the different components
+  * of the registration (Firstname, Lastname, email, password, and confirm password).
+  * After all requirements are met, an Axios post is called to insert the data into the database
+  * and user will be redirected to the login page is everything was successful
+  */
+  const registerUser = () => {
+    /*
+    * Series of if statements check for problems in data and, if any is found, it will be handled accordingly -
+    * If the password/confirmPassword contain nothing, don't match, or don't meet the password standards - the user will be warned of the specific problem
+    * If the email contains nothing, doesn't meet the email standards, or already exists in the database - the user wll be warned of the specific problem
+    * If the firstname or lastname values are empty, then they will throw an error and warn the user
+    */
+    if (password.length == 0 || confirmPassword.length == 0 || password != confirmPassword || validatePassword(password) == false) {
+      setError(true);
     }
-    function validatePassword(password) {
-      var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-      return re.test(password);
+    else if (email.length == 0 || validateEmail(email) == false || emailArray.includes(email) == true) {
+      setError(true);
     }
-    /*function searchUser(email) {
-      console.log("SearchUser called before call");
-      Axios.post('http://localhost:3002/api/search/users', {
-        email: email
-      }).then((res, err) => {
-        console.log("received response in searchUser");
-        if(err){
-          console.log('error:', err);
-          setIsUserFound(false);
-          return true;
-        } 
-        else {
-          console.log("There is already a user: ", res.data);
-          setIsUserFound(false);
-          return false;
-        }
-      })
-    }*/
-    const registerUser = () => {
-      
-      //Series of if statements check for problems in data and, if any is found, it will be handled accordingly
-      if(password.length == 0 || confirmPassword.length == 0 || password != confirmPassword || validatePassword(password) == false) {
-        setError(true);
-      }
-      else if(email.length == 0 || validateEmail(email) == false || emailArray.includes(email) == true) {
-        setError(true);
-        //console.log('should be here');
-      }
-      else if(firstName.length == 0) {
-        setError(true);
-      }
-      else if(lastName.length == 0) {
-         setError(true);
-      }
-      else {
+    else if (firstName.length == 0) {
+      setError(true);
+    }
+    else if (lastName.length == 0) {
+      setError(true);
+    }
+    else {
       setError(false);
-      //console.log('we got here during an error')
       Axios.post('http://localhost:3002/api/registerUser', {
         firstName: firstName,
         lastName: lastName,
@@ -88,64 +94,66 @@ function Register() {
         console.log('successful insert');
         window.location = 'http://localhost:3000/login';
       });
-      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
-     }
-
-    };
-   
-    
-
-    if (auth) {
-      return (
-        <Navigate to="/"/>
-      )
-      
     }
+  };
 
+  //Conditional statement checks if the user is authenticated or not to prevent the user from visiting pages they aren't supposed to
+  if (auth) {
     return (
-      <div className='register-wrapper'>
-        <div className='parent-wrapper'>
-            <div className="child-wrapper">
-            <h1 className="main-header">Welcome to BudgIt</h1>
-            <img className='login-budgit-logo' src={BudgitLogo} />
-            <h3 className='login-blurb'>Sign up and start saving!</h3>
+      <Navigate to="/" />
+    )
+  }
+
+  /*
+  * Front end side of the page - 
+  * Front end contains a series of TextFields and buttons and links for different purposes.
+  * The text fields take in data for the components above, as well as, display errors if any
+  * are found.
+  * The buttons and links enable the components and redirect the users based on their role.
+  */
+  return (
+    <div className='register-wrapper'>
+      <div className='parent-wrapper'>
+        <div className="child-wrapper">
+          <h1 className="main-header">Welcome to BudgIt</h1>
+          <img className='login-budgit-logo' src={BudgitLogo} />
+          <h3 className='login-blurb'>Sign up and start saving!</h3>
           <div className='register-input-wrapper-half'>
             <TextField
               name="firstName"
               className='register-input-half-left'
               label='First Name'
               variant='filled'
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
-              error = {error&&firstName.length == 0}
-              helperText = {error&&firstName.length == 0 ? "First Name cannot be empty" : ""}
+              //Assigns value in TextField to firstName local state variable
+              onChange={(e) => { setFirstName(e.target.value) }}
+              //Error handling that will highlight and display the error in text if one exists
+              error={error&&firstName.length == 0}
+              helperText={error&&firstName.length == 0 ? "First Name cannot be empty" : ""}
             />
-            <TextField 
+            <TextField
               name="lastName"
               className='register-input-half-right'
               label='Last Name'
               variant='filled'
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
-              error = {error&&lastName.length == 0}
-              helperText = {error&&lastName.length == 0 ? "Last Name cannot be empty" : ""}
+              //Assigns value in TextField to lastName local state variable
+              onChange={(e) => { setLastName(e.target.value); }}
+              //Error handling that will highlight and display the error in text if one exists
+              error={error&&lastName.length == 0}
+              helperText={error&&lastName.length == 0 ? "Last Name cannot be empty" : ""}
             />
           </div>
           <div className='register-input-form-wrapper'>
             <div className='register-input-wrapper-full'>
               <TextField
-                
                 name="email"
                 className='register-input-full'
                 label='Email Address'
                 variant='filled'
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                error = {error&&email.length == 0 || error&&validateEmail(email) == false || error&&emailArray.includes(email) == true}
-                helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :"" || error&&emailArray.includes(email) == true ? "A user with this email already exists":""}
+                //Assigns value in TextField to email local state variable
+                onChange={(e) => { setEmail(e.target.value) }}
+                //Error handling that will highlight and display the error in text if one exists
+                error={error&&email.length == 0 || error&&validateEmail(email) == false || error&&emailArray.includes(email) == true}
+                helperText={error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" : "" || error&&emailArray.includes(email) == true ? "A user with this email already exists" : ""}
               />
             </div>
             <div className='register-input-wrapper-full'>
@@ -155,45 +163,44 @@ function Register() {
                 type="password"
                 label='Password'
                 variant='filled'
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                error = {error&&password != confirmPassword || error&&password.length == 0 || error&&confirmPassword.length == 0}
-             />
+                //Assigns value in TextField to password local state variable
+                onChange={(e) => { setPassword(e.target.value) }}
+                //Error handling that will highlight if one exists
+                error={error && password != confirmPassword || error && password.length == 0 || error && confirmPassword.length == 0}
+              />
             </div>
             <div className='register-input-wrapper-full'>
-              <TextField 
-              name="confirmPassword"
-              className='register-input-full' 
-              label='Confirm Password' 
-              variant='filled' 
-              type="password"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-              error = {error&&password != confirmPassword || error&&password.length == 0 || error&&confirmPassword.length == 0}
-              helperText = {error&&password != confirmPassword ? "Passwords do not match" :""|| error&&password.length == 0 || error&&confirmPassword.length == 0 ? "Passwords cannot be empty" : ""|| error&&validatePassword(password) == false ? "Password must be between 7-15 characters, and must include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character":""}
-              
-              
+              <TextField
+                name="confirmPassword"
+                className='register-input-full'
+                label='Confirm Password'
+                variant='filled'
+                type="password"
+                //Assigns value in TextField to confirmPassword local state variable
+                onChange={(e) => { setConfirmPassword(e.target.value) }}
+                //Error handling that will highlight and display the error in text if one exists
+                error={error && password != confirmPassword || error && password.length == 0 || error && confirmPassword.length == 0}
+                helperText={
+                  error && password != confirmPassword ? "Passwords do not match" : "" || error && password.length == 0
+                    || error && confirmPassword.length == 0 ? "Passwords cannot be empty" : "" || error && validatePassword(password) == false
+                    ? "Password must be between 7-15 characters, and must include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character" : ""
+                }
               />
             </div>
           </div>
-
           <div className='login-buttons-wrapper'>
+            {/* Link that will take the user back to the login page */}
             <Link to="/login">
               <p className='register-go-back'>Already have an account? Click here!</p>
             </Link>
-            {/* currently routing back to /registration for ease of testing, switch back to /login when complete */}
+            {/* Button will attempt run the registerUser component that attempts to enter the user-inputted data into the database */}
             <Link to="/registration">
               <button onClick={registerUser}>Signup</button>
             </Link>
           </div>
-          
-                
-          
-            </div>
         </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
 export default Register;
