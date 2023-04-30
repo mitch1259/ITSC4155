@@ -84,3 +84,9 @@ to {
     border-bottom: 1px solid;
     background-color: #8ee4af25;
 }
+
+@media screen and (max-width: 1500px) {
+    .savings-board-wrapper {
+        min-height: 95vh;
+    }
+}

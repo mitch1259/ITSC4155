@@ -39,3 +39,14 @@
     overflow-x: hidden;
     scrollbar-color: green;
 }
+
+@media screen and (max-width: 1500px) {
+    .recent-activity-snippets-scroll {
+        max-height: 350px;
+    }
+
+    .recent-activity-cards-wrapper {
+        max-width: 40vw;
+
+    }
+}

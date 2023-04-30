@@ -42,3 +42,9 @@
     float: right;
     margin-left: 15px;
 }
+
+@media screen and (max-width: 1500px) {
+    .board-links {
+        max-height: 250px;
+    }
+}
