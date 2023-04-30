@@ -53,9 +53,9 @@ const [transacts, setTransacts] = React.useState('');
 
 const transactionsIntToCategoryMap = (transactionCategory) => {
   if (transactionCategory == 10) {
-    return "Groceries";
-  } else if (transactionCategory == 20) {
     return "Rent";
+  } else if (transactionCategory == 20) {
+    return "Groceries";
   } else if (transactionCategory == 30) { 
     return "Entertainment";
   } else if (transactionCategory == 40) {

@@ -152,10 +152,10 @@ function BoardFunctionBar(props) {
                             onChange={handleChangeCat}
                             >
                             <MenuItem value={0}>All</MenuItem>
-                            <MenuItem value={10}>Category One</MenuItem>
-                            <MenuItem value={20}>Category Two</MenuItem>
-                            <MenuItem value={30}>Category Three</MenuItem>
-                            <MenuItem value={40}>Category Four</MenuItem>
+                            <MenuItem value={10}>Rent</MenuItem>
+                            <MenuItem value={20}>Groceries</MenuItem>
+                            <MenuItem value={30}>Entertainment</MenuItem>
+                            <MenuItem value={40}>Other</MenuItem>
                             </Select>
                     </FormControl>
                     </Box>
