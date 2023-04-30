@@ -41,12 +41,12 @@ var current = DecryptFromLocalStorage("userId");
             <div>
                 <BaseInformationCard id="base-information-card" boardTitle={title} savingInformation={savings} contributions={contribution} />
             </div>
-            <div>
+            {/* <div>
                 <BasicDataCard title="Recent Activity" transactions={recentTransactions}/>
             </div>
             <div>
                 <BasicDataCard title="Upcoming Expense" transactions={recentTransactions}/>
-            </div>
+            </div> */}
             <div id="layout-one-chart">
                 <ChartComponent data={savingGoalData} />
             </div>

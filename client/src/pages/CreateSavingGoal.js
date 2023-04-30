@@ -71,7 +71,7 @@ function CreateGoal() {
 
     return (
         <div>
-            <Button variant='contained' onClick={handleClickOpen}>Crate a Goal</Button>
+            <Button variant='contained' onClick={handleClickOpen}>Create a Goal</Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Create A Goal</DialogTitle>
                 <DialogContent>
@@ -152,7 +152,7 @@ function CreateGoal() {
                     <TextField
                         autoFocus margin='dense'
                         id="enddate"
-                        label="start date"
+                        label="End Date"
                         type="date"
                         {...register("enddate")}
                         fullWidth variant='standard'

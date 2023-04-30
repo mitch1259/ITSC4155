@@ -36,10 +36,10 @@ function Allchart() {
 
     }
     document.title = "Savings Boards";
-
+    
     return (
         <div className='all-charts-main'>
-            <p className='all-dashboard-welcome-header'>Saving Boards</p>
+            <p className='all-dashboard-welcome-header'>Saving Goals</p>
             <Stack direction="row" spacing={2} justifyContent="right" id="button-stack">
                 <div>
                     <CreateGoal />
