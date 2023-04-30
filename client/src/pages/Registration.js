@@ -9,8 +9,8 @@ import BudgitLogo from '../images/budgit-logo-colour.png';
 import AuthContext from '../context/AuthProvider';
 function Register() {
 
-  const { auth, setAuth} = React.useContext(AuthContext);
-  
+  const { auth, setAuth } = React.useContext(AuthContext);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,57 +19,57 @@ function Register() {
   const [error, setError] = useState(false);
   //const [isUserFound, setIsUserFound] = useState(false);
 
-    useEffect(() => {
-      Axios.get('http://localhost:3002/api/get/users').then((response) => {
-        var data = Array.from(response.data);
-        console.log(data);
-      });
-    }, []);
-    
-    function validateEmail(email) {
-      var re = (
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-      return re.test(email);
-    }
-    function validatePassword(password) {
-      var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-      return re.test(password);
-    }
-    /*function searchUser(email) {
-      console.log("SearchUser called before call");
-      Axios.post('http://localhost:3002/api/search/users', {
-        email: email
-      }).then((res, err) => {
-        console.log("received response in searchUser");
-        if(err){
-          console.log('error:', err);
-          setIsUserFound(false);
-          return true;
-        } 
-        else {
-          console.log("There is already a user: ", res.data);
-          setIsUserFound(false);
-          return false;
-        }
-      })
-    }*/
-    const registerUser = () => {
-      //Series of if statements check for problems in data and, if any is found, it will be handled accordingly
-      if(password.length == 0 || confirmPassword.length == 0 || password != confirmPassword || validatePassword(password) == false) {
-        setError(true);
-      }
-      else if(email.length == 0 && validateEmail(email) == false /*|| searchUser(email) == false*/) {
-        setError(true);
-        //console.log('should be here');
-      }
-      else if(firstName.length == 0) {
-        setError(true);
-      }
-      else if(lastName.length == 0) {
-         setError(true);
-      }
+  useEffect(() => {
+    Axios.get('http://localhost:3002/api/get/users').then((response) => {
+      var data = Array.from(response.data);
+      console.log(data);
+    });
+  }, []);
+
+  function validateEmail(email) {
+    var re = (
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    return re.test(email);
+  }
+  function validatePassword(password) {
+    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    return re.test(password);
+  }
+  /*function searchUser(email) {
+    console.log("SearchUser called before call");
+    Axios.post('http://localhost:3002/api/search/users', {
+      email: email
+    }).then((res, err) => {
+      console.log("received response in searchUser");
+      if(err){
+        console.log('error:', err);
+        setIsUserFound(false);
+        return true;
+      } 
       else {
+        console.log("There is already a user: ", res.data);
+        setIsUserFound(false);
+        return false;
+      }
+    })
+  }*/
+  const registerUser = () => {
+    //Series of if statements check for problems in data and, if any is found, it will be handled accordingly
+    if (password.length == 0 || confirmPassword.length == 0 || password != confirmPassword || validatePassword(password) == false) {
+      setError(true);
+    }
+    else if (email.length == 0 && validateEmail(email) == false /*|| searchUser(email) == false*/) {
+      setError(true);
+      //console.log('should be here');
+    }
+    else if (firstName.length == 0) {
+      setError(true);
+    }
+    else if (lastName.length == 0) {
+      setError(true);
+    }
+    else {
       setError(false);
       //console.log('we got here during an error')
       Axios.post('http://localhost:3002/api/registerUser', {
@@ -79,29 +79,29 @@ function Register() {
         password: password
       }).then(() => {
         console.log('successful insert');
-        window.location = 'http://localhost:3000/login';
+        //window.location = 'http://localhost:3000/login';
       });
-      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password );
-     }
-
-    };
-   
-    
-
-    if (auth) {
-      return (
-        <Navigate to="/"/>
-      )
-      
+      console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password);
     }
 
+  };
+
+
+
+  if (auth) {
     return (
-      <div className='register-wrapper'>
-        <div className='parent-wrapper'>
-            <div className="child-wrapper">
-            <h1 className="main-header">Welcome to BudgIt</h1>
-            <img className='login-budgit-logo' src={BudgitLogo} />
-            <h3 className='login-blurb'>Sign up and start saving!</h3>
+      <Navigate to="/" />
+    )
+
+  }
+
+  return (
+    <div className='register-wrapper'>
+      <div className='parent-wrapper'>
+        <div className="child-wrapper">
+          <h1 className="main-header">Welcome to BudgIt</h1>
+          <img className='login-budgit-logo' src={BudgitLogo} />
+          <h3 className='login-blurb'>Sign up and start saving!</h3>
           <div className='register-input-wrapper-half'>
             <TextField
               name="firstName"
@@ -111,10 +111,10 @@ function Register() {
               onChange={(e) => {
                 setFirstName(e.target.value);
               }}
-              error = {error&&firstName.length == 0}
-              helperText = {error&&firstName.length == 0 ? "First Name cannot be empty" : ""}
+              error={error && firstName.length == 0}
+              helperText={error && firstName.length == 0 ? "First Name cannot be empty" : ""}
             />
-            <TextField 
+            <TextField
               name="lastName"
               className='register-input-half-right'
               label='Last Name'
@@ -122,14 +122,14 @@ function Register() {
               onChange={(e) => {
                 setLastName(e.target.value);
               }}
-              error = {error&&lastName.length == 0}
-              helperText = {error&&lastName.length == 0 ? "Last Name cannot be empty" : ""}
+              error={error && lastName.length == 0}
+              helperText={error && lastName.length == 0 ? "Last Name cannot be empty" : ""}
             />
           </div>
           <div className='register-input-form-wrapper'>
             <div className='register-input-wrapper-full'>
               <TextField
-                
+
                 name="email"
                 className='register-input-full'
                 label='Email Address'
@@ -137,8 +137,8 @@ function Register() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                error = {error&&email.length == 0 || error&&validateEmail(email) == false /*|| error&&isUserFound == false*/}
-                helperText = {error&&email.length == 0 ? "Email cannot be empty" : "" || error&&validateEmail(email) == false ? "This is not a valid email" :"" /*|| error&&isUserFound == false ? "A user with this email already exists":""*/}
+                error={error && email.length == 0 || error && validateEmail(email) == false /*|| error&&isUserFound == false*/}
+                helperText={error && email.length == 0 ? "Email cannot be empty" : "" || error && validateEmail(email) == false ? "This is not a valid email" : "" /*|| error&&isUserFound == false ? "A user with this email already exists":""*/}
               />
             </div>
             <div className='register-input-wrapper-full'>
@@ -151,23 +151,23 @@ function Register() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                error = {error&&password != confirmPassword || error&&password.length == 0 || error&&confirmPassword.length == 0}
-             />
+                error={error && password != confirmPassword || error && password.length == 0 || error && confirmPassword.length == 0}
+              />
             </div>
             <div className='register-input-wrapper-full'>
-              <TextField 
-              name="confirmPassword"
-              className='register-input-full' 
-              label='Confirm Password' 
-              variant='filled' 
-              type="password"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-              error = {error&&password != confirmPassword || error&&password.length == 0 || error&&confirmPassword.length == 0}
-              helperText = {error&&password != confirmPassword ? "Passwords do not match" :""|| error&&password.length == 0 || error&&confirmPassword.length == 0 ? "Passwords cannot be empty" : ""|| error&&validatePassword(password) == false ? "Password must be between 7-15 characters, and must include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character":""}
-              
-              
+              <TextField
+                name="confirmPassword"
+                className='register-input-full'
+                label='Confirm Password'
+                variant='filled'
+                type="password"
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+                error={error && password != confirmPassword || error && password.length == 0 || error && confirmPassword.length == 0}
+                helperText={error && password != confirmPassword ? "Passwords do not match" : "" || error && password.length == 0 || error && confirmPassword.length == 0 ? "Passwords cannot be empty" : "" || error && validatePassword(password) == false ? "Password must be between 7-15 characters, and must include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character" : ""}
+
+
               />
             </div>
           </div>
@@ -181,12 +181,12 @@ function Register() {
               <button onClick={registerUser}>Signup</button>
             </Link>
           </div>
-          
-                
-          
-            </div>
+
+
+
         </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
 export default Register;

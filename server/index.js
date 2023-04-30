@@ -10,6 +10,7 @@ const router = express.Router();
 const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
+const sha256 = require('crypto-js/sha256');
 
 
 const buffer = require('buffer');
@@ -204,29 +205,44 @@ app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
 });
 
 app.post('/api/changeUserInfo', (req, res) => {
-    const sha256 = require('crypto-js/sha256');
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
-    const password = sha256(req.body.password).toString();;
+    const password = req.body.password;
     const userID = req.body.userID;
     const profilePicture = req.body.profilePicture;
-    // console.log(req.body.profilePicture);
-    console.log("PROFILE PICTURE: ", profilePicture);
-    // const blobBuffer = buffer.Buffer.from(profilePicture, 'base64'); 
-    // console.log("BLOB BUFFER: ", blobBuffer);
-    // console.log("type of blob buffer ", typeof blobBuffer);
-
-    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ?, profilePicture = ? WHERE userID = ?";
-    db.query(sqlInsert, [firstName, lastName, email, password, profilePicture, userID], (err, result) => {
-        if (err) {
+    // let sqlInsert = "UPDATE budgitdb.users SET firstName = '${firstName}', lastName = '${lastName}', email = '${email}', profilePicture = '${profilePicture}'";
+    //Query to select user by id
+    const selectUserQuery = 'SELECT * FROM budgitdb.users WHERE userID = ?';
+    //Query to update user
+    const updateUserQuery = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ?, profilePicture = ? WHERE userID = ?";
+    console.log(firstName, lastName, email, password, profilePicture);
+    //select user by id
+    db.query(selectUserQuery, [userID], (err, result) => {
+        if(err) {
             console.log(err);
+            res.status(500).send('Server Error');
         } else {
-            console.log("SUCCESSFUL UPDATE");
-            console.log(result);
-            res.send(result);
+            console.log('select query data: ', result);
+            if(result.length === 0) {
+                res.status(404).send('User not found');
+            } else {
+                const user = result[0];
+                const oldPassword = user.password;
+                console.log('user: ', user, 'oldPassword: ', oldPassword);
+                //if password not provided, use the old password
+                const newPassword = password ? sha256(password).toString() : oldPassword;
+                console.log('new password: ', newPassword);
+                db.query(updateUserQuery, [firstName, lastName, email, newPassword, profilePicture, userID], (err, result => {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        res.send('User updated successfully');
+                    }
+                }))
+            }
         }
-    });
+    })
 });
 
 
