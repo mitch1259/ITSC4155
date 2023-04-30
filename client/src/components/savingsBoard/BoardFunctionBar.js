@@ -130,7 +130,7 @@ function BoardFunctionBar(props) {
                     <InputLabel id="demo-simple-select-label">Time</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            id="function-bar-select"
                             value={age}
                             label="Time"
                             onChange={handleChange}
@@ -146,7 +146,7 @@ function BoardFunctionBar(props) {
                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            id="function-bar-select"
                             value={category}
                             label="Category"
                             onChange={handleChangeCat}

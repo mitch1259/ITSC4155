@@ -117,3 +117,7 @@
     -moz-box-shadow: -8px -5px 14px -7px rgba(0,0,0,0.4);
     box-shadow: -8px -5px 14px -7px rgba(0,0,0,0.4);
 }
+
+#add-transaction-dialog-box > .add-transaction-form > .transaction-form-name {
+    margin-right: 20px;
+}

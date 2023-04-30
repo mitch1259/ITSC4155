@@ -15,9 +15,12 @@ import buffer from 'buffer';
 
 function EditProfile() {
 
+
   const handleClick = () => {
     console.log("clicked");
   }
+  const [isLoading, setLoading] = useState(true);
+
   const [isLoading, setLoading] = useState(true);
 
   const [firstName, setFirstName] = useState('');
@@ -28,10 +31,8 @@ function EditProfile() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   var current = DecryptFromLocalStorage("userId");
-
   const [imageUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
-
   const [error, setError] = useState(false);
 
   const handleImageUrlChange = (event) => {
@@ -45,44 +46,43 @@ function EditProfile() {
   }
 
   function validateEmail(email) {
-    var re = (
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-    return re.test(email);
+    if (email.length == 0) {
+      setError(true);
+      return false;
+    }
+    else {
+      var re = (
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+      if(re.test(email)==false){
+        setError(true);
+      }
+      return re.test(email);
+    }
   }
   function validatePassword(password) {
     if (password.length > 0) {
+      console.log("Password:"+password)
       var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+      console.log("Password test: "+re.test(password))
       return re.test(password);
-    }
-    else {
+
+    } else if (password !== confirmPassword) {
+      return false;
+    } else {
       return true;
     }
   }
 
-  function searchUser(email) {
-    // const foundUser = new Boolean();
-    Axios.post('http://localhost:3002/api/search/users', {
-      email: email
-    }).then((res, err) => {
-      if (err) {
-        console.log(err);
-        return true;
-        // foundUser = true;
-      }
-      else {
-        if (res.data[0].email == email) {
-          console.log("User found is current user");
-          return true;
-        }
-        else {
-          console.log("There is already a user: ", res.data);
-          return false;
-        }
-        //  foundUser = false;
-      }
-    })
-    //return foundUser;
+
+  function checkNames(fName, lName) {
+    if (fName.length == 0 || lName.length == 0) {
+      setError(true);
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
   useEffect(() => {
@@ -102,29 +102,36 @@ function EditProfile() {
   }, []);
   const updateUser = () => {
 
+    console.log('Button was pushed???')
     //All the validation/Error Handling for the Edit Profile Page
     //Series of if statements check for problems in data and, if any is found, it will be handled accordingly
-    if (password.length > 0) {
-      if (password != confirmPassword || validatePassword(password) == false) {
-        console.log('password did not pass:')
-        console.log("Password: " + password)
-        console.log("ConfirmPassword: " + confirmPassword)
-        setError(true);
-      }
-    }
-    if (email.length == 0 || validateEmail(email) == false /*|| searchUser(email) == false*/) {
-      console.log('email did not pass');
+    // if (password.length > 0) {
+    //   if (password != confirmPassword || validatePassword(password) == false) {
+    //     console.log('password did not pass:')
+    //     console.log("Password: " + password)
+    //     console.log("ConfirmPassword: " + confirmPassword)
+    //     setError(true);
+    //   }
+    // }
+
+    // if (email.length == 0 || validateEmail(email) == false) {
+    //   console.log('email did not pass');
+    //   setError(true);
+    // }
+
+    // else if (firstName.length == 0) {
+    //   console.log('first name did not pass')
+    //   setError(true);
+    // }
+    // else if (lastName.length == 0) {
+    //   console.log('last name did not pass')
+    //   setError(true);
+    // }
+    if (!validatePassword(password)) {
       setError(true);
+      return;
     }
-    else if (firstName.length == 0) {
-      console.log('first name did not pass')
-      setError(true);
-    }
-    else if (lastName.length == 0) {
-      console.log('last name did not pass')
-      setError(true);
-    }
-    else {
+    if (validateEmail(email) && validatePassword(password) && checkNames(firstName, lastName)) {
       console.log('we passed');
       setError(false);
       Axios.post('http://localhost:3002/api/changeUserInfo', {
@@ -136,12 +143,20 @@ function EditProfile() {
         profilePicture: imageUrl
       }).then(() => {
         console.log('successful insert');
+        //Un Comment this out
+
         window.location = 'http://localhost:3000/profile';
         // console.log("profilePicture is: "+base64String)
       });
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password /*" profilePicture: ", base64String */);
     }
-  };
+
+
+    else {
+      console.log('Failed Dummy')
+    };
+  }
+
 
   if (isLoading) {
     return <div className="account-dashboard-main">Loading...</div>
@@ -254,5 +269,6 @@ function EditProfile() {
     </div>
   );
 }
+
 
 export default EditProfile;

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import "../css/navigation.css";
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthProvider';
-import buffer from 'buffer';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';

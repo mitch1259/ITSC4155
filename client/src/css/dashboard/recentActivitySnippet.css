@@ -76,3 +76,10 @@
     width: 65%;
     text-overflow: ellipsis;
 }
+
+.recent-activity-snippet-details-no-transactions {
+    padding-left: 35px;
+    font-size: 24px;
+    padding-top: 1%;
+    padding-bottom: 15px;
+}

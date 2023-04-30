@@ -209,6 +209,7 @@ function SavingsBoard() {
   }, boardInfo[0].remainBudget);
 
   console.log("MAX BUDGET: ", maxBudget);
+  window.title = boardInfo.title;
 
   return (
     <div className='savings-board-wrapper'>

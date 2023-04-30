@@ -21,7 +21,8 @@ function Profile(props) {
     const [username, setUserName] = useState('');
     const [areBoardsLoading, setAreBoardsLoading] = useState(true);
     const [currentUserBoards, setCurrentUserBoards] = useState(true);
-    
+    const [userFirstName, setUserFirstName] = useState('');
+
     console.log(currentUser);
     document.title = "User Profile";
     const clicked = console.log('this was clicked')
@@ -38,23 +39,17 @@ function Profile(props) {
 useEffect(() => {
   Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
     ).then((response) => {
-      name = response.data[0].firstName;
+      name = response.data[0].firstName + " " + response.data[0].lastName;
       const userPictureString = response.data[0].profilePicture;
-
-      // console.log("name: ", name);
       console.log("This is the User Profile Pic: "+userPictureString)
-
       const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
-      // console.log("This is the User Profile Pic: "+userPictureString)
-
-      // const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
       setUserName(name);
-      setLoading(false);
-      
-      //setPFP(base64Image)
-      
+
+      setUserFirstName(response.data[0].firstName);
+      setPFP(base64Image)
+
       setPFP(userPictureString)
-      // setCurrentUser(response.data);
+      setLoading(false);
     });
 }, []);
 
@@ -80,7 +75,7 @@ useEffect(() => {
       setAuth(false);
     }
 
-    if (areBoardsLoading) {
+    if (areBoardsLoading || isLoading) {
       return <div className="account-dashboard-main">Loading...</div>
     }
 
@@ -96,7 +91,7 @@ useEffect(() => {
                   <img src={pfp || StickMan} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
-                  <p className='user-profile-header'>Placeholder User</p>
+                  <p className='user-profile-header'>{username}</p>
                   <div className='user-profile-button-wrapper'>
                     <Link to="/profile/editprofile"> 
                       <button className='user-profile-button'>Edit Profile</button>
@@ -109,9 +104,9 @@ useEffect(() => {
                   
                 </div>
                 <div className='savings-display'>
-                  <p> Total Savings: $10,532</p>
+                  <p>Total Boards: {currentUserBoards.length}</p>
                 </div>
-                <div className='transation-button'>
+                <div className='transaction-button'>
                   {/* <button className='user-profile-button'>View Transaction History</button> */}
                   <Transactions></Transactions>
                 </div>
@@ -120,7 +115,7 @@ useEffect(() => {
             </div>
             <div className="saves-board">
                 <div className="inside">
-                <BoardLinksCard name={username} currentUserBoards={currentUserBoards}/>
+                  <BoardLinksCard currentUserName={userFirstName} currentUserBoards={currentUserBoards}/>
                 </div>   
             </div>
         </div>

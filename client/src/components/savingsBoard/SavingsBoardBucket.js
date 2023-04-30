@@ -51,13 +51,27 @@ const handleClose = () => {
 
 const [transacts, setTransacts] = React.useState('');
 
+const transactionsIntToCategoryMap = (transactionCategory) => {
+  if (transactionCategory == 10) {
+    return "Groceries";
+  } else if (transactionCategory == 20) {
+    return "Rent";
+  } else if (transactionCategory == 30) { 
+    return "Entertainment";
+  } else if (transactionCategory == 40) {
+    return "Other";
+  } else {
+    return " ";
+  }
+}
+
 const initialize = () => {
   var toSend = [];
 
   for (let i = 0; i < transactions.length; i++) {
     //toSend = toSend + "Name: " + transactions[i].label + ", Date: " + transactions[i].createDate + ", Amount: " + transactions[i].amount + ", Category: " + transactions[i].category
 
-    toSend.push(<tr><td>{transactions[i].label}‎ ‎ ‎ </td><td>$ {transactions[i].amount}‎ ‎ ‎ </td><td>{transactions[i].category}‎ ‎ ‎ </td><td><DeleteTransaction id={transactions[i].transactionID}/></td></tr>)
+    toSend.push(<tr><td>{transactions[i].label}‎ ‎ ‎ </td><td>$ {transactions[i].amount}‎ ‎ ‎ </td><td>{transactionsIntToCategoryMap(transactions[i].category)}‎ ‎ ‎ </td><td><DeleteTransaction id={transactions[i].transactionID}/></td></tr>)
   }
 
   setTransacts(toSend);
@@ -68,6 +82,8 @@ const sxFont = {
   fontSize: '20px',
   fontWeight: '500'
 };
+
+console.log(transacts);
 
 // document.documentElement.style.setProperty('--dynamic-height', percentage);
 // console.log(remainingBudget / 500);
@@ -87,14 +103,14 @@ const sxFont = {
       </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle sx={sxFont}>Transactions for {currentDay}:</DialogTitle>
-        <DialogContent id='add-transaction-dialog-box'>
+        <DialogContent id='add-transaction-dialog-box' sx={{width: '500px'}}>
           <DialogContentText className='add-transaction-form' sx={sxFont}>
             <table>
               <thead>
                 <tr>
-                  <th>Name‎ ‎ ‎ </th>
-                  <th>Amount‎ ‎ ‎ </th>
-                  <th>Category‎ ‎ ‎ </th>
+                  <th style={{ marginRight: 100 + 'px'}}>Name‎ ‎ ‎ </th>
+                  <th id='transaction-form-name'>Amount‎ ‎ ‎ </th>
+                  <th id='transaction-form-name'>Category‎ ‎ ‎ </th>
                   <th></th>
                 </tr>
               </thead>

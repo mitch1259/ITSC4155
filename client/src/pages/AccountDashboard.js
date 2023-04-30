@@ -66,7 +66,7 @@ function AccountDashboard() {
         <BoardLinksCard currentUserName={username} currentUserBoards={currentUserBoards}/>
       </div>
       <div className='dashboard-chart-wrapper'>
-        <DashboardChart />
+        <DashboardChart currentUserName={username}/>
       </div>
     </div>
 

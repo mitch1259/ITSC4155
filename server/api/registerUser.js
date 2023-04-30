@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
     const lastName = req.body.lastName;
     const email = req.body.email;
     const password = sha256(req.body.password).toString();
-    // console.log(password);
+    //console.log(password);
     const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
     db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
         if (err) {
