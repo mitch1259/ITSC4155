@@ -15,13 +15,21 @@ import buffer from 'buffer';
 
 function EditProfile() {
 
+
+  const handleClick = () => {
+    console.log("clicked");
+  }
   const [isLoading, setLoading] = useState(true);
+
+  const [isLoading, setLoading] = useState(true);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   //const [databasePassword, setDatabasePassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   var current = DecryptFromLocalStorage("userId");
   const [imageUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
@@ -58,12 +66,14 @@ function EditProfile() {
       var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
       console.log("Password test: "+re.test(password))
       return re.test(password);
+
     } else if (password !== confirmPassword) {
       return false;
     } else {
       return true;
     }
   }
+
 
   function checkNames(fName, lName) {
     if (fName.length == 0 || lName.length == 0) {
@@ -91,6 +101,7 @@ function EditProfile() {
       });
   }, []);
   const updateUser = () => {
+
     console.log('Button was pushed???')
     //All the validation/Error Handling for the Edit Profile Page
     //Series of if statements check for problems in data and, if any is found, it will be handled accordingly
@@ -133,16 +144,19 @@ function EditProfile() {
       }).then(() => {
         console.log('successful insert');
         //Un Comment this out
+
         window.location = 'http://localhost:3000/profile';
         // console.log("profilePicture is: "+base64String)
       });
       console.log("clicked! firstName: ", firstName, " lastName: ", lastName, " email: ", email, " password: ", password /*" profilePicture: ", base64String */);
     }
 
+
     else {
       console.log('Failed Dummy')
     };
   }
+
 
   if (isLoading) {
     return <div className="account-dashboard-main">Loading...</div>
@@ -255,5 +269,6 @@ function EditProfile() {
     </div>
   );
 }
+
 
 export default EditProfile;
