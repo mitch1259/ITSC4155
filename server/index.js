@@ -10,6 +10,11 @@ const router = express.Router();
 const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
+const sha256 = require('crypto-js/sha256');
+
+
+const buffer = require('buffer');
+
 // const updateGoal=require("./api/goalApi.js")
 
 const db = mysql.createPool({
@@ -24,6 +29,7 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 
 // api calls (in their respective files/api locations)
@@ -74,8 +80,25 @@ app.get('/api/get/users', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
+           res.send(result);
         }
+    });
+});
+
+// API/search/user -- search database for users matching email
+app.get('/api/get-emails', (req, res) => {
+    const sqlQuery = "SELECT email FROM budgitdb.users";
+    
+    db.query(sqlQuery, (err, results) => {
+        if(err) {
+            console.error(err);
+            res.status(500).send('Internal server error');
+            return;
+        }
+
+        const emailArray = results.map((result) => result.email);
+
+        res.send(emailArray);
     });
 });
 
@@ -185,22 +208,44 @@ app.post('/api/get/profileTransactions/recentTransactions', (req, res) => {
 });
 
 app.post('/api/changeUserInfo', (req, res) => {
-    
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
     const password = req.body.password;
     const userID = req.body.userID;
-
-    const sqlInsert = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE userID = ?";
-    db.query(sqlInsert, [firstName, lastName, email, password, userID], (err, result) => {
-        if (err) {
+    const profilePicture = req.body.profilePicture;
+    // let sqlInsert = "UPDATE budgitdb.users SET firstName = '${firstName}', lastName = '${lastName}', email = '${email}', profilePicture = '${profilePicture}'";
+    //Query to select user by id
+    const selectUserQuery = 'SELECT * FROM budgitdb.users WHERE userID = ?';
+    //Query to update user
+    const updateUserQuery = "UPDATE budgitdb.users SET firstName = ?, lastName = ?, email = ?, password = ?, profilePicture = ? WHERE userID = ?";
+    console.log(firstName, lastName, email, password, profilePicture);
+    //select user by id
+    db.query(selectUserQuery, [userID], (err, result) => {
+        if(err) {
             console.log(err);
+            res.status(500).send('Server Error');
         } else {
-            console.log(result);
-            res.send(result);
+            console.log('select query data: ', result);
+            if(result.length === 0) {
+                res.status(404).send('User not found');
+            } else {
+                const user = result[0];
+                const oldPassword = user.password;
+                console.log('user: ', user, 'oldPassword: ', oldPassword);
+                //if password not provided, use the old password
+                const newPassword = password ? sha256(password).toString() : oldPassword;
+                console.log('new password: ', newPassword);
+                db.query(updateUserQuery, [firstName, lastName, email, newPassword, profilePicture, userID], (err, result => {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        res.send('User updated successfully');
+                    }
+                }))
+            }
         }
-    });
+    })
 });
 
 
@@ -343,6 +388,7 @@ app.post('/api/createGoal/updateGoal/',(goal,res)=>{
         })
     })
 
+
 app.post('/api/get/currentBoard', (req, res) => {
     let boardID = req.body.boardId;
     console.log("BOARDID: ", boardID);
@@ -385,14 +431,14 @@ app.post('/api/transaction/delete', (req, res) => {
 
 app.post('/api/board/delete', (req, res) => {
     const id = req.body.id;
-
+    console.log("received id: ", id);
     const sqlDelete = "DELETE FROM budgitdb.boards WHERE boardID = ?;"
     db.query(sqlDelete, [id], (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
-
+            console.log("deleted board: ", result);
+            res.send(result);
         }
     });
 });
@@ -416,8 +462,8 @@ app.post('/api/createGoal/:goalId',(goal,res) =>{
             console.log(err)
             
         }
-    })
-})
+    });
+});
 
 
 app.post('/api/board/create', (req, res) => {

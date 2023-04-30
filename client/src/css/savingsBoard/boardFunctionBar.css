@@ -21,6 +21,7 @@
     display: flex;
     padding-right: 6px;
     text-decoration: underline;
+    
 }
 
 .board-function-bar-right {
@@ -93,4 +94,14 @@
 #nav-button:hover {
     background-color: #5cdb95;
     transition: 0.15s;
+}
+
+#function-bar-select {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#board-function-bar-dropdown {
+    margin-left: 5px;
+    margin-right: 5px;
 }

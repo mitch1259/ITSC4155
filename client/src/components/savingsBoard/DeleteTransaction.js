@@ -48,9 +48,9 @@ function DeleteTransaction(props) {
         <DialogTitle sx={sxFont}>Confirmation</DialogTitle>
           <DialogContent id='add-transaction-dialog-box'>
             <DialogContentText className='add-transaction-form' sx={sxFont}>
-              Are you sure you want to delete this transaction?
-  
-              Note: This action cannot be undone
+            Are you sure you want to delete this transaction?
+              <br></br>
+            <b>Note: This action cannot be undone!</b>
             </DialogContentText>
             <DialogActions>
               <Button onClick={handleClose} sx={sxButton2}>Cancel</Button>

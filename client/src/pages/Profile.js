@@ -6,6 +6,10 @@ import Axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import { Link } from 'react-router-dom';
 import Transactions from "../components/profileTransactions.jsx";
+import BoardLinksCard from '../components/dashboard/BoardLinksCard';
+import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
+import buffer from 'buffer';
+
 
 
 
@@ -14,9 +18,56 @@ function Profile(props) {
 
     
     const { auth, setAuth, currentUser, setCurrentUser } = useContext(AuthContext);
+    const [username, setUserName] = useState('');
+    const [areBoardsLoading, setAreBoardsLoading] = useState(true);
+    const [currentUserBoards, setCurrentUserBoards] = useState(true);
+    const [userFirstName, setUserFirstName] = useState('');
+
     console.log(currentUser);
     document.title = "User Profile";
     const clicked = console.log('this was clicked')
+    const [isLoading, setLoading] = useState(true);
+    var current = DecryptFromLocalStorage("userId");
+    var name = "";
+    var boards = [];
+  
+  const [pfp, setPFP] = useState('');
+  // setCurrentUser(current);
+  // console.log('currentUser state on dashboard: ', currentUser);
+  // console.log('data type of cookie value after parseInt: ', typeof current);
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
+    ).then((response) => {
+      name = response.data[0].firstName + " " + response.data[0].lastName;
+      const userPictureString = response.data[0].profilePicture;
+      console.log("This is the User Profile Pic: "+userPictureString)
+      const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
+      setUserName(name);
+
+      setUserFirstName(response.data[0].firstName);
+      setPFP(base64Image)
+
+      setPFP(userPictureString)
+      setLoading(false);
+    });
+}, []);
+
+
+useEffect(() => {
+  Axios.post('http://localhost:3002/api/get/currentUser/allBoards', {userID: current}
+  ).then(response => {
+    boards = Array.from(response.data);
+    console.log("boards: ", boards);
+    setCurrentUserBoards(boards);
+    setAreBoardsLoading(false);
+  })
+}, []);
+
+    const firstName = name;
+    console.log(firstName);
+  
+
     
 //changed it so hopefully it works
     const logOutUser = () => {
@@ -24,6 +75,9 @@ function Profile(props) {
       setAuth(false);
     }
 
+    if (areBoardsLoading || isLoading) {
+      return <div className="account-dashboard-main">Loading...</div>
+    }
 
     return (
         <div className='profile-wrapper'>
@@ -32,10 +86,12 @@ function Profile(props) {
               <div className="inside-profile">
                 <div className="pic-display">
                   {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-                  <img className="user-profile-image" src={StickMan} alt="User Image"/>
+                  {/* {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
+                  {/* <img src={pfp} alt="User profile picture" className='user-profile-image'/> */}
+                  <img src={pfp || StickMan} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
-                  <p className='user-profile-header'>Placeholder User</p>
+                  <p className='user-profile-header'>{username}</p>
                   <div className='user-profile-button-wrapper'>
                     <Link to="/profile/editprofile"> 
                       <button className='user-profile-button'>Edit Profile</button>
@@ -48,9 +104,9 @@ function Profile(props) {
                   
                 </div>
                 <div className='savings-display'>
-                  <p> Total Savings: $10,532</p>
+                  <p>Total Boards: {currentUserBoards.length}</p>
                 </div>
-                <div className='transation-button'>
+                <div className='transaction-button'>
                   {/* <button className='user-profile-button'>View Transaction History</button> */}
                   <Transactions></Transactions>
                 </div>
@@ -59,16 +115,7 @@ function Profile(props) {
             </div>
             <div className="saves-board">
                 <div className="inside">
-                  <p className='user-profile-boards-header'>Your Savings Boards</p>
-                  <div className="user-profile-board">
-                    <p className='user-profile-board-header'>Board 1</p>
-                    <p className='user-profile-board-savings'>Savings: $10,000</p>
-                  </div>
-
-                  <div className="user-profile-board">
-                    <p className='user-profile-board-header'>Board 2</p>
-                    <p className='user-profile-board-savings'>Savings: $532</p>
-                  </div>   
+                  <BoardLinksCard currentUserName={userFirstName} currentUserBoards={currentUserBoards}/>
                 </div>   
             </div>
         </div>
@@ -77,4 +124,3 @@ function Profile(props) {
   }
   
   export default Profile;
-  

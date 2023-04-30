@@ -1,26 +1,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { DialogContent, DialogContentText } from '@mui/material';
-import RecentActivityCard from '../components/dashboard/RecentActivityCards';
-import BoardLinksCard from '../components/dashboard/BoardLinksCard';
-import DashboardChart from '../components/dashboard/DashboardChart.js';
-import GetCookie from '../context/cookies/getCookie';
-import Cookies from 'js-cookie';
 import { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import AuthContext from '../context/AuthProvider';
 import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStorage';
-// import RecentActivitySnippet from './RecentActivitySnippet';
-import { CircularProgress } from '@mui/material';
+import '../css/savingsBoard/addTransactionButton.css';
 
 // import { useCookies } from 'react-cookie';
 
@@ -133,8 +123,8 @@ Transactions.propTypes = {
    };
  
    return (
-     <div>
-       <Button variant="outlined" onClick={handleClickOpen}>
+     <div id="transaction-button-wrapper-profile" style={{paddingRight: 0 + 'px', textAlign: 'center'}}>
+       <Button variant="outlined" onClick={handleClickOpen} id='add-transaction-button-profile' sx={{border: 'none'}}>
          View Previous Transactions
        </Button>
        <Transactions

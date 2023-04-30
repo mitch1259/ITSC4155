@@ -181,10 +181,10 @@ function AddTransactionButton(props) {
                             onChange={handleCat}
                             required
                             >
-                            <MenuItem value={10}>Category One</MenuItem>
-                            <MenuItem value={20}>Category Two</MenuItem>
-                            <MenuItem value={30}>Category Three</MenuItem>
-                            <MenuItem value={40}>Category Four</MenuItem>
+                            <MenuItem value={10}>Rent</MenuItem>
+                            <MenuItem value={20}>Groceries</MenuItem>
+                            <MenuItem value={30}>Entertainment</MenuItem>
+                            <MenuItem value={40}>Other</MenuItem>
                         </Select>
                 </FormControl>
                 <FormControl sx={{marginTop: "10px"}}>

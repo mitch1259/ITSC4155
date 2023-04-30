@@ -43,3 +43,9 @@
     word-wrap: break-word;
     overflow: hidden;
 }
+
+@media screen and (max-width: 1500px) {
+    .account-dashboard-chart-wrapper {
+        min-height: 250px;
+    }
+}

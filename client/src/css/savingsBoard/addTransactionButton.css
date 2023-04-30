@@ -35,3 +35,24 @@
 .small-space {
     margin-top: 5px;
 }
+
+#transaction-button-wrapper-profile {
+    background-color: #05386b;
+    border-radius: 6px;
+    border-style: none;
+    margin-right: 20px;
+    transition: 0.15s;
+}
+
+#transaction-button-wrapper-profile:hover {
+    background-color: #5cdb95;
+    transition: 0.15s;
+}
+
+#add-transaction-button-profile {
+    color: #fff;
+    text-transform: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}

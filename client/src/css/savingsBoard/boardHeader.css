@@ -8,6 +8,7 @@
     font-size: 32px;
     font-weight: 500;
     margin-bottom: 3%;
+    width: 50%;
 }
 
 .board-header-description {
@@ -18,5 +19,14 @@
 .board-header-remaining-budget {
     font-size: 24px;
     font-weight: 500;
+    text-align: right;
+}
+
+.board-header-title-delete-wrapper {
+    display: flex;
+}
+
+.board-header-delete {
+    width: 50%;
     text-align: right;
 }
