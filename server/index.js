@@ -295,10 +295,10 @@ app.get('/api/get/board/transactions', (req, res) => {
 
 
 //Delete GOAL USING GOAL ID 
-app.post('/api/createGoal/deleteGoal/',(goal,res)=>{
+app.post('/api/createGoal/deleteGoal',(goal,res)=>{
+    console.log(goal.body.goalId)
     const goalId=goal.body.goalId;
     const deleteGoalSql="delete FROM budgitdb.goal where goalId = ?;"
-
 
     db.query(deleteGoalSql,[goalId],(err,result) =>{
         if(err){
@@ -306,8 +306,9 @@ app.post('/api/createGoal/deleteGoal/',(goal,res)=>{
             res.send({err: err});
         }
         if(result){
-            console.log("successful deletion")
             res.send(result);
+            console.log(result)
+            console.log("successful deletion")
         }
         else{
             console.log("Item does not exist");
@@ -317,8 +318,8 @@ app.post('/api/createGoal/deleteGoal/',(goal,res)=>{
 
 
 //UPDATE GOAL USING THE GOAL ID FROM THE USER
-//API/UPDATEGOAL/GOALID --
-app.put('/api/createGoal/:goalId',(goal,res)=>{
+//API/createGoal/UPDATEGOAL/GOALID --
+app.post('/api/createGoal/updateGoal/',(goal,res)=>{
     const goalId=goal.body.goalId
     const title=goal.body.title;
     const savings=goal.body.savings;
@@ -328,16 +329,19 @@ app.put('/api/createGoal/:goalId',(goal,res)=>{
     const description= goal.body.description;
 
 
-    const updateGoalSqlInsert="update budgitdb.goal set title = ?, saving = ?, startingAmount = ?, startDate = ? WHERE goalId = ?";
+    const updateGoalSqlInsert="update budgitdb.goal set title = ?, savings = ?, startingAmount = ?, startDate = ?, endDate= ?, description= ? WHERE goalId = ?";
 
-    db.query(updateGoalSqlInsert,[goalId,title,savings,startingAmount,startDate,endDate,description],(errs,result) =>{
+    db.query(updateGoalSqlInsert,[title,savings,startingAmount,startDate,endDate,description,goalId],(err,result) =>{
         if(err){
-            console.log(errs)
+            console.log("There was a error")
             console.log("update did not go through")
         }
         else{
             console.log(result);
             res.send(result);
+        }
+        })
+    })
 
 app.post('/api/get/currentBoard', (req, res) => {
     let boardID = req.body.boardId;
@@ -396,18 +400,21 @@ app.post('/api/board/delete', (req, res) => {
 
 
 //get a single goal object from server
-app.get('/api/createGoal/:goalId',(goal,res) =>{
+app.post('/api/createGoal/:goalId',(goal,res) =>{
+    console.log("goal arguement: "+goal.body.goalId)
     const goalId=goal.body.goalId;
 
     const getGoalById="select * from budgitdb.goal where goalId= ?;";
 
     db.query(getGoalById,[goalId],(err,result) =>{
-        if(goalId==undefined){
-            console.log('goal is underdefined for getting single goal')
-            console.log(err)
+        if(result){
+            console.log("successful: "+ result)
+            res.send(result)
         }
         else{
-            res.send(result)
+            console.log('goal is underdefined for getting single goal')
+            console.log(err)
+            
         }
     })
 })
@@ -444,6 +451,24 @@ app.post('/api/boards/getRecentTwo', (req, res) => {
     });
 });
 
+//add contributions to saving goal:
+app.post('/api/contribution',(goal,res) =>{
+    console.log("contribution goal id is: "+ goal)
+    const goalId=goal.body.goalId;
+    const addContribution=goal.body.startingAmount;
+    const updateContributions='UPDATE budgitdb.goal SET startingAmount= ? where goalId= ?';
+
+    db.query(updateContributions,[addContribution,goalId],(err,result) =>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log("successful contribution from goal api")
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
 
 
 app.listen(3002, () => {

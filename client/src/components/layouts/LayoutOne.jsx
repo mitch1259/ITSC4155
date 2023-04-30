@@ -4,22 +4,19 @@ import BasicDataCard from "../examples/Cards/DataCard";
 import ChartComponent from "../examples/charts/radialCharts/ChartComponent"
 import '../../css/LayoutOne.css';
 import '../../css/global.css';
-import { TransactiontypeData } from "../../SampleData/Piechartdata/TransactionTypeSpendingData";
 import Axios from 'axios';
 import { useEffect,useState } from 'react';
 import DecryptFromLocalStorage from '../../context/encryption/DecryptFromLocalStorage';
+import AddContribution from "../savingsBoard/AddContributionButton";
 
 
 
 
 
 
-function LayoutOne({title,savings,contribution,savingGoalData}){
-console.log("Layout one rendering")
-
+function LayoutOne({title,savings,contribution,savingGoalData,goalObject}){
 const [recentTransactions, setRecentTransactions] = useState(['']);
 const [transactionsLoading, setTransactionsLoading] = useState(true);
-var [recurrent, setRecurrent] = useState(['']);
 
 var current = DecryptFromLocalStorage("userId");
 
@@ -37,15 +34,9 @@ var current = DecryptFromLocalStorage("userId");
       });
   }, []);
 
-
-  
-
-
-
-
-
     return(
         <div className="layout-one-wrapper">
+            <AddContribution goal={goalObject}/>
         <Stack direction="row" spacing={3} justifyContent="center" id="layout-one-stack">
             <div>
                 <BaseInformationCard id="base-information-card" boardTitle={title} savingInformation={savings} contributions={contribution} />

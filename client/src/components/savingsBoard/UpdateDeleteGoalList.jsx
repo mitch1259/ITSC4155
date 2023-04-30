@@ -11,7 +11,7 @@ import{useNavigate} from 'react-router-dom'
 
 
 function UpdateDeleteGoalList(){
-    const [goalList,setGoalList]=useState([]);
+    const [goalList,setGoalList]=useState(['']);
     const [open, setOpen] = React.useState(false);
     const navigate= useNavigate();
 
@@ -40,9 +40,11 @@ function UpdateDeleteGoalList(){
 
     const deleteGoal=(goalId) =>{
             GoalService.deleteGoal(goalId).then((response)=>{
-                // displayAllGoals()
-                setGoalList(response.data0)
-                navigate("/")
+                displayAllGoals()
+                window.location.reload(true)
+                handleClose()
+                // setGoalList(response.data)
+                // navigate("/savings-boards")
                 console.log("success")
             }).catch(error=>{
                 console.log("Delete api failed to connect with server")
@@ -78,11 +80,11 @@ function UpdateDeleteGoalList(){
                                 <TableRow key={goal.goalId}>
                                     <TableCell>{goal.title}</TableCell>
                                     <TableCell>
-                                    <Button variant={"Contained"} component={Link} to= {`/createGoal/${goal.goalId}`}>Update</Button>
+                                    <Button variant={"Contained"} component={Link} to= {`/updateGoal/${goal.goalId}`}>Update</Button>
                                         <Button 
                                         variant={'Contained'} 
                                         color={"secondary"} 
-                                        onClick={() => deleteGoal(goal.goalId)} 
+                                        onClick={() => deleteGoal(goal)} 
                                         style={{marginLeft:"10px"}}>Delete</Button>
                                     </TableCell>
                                 </TableRow>

@@ -8,41 +8,29 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 // import * as Yup from 'yup';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 // import{Link,useParams,useNavigate} from 'react-router-dom'
 import GoalService from '../../services/GoalService';
-import { Autocomplete } from '@mui/material';
-
 
 //A button that allows user to add contributions to their goal.
-function AddContribution() {
-
+function AddContribution(goal) {
+    
     const [open, setOpen] = React.useState(false);
     const [startingAmount, setStartingAmount] = useState('')
-    const [savingGoalId, setGoalId] = useState('')
 
-    const goalContribution = { startingAmount }
+    const goalArray =(e) =>{
+        const newStartingAmount=Number(startingAmount)
+        const newArray=e.map(element =>{
+            return{
+                goalId:element.goalId,
+                title:element.title,
+                startingAmount:newStartingAmount+element.startingAmount
 
-    const [goalList, setGoal] = useState([]);
+            }
+        })
+        return newArray
 
-    useEffect(
-        () => {
-            getAllGoals()
-        }, [])
-
-
-        var allGoalList=[];
-
-    const getAllGoals = () => {
-        GoalService.getAllGoals().then((response) => {
-            allGoalList=Array.from(response.data)
-            setGoal(allGoalList)
-            console.log("all goal list: ")
-            console.log(allGoalList)
-        });
-    };
-
-
+    }
 
 
     const handleClickOpen = () => {
@@ -53,10 +41,11 @@ function AddContribution() {
         setOpen(false);
     };
 
-    const onsubmit = () => {
+    const onsubmit = (e) => {
 
-        GoalService.updateContribution(savingGoalId, goalContribution).then((response) => {
+        GoalService.updateContribution(e).then((response) => {
             console.log(response.data)
+            window.location.reload(true)
         }
         ).catch(error => {
             console.log(error)
@@ -72,20 +61,6 @@ function AddContribution() {
                 <DialogTitle>Add Contribution </DialogTitle>
                 <DialogContent>
 
-                    <Autocomplete
-                        disablePortal
-                        id="goalId"
-                        options={goalList}
-                        getOptionLabel={(option) => option.title}
-                        sx={{ width: 400 }}
-                        renderInput={(params) => <TextField {...params} label="Saving goals" />}
-                        onChange={option => {
-                            setGoalId(option.target.id)
-                            console.log(option.id)
-                        }
-                        }
-                    />
-
 
                     {/* creates a blank space to fill the form with numnbers */}
                     <TextField
@@ -97,15 +72,13 @@ function AddContribution() {
                         fullWidth
                         variant='standard'
                         onChange={(newContribution) => {
-                            const oldContribution = GoalService.getGoal(savingGoalId).startingAmount;
-                            const updatedContribution = newContribution.target.value + oldContribution;
-                            setStartingAmount(updatedContribution)
+                            setStartingAmount(newContribution.target.value)
                         }}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={() => onsubmit()}>Add Contribution</Button>
+                    <Button onClick={() => onsubmit(goalArray(goal.goal))}>Add Contribution</Button>
                 </DialogActions>
             </Dialog>
         </div>

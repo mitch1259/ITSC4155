@@ -22,13 +22,14 @@ function UpdateGoal(){
     const [description, setDescription] = useState('')
     const navigate= useNavigate();
     const {goalId}= useParams();    
-    const savingGoal = { title, savings, startingAmount, startDate, endDate, description }
+    const savingGoal = { goalId,title, savings, startingAmount, startDate, endDate, description }
 
 
     const updateGoal = (e) => {
-        e.preventDefault();
-        if (goalId) {
-            GoalService.updateGoal(goalId, savingGoal).then((response) => {
+        // e.preventDefault();
+        if (e) {
+            GoalService.updateGoal(e.goalId,e).then((response) => {
+                console.log(response.data)
                 navigate("/savings-boards")
             }).catch(error => {
                 console.log(error)
@@ -38,17 +39,17 @@ function UpdateGoal(){
         }
 
         useEffect(() => {
-            GoalService.getGoal(goalId).then((response) => {
+            GoalService.getGoal(savingGoal).then((response) => {
                 setTitle(response.data.title)
                 setSavings(response.data.savings)
                 setStartingAmount(response.data.startingAmount)
-                startDate(response.data.startDate)
+                setStartDate(response.data.startDate)
                 setEndDate(response.data.endDate)
                 setDescription(response.data.description)
             }).catch(error => {
                 console.log(error)
             })
-        },[goalId])
+        },[])
 
 
     return(
@@ -81,6 +82,7 @@ function UpdateGoal(){
                         type="number"
                         fullWidth
                         variant="standard"
+                        value={savings}
                         onChange={(textinput) => {
                             setSavings(textinput.target.value)
                         }}
@@ -142,7 +144,7 @@ function UpdateGoal(){
                 </DialogContent>
                 <DialogActions>
                     <Button variant={"Contained"} component={Link} to="/savings-boards">Cancel</Button>
-                    <Button variant='Contained' onClick={(e => updateGoal(e))}>Create</Button>
+                    <Button variant='Contained' onClick={()=> updateGoal(savingGoal)}>Create</Button>
                 </DialogActions>
 
             {/* </Dialog> */}
