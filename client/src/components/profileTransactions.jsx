@@ -36,15 +36,13 @@ function Transactions(props) {
 
   var current = DecryptFromLocalStorage("userId");
   var name = "";
-  // setCurrentUser(current);
-  // console.log('currentUser state on dashboard: ', currentUser);
-  // console.log('data type of cookie value after parseInt: ', typeof current);
+
 
 useEffect(() => {
   Axios.post('http://localhost:3002/api/get/currentUser', {userID: current}
     ).then((response) => {
       name = response.data[0].firstName;
-      console.log("name: ", name);
+      // console.log("name: ", name);
       setUserName(name);
       setLoading(false);
       // setCurrentUser(response.data);
@@ -61,7 +59,7 @@ useEffect(() => {
 }, []);
 
     const firstName = name;
-    console.log("Firstname", firstName);
+    // console.log("Firstname", firstName);
   var transactionsData = [];
   useEffect(() => {
     Axios.post('http://localhost:3002/api/get/profileTransactions/recentTransactions', {userID: current}
@@ -74,9 +72,6 @@ useEffect(() => {
       });
   }, []);
 
-  console.log(recentTransactions);
-  // setRecentTransactions(Array.from(recentTransactions));
-  console.log(typeof recentTransactions);
   if(isLoading) {
     return <div className="account-dashboard-main">Loading...</div>
   }

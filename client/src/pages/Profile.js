@@ -25,7 +25,6 @@ function Profile(props) {
 
     console.log(currentUser);
     document.title = "User Profile";
-    const clicked = console.log('this was clicked')
     const [isLoading, setLoading] = useState(true);
     var current = DecryptFromLocalStorage("userId");
     var name = "";
@@ -54,14 +53,12 @@ useEffect(() => {
   Axios.post('http://localhost:3002/api/get/currentUser/allBoards', {userID: current}
   ).then(response => {
     boards = Array.from(response.data);
-    console.log("boards: ", boards);
     setCurrentUserBoards(boards);
     setAreBoardsLoading(false);
   })
 }, []);
 
     const firstName = name;
-    console.log(firstName);
   
 
     

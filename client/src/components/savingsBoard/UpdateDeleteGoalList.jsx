@@ -15,14 +15,6 @@ function UpdateDeleteGoalList(){
     const [open, setOpen] = React.useState(false);
     const navigate= useNavigate();
 
-
-
-
-
-
-
-
-    
     useEffect(
         () =>{
             displayAllGoals()
@@ -32,7 +24,7 @@ function UpdateDeleteGoalList(){
         const displayAllGoals = () =>{
             GoalService.getAllGoals().then((response) =>{
                 setGoalList(response.data)
-                console.log(response.data)
+                // console.log(response.data)
             })
         };
     
@@ -45,10 +37,10 @@ function UpdateDeleteGoalList(){
                 handleClose()
                 // setGoalList(response.data)
                 // navigate("/savings-boards")
-                console.log("success")
+                // console.log("success")
             }).catch(error=>{
-                console.log("Delete api failed to connect with server")
-                console.log(error)
+                // console.log("Delete api failed to connect with server")
+                // console.log(error)
             })
         }
 
