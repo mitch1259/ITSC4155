@@ -40,7 +40,7 @@ function AccountDashboard() {
     Axios.post('http://localhost:3002/api/get/currentUser/allBoards', {userID: current}
     ).then(response => {
       boards = Array.from(response.data);
-      console.log("boards: ", boards);
+      // console.log("boards: ", boards);
       setCurrentUserBoards(boards);
       setAreBoardsLoading(false);
     })

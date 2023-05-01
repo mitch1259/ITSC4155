@@ -12,7 +12,9 @@ import { Tooltip } from '@mui/material';
 
 function SavingsBoardBucket({ remainingBudget, currentDay, transactions, maxBudget }) {
 
-  const budgetToClassesMap= (budget, maxBudget) => {
+
+  // function to map budget to different CSS classes
+  const budgetToClassesMap = (budget, maxBudget) => {
     switch(true){
   // if budget is less than 25%
   case (budget <= (maxBudget * .25)):
@@ -27,11 +29,11 @@ function SavingsBoardBucket({ remainingBudget, currentDay, transactions, maxBudg
     return "budget-unknown";
   }
 }
+
+// calculate percentage of total bucket to pass into bucket CSS
 const percentage = remainingBudget / maxBudget * 100 > 0 ? remainingBudget / maxBudget * 100 + '%' : '1%';
 
-
-
-console.log("percentage: ", percentage);
+// store percentage into object to pass in 
 const bucketStyle = {
   height: percentage,
 }
@@ -51,6 +53,7 @@ const handleClose = () => {
 
 const [transacts, setTransacts] = React.useState('');
 
+// map each transaction into a category to be displayed on frontend
 const transactionsIntToCategoryMap = (transactionCategory) => {
   if (transactionCategory == 10) {
     return "Rent";
@@ -69,8 +72,6 @@ const initialize = () => {
   var toSend = [];
 
   for (let i = 0; i < transactions.length; i++) {
-    //toSend = toSend + "Name: " + transactions[i].label + ", Date: " + transactions[i].createDate + ", Amount: " + transactions[i].amount + ", Category: " + transactions[i].category
-
     toSend.push(<tr><td>{transactions[i].label}‎ ‎ ‎ </td><td>$ {transactions[i].amount}‎ ‎ ‎ </td><td>{transactionsIntToCategoryMap(transactions[i].category)}‎ ‎ ‎ </td><td><DeleteTransaction id={transactions[i].transactionID}/></td></tr>)
   }
 
@@ -82,12 +83,6 @@ const sxFont = {
   fontSize: '20px',
   fontWeight: '500'
 };
-
-console.log(transacts);
-
-// document.documentElement.style.setProperty('--dynamic-height', percentage);
-// console.log(remainingBudget / 500);
-// const toolTipText = "Remaining budget as of " + {remainingBudget};
 
   return (
     <>

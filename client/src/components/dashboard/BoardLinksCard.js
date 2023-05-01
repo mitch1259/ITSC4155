@@ -39,7 +39,7 @@ function BoardLinksCard({currentUserName, currentUserBoards}) {
                 <CreateBoard currentUserName={currentUserName}/>
               </div>
             </div>
-            <p>no boards found</p>
+            <p className='board-links-no-boards'>No boards found. Create a new board to start saving!</p>
         </div>
       </div>
     )

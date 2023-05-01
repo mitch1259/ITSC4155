@@ -10,25 +10,26 @@ function RecentActivitySnippet({ boardName, boardID }) {
   const [propTransactionsLoading, setPropTransactionsLoading] = useState(true);
 
   const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  console.log(currentDate);
 
+  // get the board's two most recent transactions
   useEffect(() => {
     Axios.post('http://localhost:3002/api/boards/getRecentTwo', {boardID: boardID, currentDate: currentDate}
     ).then((response) => {
-      console.log("recieved data: ", response.data);
       setPropTransactions(Array.from(response.data));
       setPropTransactionsLoading(false);
     });
   }, []);
 
+  // wait until APIs finish executing
   if(propTransactionsLoading) {
     return <div className="account-dashboard-main">Loading...</div>
   }
+
+  // if a board has at least 1 transaction, display on the frontend
   if (propTransactions.length > 0) {
     return (
       <div className='recent-activity-snippet-wrapper'>
           <p className='recent-activity-snippet-header'>{boardName}</p>
-          {/* <RecentActivityTransaction recentChargeAmount="700" recentChargeDate="999999" recentChargeName="Verizon" /> */}
           {propTransactions.map((transaction) => {
             let date = new Date(transaction.createDate);
             let transactionCreateDateBadFormat = date.toISOString().slice(0, 10);
@@ -39,6 +40,7 @@ function RecentActivitySnippet({ boardName, boardID }) {
       </div>
     )
   } else {
+    // if a board has no transactions, display a status message to the user
     return (
       <div className='recent-activity-snippet-wrapper'>
           <p className='recent-activity-snippet-header'>{boardName}</p>

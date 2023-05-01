@@ -1,7 +1,7 @@
 .account-dashboard-chart-wrapper {
     width: 30vw;
     background-color: #8ee4af;
-    height: 25vh;
+    height: 28.5vh;
     border-radius: 10px;
     -webkit-box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
     -moz-box-shadow: 16px 20px 24px -18px rgba(0,0,0,0.75);
@@ -38,8 +38,8 @@
 }
 
 .account-dashboard-chart-text {
+    margin-bottom: 1vh;
     font-size: 22px;
-    margin-bottom: 2vh;
     word-wrap: break-word;
     overflow: hidden;
 }

@@ -43,6 +43,12 @@
     margin-left: 15px;
 }
 
+.board-links-no-boards {
+    margin-left: 25px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
 @media screen and (max-width: 1500px) {
     .board-links {
         max-height: 250px;

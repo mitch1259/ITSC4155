@@ -5,9 +5,8 @@ import { useParams } from 'react-router';
 
 function BoardHeader(props) {
 
+  // get board parameter from the URL
   const boardId = useParams();
-
-  console.log("boardid on board header: ", boardId);
 
   return (
     <div className='board-header-wrapper'>

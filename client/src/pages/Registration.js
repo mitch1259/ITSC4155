@@ -195,7 +195,7 @@ function Register() {
             </Link>
             {/* Button will attempt run the registerUser component that attempts to enter the user-inputted data into the database */}
             <Link to="/registration">
-              <button onClick={registerUser}>Signup</button>
+              <button onClick={registerUser} className='login-button'>Signup</button>
             </Link>
           </div>
         </div>

@@ -15,7 +15,7 @@ function BoardFunctionBar(props) {
     const [age, setAge] = React.useState(1);
     const handleChange = (event) => {
       setAge(event.target.value);
-      console.log(event.target.value);
+      // console.log(event.target.value);
 
       //DO NO CHANGE THE DATE SET!!!!!!! WILL BREAK CATASTROPHICALLY IF NOT DONE LIKE THIS
       var increment = event.target.value*7;
@@ -39,13 +39,13 @@ function BoardFunctionBar(props) {
     const [category, setCat] = React.useState(0);
     const handleChangeCat = (event) => {
       setCat(event.target.value);
-      console.log(event.target.value);
+      // console.log(event.target.value);
     };
 
     const [startDate, setStart] = React.useState(props.startDate);
     const [endDate, setEnd] = React.useState(props.endDate);
-    console.log(startDate)
-    console.log(endDate)
+    // console.log(startDate)
+    // console.log(endDate)
     const [start, setStringStart] = React.useState(String(startDate).substring(4, 15));
     const [end, setStringEnd] = React.useState(String(endDate).substring(4, 15));
 
@@ -76,7 +76,7 @@ function BoardFunctionBar(props) {
           setData(Array.from(response.data));
           props.sendDataToParent(response.data);
         });
-        console.log("effect logged")
+        // console.log("effect logged")
         buttonUpdate(startDate, endDate);
       };
 

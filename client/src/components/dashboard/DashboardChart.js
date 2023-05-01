@@ -10,9 +10,7 @@ const data = [
     { value: 60, title: '' },
   ];
 
-const element = [
-    {}
-]
+
 function DashboardChart({currentUserName}) {
   return (
     <div className='account-dashboard-chart-wrapper'>

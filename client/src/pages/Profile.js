@@ -81,9 +81,6 @@ useEffect(() => {
             <div className="user-profile">
               <div className="inside-profile">
                 <div className="pic-display">
-                  {/* <img src="pics/Temp Gallery Pic 2.png" alt="temp pic"></img> */}
-                  {/* {/* <img className="user-profile-image" src={StickMan} alt="User Image"/> */}
-                  {/* <img src={pfp} alt="User profile picture" className='user-profile-image'/> */}
                   <img src={pfp || StickMan} alt="User profile picture" className='user-profile-image'/>
                 </div>
                 <div className='user-display'>
@@ -93,7 +90,6 @@ useEffect(() => {
                       <button className='user-profile-button'>Edit Profile</button>
                     </Link>
                     <Link to="/login">
-{/* changed it so i hope it works*/}
                       <button onClick={logOutUser} className='user-profile-button'>Log Out</button>
                     </Link>
                   </div>
@@ -103,7 +99,6 @@ useEffect(() => {
                   <p>Total Boards: {currentUserBoards.length}</p>
                 </div>
                 <div className='transaction-button'>
-                  {/* <button className='user-profile-button'>View Transaction History</button> */}
                   <Transactions></Transactions>
                 </div>
               </div>

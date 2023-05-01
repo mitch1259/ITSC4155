@@ -40,6 +40,12 @@
     scrollbar-color: green;
 }
 
+.recent-activity-no-boards {
+    margin-left: 25px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
 @media screen and (max-width: 1500px) {
     .recent-activity-snippets-scroll {
         max-height: 350px;

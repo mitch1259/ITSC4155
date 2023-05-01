@@ -98,7 +98,7 @@ function Login() {
                     </div>
                     {/* Button will run the loginUser component that attempts to find the user within the database */}
                     <div className="login-link-wrapper">
-                        <button onClick={loginUser}>
+                        <button onClick={loginUser} className='login-button'>
                             Login
                         </button>
                     </div>

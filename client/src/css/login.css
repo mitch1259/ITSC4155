@@ -83,6 +83,49 @@ p{
     margin-right: 10%;
 }
 
+.login-button {
+    border-radius: 4px;
+    background-color: #05386b ;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    padding: 16px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  
+  .login-button{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .login-button:after {
+    content: '»';
+    font-size: 40px;
+    position: absolute;
+    opacity: 0;  
+    top: 2px;
+    right: -25px;
+    transition: 0.5s;
+  }
+  
+  .login-button:hover{
+    padding-right: 24px;
+    padding-left:8px;
+    background: rgb(5,56,107);
+    background: linear-gradient(90deg, rgba(5,56,107,1) 0%, rgba(58,223,188,1) 100%);
+    transition: 0.5s;
+  }
+  
+  .login-button:hover:after {
+    opacity: 1;
+    right: 10px;
+  }
+
 .login-wrapper {
     height: 81.8vh;
     background: rgb(5,98,107);
@@ -106,7 +149,7 @@ p{
 }
 
 .login-input-wrapper {
-   
+
 }
 
 .register-wrapper {
@@ -189,6 +232,7 @@ p{
     opacity: 1;
     right: 10px;
   }
+  
 /* 
 @media screen and (min-width: 1700px) {
     .login-wrapper {

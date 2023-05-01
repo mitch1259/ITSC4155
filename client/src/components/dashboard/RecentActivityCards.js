@@ -16,36 +16,8 @@ function RecentActivityCard() {
   const [user, setUser] = useState(null);
   const [userBoards, setUserBoards] = useState(null);
   const [recentTransactions, setRecentTransactions] = useState(null);
-  const HashMap = require('hashmap');
 
   var current = DecryptFromLocalStorage("userId");
-
-  const userMap = new HashMap();
-
-  // get current user information by userID
-  // useEffect(() => {
-  //   Axios.post('http://localhost:3002/api/get/currentUserInfo', {userID: current}
-  //     ).then((response) => {
-  //       const userData = Array.from(response.data);
-  //       // userObject = userData[0];
-  //       setUser(userData);
-  //       setIsUserLoading(false);
-  //     });
-  // }, []);
-
-  // const groupedByBoards = user.reduce(function (r, a) {
-  //   r[a.boardID] = r[a.boardID] || [];
-  //   r[a.boardID].push(a);
-  //   return r;
-  // }, Object.create(null));
-
-  // user.map(element => {
-  //   console.log(element);
-  //   if (userMap.has(element.boardID)) {
-  //     userMap.set(element.boardID, user.indexOf(element));
-  //   }
-  // })
-
 
   // get current all of the user's boards by userID
   useEffect(() => {
@@ -69,18 +41,8 @@ function RecentActivityCard() {
       });
   }, []);
 
-  // userMap = {}
-
-  
-
-
-  console.log("user boards: ", userBoards);
-  console.log("transactions: ", recentTransactions);
-
-  // userBoards.map((board) => {
-  //   console.log(board.boardName);
-  // })
-
+ 
+  // wait until all APIs finish executing
   if(transactionsLoading||boardsLoading) {
     return (
       <div className='loading'>
@@ -88,6 +50,7 @@ function RecentActivityCard() {
       </div>
     )
   }
+  // if a user has any boards, render those to the frontend
   if (userBoards.length > 0) {
     return (
       <div className='recent-activity-cards-wrapper'>
@@ -103,11 +66,12 @@ function RecentActivityCard() {
       </div>
     )
   } else {
+     // if user has no boards, display an empty card with a status message
     return (
       <div className='recent-activity-cards-wrapper'>
         <div className='react-activity-snippets'>
         <p className='recent-activity-header'>Recent Activity</p>
-          <h2>No boards found.</h2>
+          <p className='recent-activity-no-boards'>No boards found. Create a new board to start saving!</p>
         </div>
       </div>
     )

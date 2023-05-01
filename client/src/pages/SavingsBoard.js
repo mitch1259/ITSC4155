@@ -7,50 +7,12 @@ import DecryptFromLocalStorage from '../context/encryption/DecryptFromLocalStora
 import AuthContext from '../context/AuthProvider';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
-/*
-const buckets = [
-  {
-    "remainingBudget": 500,
-    "currentDay": "3/11"
-  },
-  {
-    "remainingBudget": 437,
-    "currentDay": "3/12"
-  },
-  {
-    "remainingBudget": 400,
-    "currentDay": "3/13"
-  },
-  {
-    "remainingBudget": 359,
-    "currentDay": "3/14"
-  },
-  {
-    "remainingBudget": 322,
-    "currentDay": "3/15"
-  },
-  {
-    "remainingBudget": 300,
-    "currentDay": "3/16"
-  },
-  {
-    "remainingBudget": 150,
-    "currentDay": "3/17"
-  },
-  
-  
-  
-  
-]
-*/
-document.title = "Savings Board";
 
 
 function SavingsBoard() {
 
   // get boardID from URL parameter
   const { boardId } = useParams();
-  console.log("boardID: ", boardId);
   const [boardInfo, setBoardInfo] = useState('');
   const [isBoardInfoLoading, setIsBoardInfoLoading] = useState(true);
   const [clonedBucketArray, setClonedBucketArray] = useState([]);
@@ -66,8 +28,6 @@ function SavingsBoard() {
     })
   }, []);
 
-  console.log("current board info: ", boardInfo);
-
   var firstDate = new Date();
   firstDate.setHours(0, 0, 0);
 
@@ -82,7 +42,7 @@ function SavingsBoard() {
   const [data, setData] = React.useState('');
   const handleData = (dataFromChild) => {
     setData(dataFromChild);
-    console.log(dataFromChild);
+    // console.log(dataFromChild);
 
     //updateBuckets(dataFromChild);
     updateBudget(dataFromChild);
@@ -121,17 +81,17 @@ function SavingsBoard() {
     var count = 0;
     var countArr = [];
 
-    console.log("tempBudget:" , tempBudget);
+    // console.log("tempBudget:" , tempBudget);
     
     for (let i = 0; i < newData.length - 3; i ++) {  
       var date = new Date(newData[i].createDate);
-      console.log(newData[i].createDate);
-      console.log(date)
+      // console.log(newData[i].createDate);
+      // console.log(date)
       var mm = date.getMonth() + 1;
       var dd = date.getDate();
       
       tempBudget = tempBudget + newData[i].amount;
-      console.log(tempBudget);
+      // console.log(tempBudget);
 
       if (mm === oldmm && dd === olddd) {
         count = count + newData[i].amount;
@@ -162,7 +122,6 @@ function SavingsBoard() {
     var startDate = newData[newData.length - 2];
     var date = new Date(startDate);
     //date.setDate(date.getDate() + 1);
-    console.log(date);
     for (let i = 0; i < newData[newData.length - 3]; i++) {
       var mm = date.getMonth() + 1;
       var dd = date.getDate();
@@ -180,17 +139,15 @@ function SavingsBoard() {
     setTimeframe((newData[newData.length - 3] / 7));
     setBuckets(tempArr);
     setBudget(tempBudget);
-    console.log(tempArr);
   }
 
   
-  console.log("buckets: ", buckets);
-  console.log("remaining budget: ", remBudget);
-
+  // prevent page from rendering until all board information is done loading
   if (isBoardInfoLoading) {
     return <div className='account-dashboard-main'>Loading...</div>
   }
 
+  // calculate the cumulative budget, in order of the transactions and days to ensure data flows naturally
   const cumulativeValues = buckets.reduce((accumulator, currentBucket) => {
     const lastValue = accumulator.length > 0 ? accumulator[accumulator.length - 1] : boardInfo[0].remainBudget * timeframe;
     accumulator.push(lastValue + currentBucket.remainingBudget);
@@ -200,6 +157,7 @@ function SavingsBoard() {
     return { ...bucket, cumulativeBudget: cumulativeValues[index]}
   })
 
+  // find the max budget 
   const maxBudget = clonedBuckets.reduce((maxValue, bucket) => {
     if (bucket.cumulativeBudget > maxValue) {
       return bucket.cumulativeBudget;
@@ -208,8 +166,8 @@ function SavingsBoard() {
     }
   }, boardInfo[0].remainBudget);
 
-  console.log("MAX BUDGET: ", maxBudget);
-  window.title = boardInfo.title;
+  // create page title
+  document.title = "Savings Board";
 
   return (
     <div className='savings-board-wrapper'>
@@ -231,9 +189,7 @@ function SavingsBoard() {
         />
       </div>
       <div className='savings-board-buckets'>
-        {/* { buckets.map(bucket => 
-          <SavingsBoardBucket remainingBudget={bucket.remainingBudget} currentDay={bucket.currentDay} transactions={bucket.transactions} />
-        ) } */}
+        {/* Map through cloned buckets array, creating a new bucket component for each bucket in the array */}
         { clonedBuckets.map((bucket) => {
           return <SavingsBoardBucket remainingBudget={bucket.cumulativeBudget} currentDay={bucket.currentDay} transactions={bucket.transactions} maxBudget={maxBudget}/>
         })}
