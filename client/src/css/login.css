@@ -84,7 +84,7 @@ p{
 }
 
 .login-wrapper {
-    height: 80.8vh;
+    height: 81.8vh;
     background: rgb(5,98,107);
     background: radial-gradient(circle, rgba(5,98,107,1) 11%, rgba(67,156,138,1) 74%, rgba(116,203,162,1) 91%, rgba(116,203,162,1) 100%, rgba(142,228,175,1) 100%);
     padding-top: 5%;
@@ -110,7 +110,7 @@ p{
 }
 
 .register-wrapper {
-    height: 75.6vh;
+    height: 82.6vh;
     background: rgb(5,98,107);
     background: radial-gradient(circle, rgba(5,98,107,1) 11%, rgba(67,156,138,1) 74%, rgba(116,203,162,1) 91%, rgba(116,203,162,1) 100%, rgba(142,228,175,1) 100%);
     padding-top: 2%;
