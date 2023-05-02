@@ -9,7 +9,6 @@ const sha256 = require('crypto-js/sha256');
 router.post('/', (req,res)=>{
     const email = req.body.email;
     const password = sha256(req.body.password).toString();
-    console.log('received post', email, password);
 
     const sqlSelect = "SELECT * FROM budgitdb.users WHERE email = ? AND password = ?;"
     db.query(sqlSelect, [email, password], (err, result) => {
@@ -23,27 +22,5 @@ router.post('/', (req,res)=>{
         }
     });
 });
-
-
-
-// API/REGISTERUSER -- takes in the information from the request sent from the client, and stores
-// //                      that into the database
-// app.post('/api/registerUser', (req, res) => {
-    
-//     const firstName = req.body.firstName;
-//     const lastName = req.body.lastName;
-//     const email = req.body.email;
-//     const password = req.body.password;
-
-//     const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
-//     db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log(result);
-//             res.send("successful user registration");
-//         }
-//     });
-// });
 
 module.exports = router;

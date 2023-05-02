@@ -11,6 +11,7 @@ const userAPI = require('./api/userAPI.js');
 const registerUser = require('./api/registerUser.js');
 const savingGoal = require('./api/goalApi.js');
 const sha256 = require('crypto-js/sha256');
+const allTransactions = require('./api/transactionsAPI.js');
 
 
 const buffer = require('buffer');
@@ -36,8 +37,7 @@ app.use(bodyParser.json());
 app.use('/api/loginUser', userAPI);
 app.use('/api/registerUser', registerUser);
 app.use('/api/createGoal/',savingGoal);
-// app.use('/api/createGoal/deleteGoal',deleteGoal)
-// app.use('/api/createGoal/updateGoal/:goalId',updateGoal)
+app.use('/api/allTransactions', allTransactions);
 
 
 
@@ -101,37 +101,6 @@ app.get('/api/get-emails', (req, res) => {
         res.send(emailArray);
     });
 });
-
-
-
-    // const sqlInsert = "INSERT INTO budgitdb.users (firstName, lastName, email, password) VALUES (?,?,?,?);"
-    // db.query(sqlInsert, [firstName, lastName, email, password], (err, result) => {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log(result);
-    //     }
-    // });
-
-// app.post('/api/loginUser', (req,res)=>{
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     console.log('received post', email, password);
-//     // console.log(email, password);
-
-//     const sqlSelect = "SELECT * FROM budgitdb.users WHERE email = ? AND password = ?;"
-//     db.query(sqlSelect, [email, password], (err, result) => {
-//         if (err) {
-//             res.send({err: err});
-//         }
-
-//         if (result.length > 0) {
-//             res.send(result);
-//         } else {
-//             console.log('user not found');
-//         }
-//     });
-// });
 
 // API/GET/CURRENTUSER -- get the current user by their userID
 app.post('/api/get/currentUser', (req, res) => {
@@ -416,6 +385,7 @@ app.get('/api/get/board/budget', (req, res) => {
     });
 });
 
+// DELETE a transaction by ID
 app.post('/api/transaction/delete', (req, res) => {
     const id = req.body.id;
 
@@ -429,6 +399,8 @@ app.post('/api/transaction/delete', (req, res) => {
     });
 });
 
+
+// DELETE a board by ID
 app.post('/api/board/delete', (req, res) => {
     const id = req.body.id;
     console.log("received id: ", id);
@@ -442,8 +414,6 @@ app.post('/api/board/delete', (req, res) => {
         }
     });
 });
-
-
 
 //get a single goal object from server
 app.post('/api/createGoal/:goalId',(goal,res) =>{
@@ -465,7 +435,7 @@ app.post('/api/createGoal/:goalId',(goal,res) =>{
     });
 });
 
-
+// CREATE board
 app.post('/api/board/create', (req, res) => {
     const id = req.body.userID;
     const name = req.body.name;
@@ -482,6 +452,8 @@ app.post('/api/board/create', (req, res) => {
     });
 });
 
+
+// RETRIEVE the two most recent transactions
 app.post('/api/boards/getRecentTwo', (req, res) => {
     const boardID = req.body.boardID;
     const currentDate = req.body.currentDate;
@@ -516,7 +488,7 @@ app.post('/api/contribution',(goal,res) =>{
     })
 })
 
-
+// start the server
 app.listen(3002, () => {
     console.log('running on port 3002');
 });

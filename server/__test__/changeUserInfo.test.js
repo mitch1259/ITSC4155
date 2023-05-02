@@ -5,9 +5,9 @@ describe('CHANGE USER INFO TEST', () => {
     test('Change a users information correctly', async () => {
         const firstName = makeid(3);
         const lastName = makeid(3);
-        const email = makeid(3);
-        const password = makeid(3);
-        const userID = 10009;
+        const email = makeid(3) + "@test.com";
+        const password = makeid(7) + "!2";
+        const userID = 10027;
         const url = "http://localhost:3002/api/changeUserInfo";
 
         response = await axios.post(url, {

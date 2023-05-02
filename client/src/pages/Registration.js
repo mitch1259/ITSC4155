@@ -104,6 +104,8 @@ function Register() {
     )
   }
 
+  document.title = "Registration"
+
   /*
   * Front end side of the page - 
   * Front end contains a series of TextFields and buttons and links for different purposes.

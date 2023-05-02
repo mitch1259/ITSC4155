@@ -53,6 +53,8 @@ function Login() {
         )
     }
 
+    document.title = "BudgIt Login"
+
     /*
   * Front end side of the page - 
   * Front end contains a series of TextFields and buttons and links for different purposes.

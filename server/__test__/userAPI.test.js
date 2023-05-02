@@ -2,8 +2,8 @@ const axios = require('axios');
 
 describe('USER LOGIN / REGISTRATION TESTS', () => {
   test('1. should log in user', async () => {
-    const email = 'ttest@test.com';
-    const password = 'test';
+    const email = 'test@test.com';
+    const password = 'Password14!';
     const url = 'http://localhost:3002/api/loginUser';
 
     const response = await axios.post(url, {
