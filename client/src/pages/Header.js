@@ -37,9 +37,10 @@ useEffect(() => {
       
 
     //   const base64Image = buffer.Buffer.from(userPictureString).toString('base64');
-      setLoading(false);
       
-      setPFP(userPictureString)
+      
+      setPFP(userPictureString);
+      setLoading(false);
     //   console.log("this is the header pfp: "+base64Image)
       // setCurrentUser(response.data);
     });
