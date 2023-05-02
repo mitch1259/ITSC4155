@@ -51,7 +51,7 @@ function EditProfile() {
   //Checks to make sure the Password meets requirments 
   function validatePassword(password) {
     if (password.length > 0) {
-      var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+      var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,15}$/;
       return re.test(password);
     } else if (password !== confirmPassword) {
       return false;
