@@ -1,4 +1,4 @@
-1. Clone the main branch to your local machine
+1. Clone the sprint-3-submission branch to your local machine
 
 2. Cd into /client/, run npm install, then run npm start
 
