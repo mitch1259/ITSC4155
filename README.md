@@ -4,7 +4,7 @@
 
 3. Open another terminal, cd into /server/, run npm install, then run npm run devStart
 
-4. In MySQL Workbench (or your SQL editor of choice), create a database called budgitdb, then run the SQL files included in the root directory of the sprint-2 branch (in the /budgitdb/ folder)
+4. In MySQL Workbench (or your SQL editor of choice), create a database called budgitdb, then run the SQL files included in the root directory of the sprint-3-submission branch (in the /budgitdb/ folder)
 
 Additionally, the unit tests are located in the __test__ folder in /server/. To run them:
 
