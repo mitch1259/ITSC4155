@@ -28,7 +28,7 @@ CREATE TABLE `users` (
   `lastName` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `profilePicture` varchar(255) NOT NULL,
+  `profilePicture` varchar(255),
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
